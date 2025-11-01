@@ -22,7 +22,7 @@ Twinkle.batchundelete = function twinklebatchundelete() {
 Twinkle.batchundelete.callback = function twinklebatchundeleteCallback() {
 	const Window = new Morebits.SimpleWindow(600, 400);
 	Window.setScriptName('Twinkle');
-	Window.setTitle('Batch undelete');
+	Window.setTitle('Proses pemulihan halaman');
 	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#batchundelete');
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
 

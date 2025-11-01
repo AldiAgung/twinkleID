@@ -541,8 +541,8 @@ Twinkle.fluff.callbacks = {
 
 			case 'vand':
 
-				summary = 'Membatalkan ' + params.count + (params.count > 1 ? ' suntingan' : ' suntingan') + ' oleh [[Special:Contributions/' +
-				params.user + '|' + params.user + ']] ([[User talk:' + params.user + '|bicara]]) ke revisi terakhir oleh ' +
+				summary = 'Membatalkan ' + params.count + (params.count > 1 ? ' suntingan' : ' suntingan') + ' oleh [[Istimewa:Kontribusi/' +
+				params.user + '|' + params.user + ']] ([[Pembicaraan pengguna:' + params.user + '|bicara]]) ke revisi terakhir oleh ' +
 				params.gooduser + Twinkle.getPref('summaryAd');
 				break;
 
@@ -613,7 +613,7 @@ Twinkle.fluff.callbacks = {
 		var $edit = $(xml).find('edit');
 
 		if ($(xml).find('captcha').length > 0) {
-			apiobj.statelem.error('Could not rollback, because the wiki server wanted you to fill out a CAPTCHA.');
+			apiobj.statelem.error('Tidak dapat dibalikkan, dikarenakan peladen wiki mengharuskan anda mengisi CAPTCHA.');
 		} else if ($edit.attr('nochange') === '') {
 			apiobj.statelem.error('Revisi yang dibatalkan sama dengan revisi terakhir: Tidak ada yang dapat dilakukan.');
 		} else {
@@ -683,10 +683,10 @@ Twinkle.fluff.formatSummary = function(builtInString, userName, userString) {
 	// a contributions or contributions+talk link if it doesn't push the edit summary
 	// over the 255-byte limit
 	var resultLen = unescape(encodeURIComponent(result.replace('$USER', ''))).length;
-	var contribsLink = '[[Special:Contributions/' + userName + '|' + userName + ']]';
+	var contribsLink = '[[Istimewa:Kontribusi/' + userName + '|' + userName + ']]';
 	var contribsLen = unescape(encodeURIComponent(contribsLink)).length;
 	if (resultLen + contribsLen <= 255) {
-		var talkLink = ' ([[User talk:' + userName + '|bicara]])';
+		var talkLink = ' ([[Pembicaraan pengguna:' + userName + '|bicara]])';
 		if (resultLen + contribsLen + unescape(encodeURIComponent(talkLink)).length <= 255) {
 			result = Morebits.string.safeReplace(result, '$USER', contribsLink + talkLink);
 		} else {

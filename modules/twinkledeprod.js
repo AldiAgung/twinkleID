@@ -16,7 +16,7 @@ Twinkle.deprod = function() {
 	if (
 		!Morebits.userIsSysop ||
 		mw.config.get('wgNamespaceNumber') !== 14 ||
-		!(/proposed_deletion/i).test(mw.config.get('wgPageName'))
+		!(/Usulan_penghapusan/i).test(mw.config.get('wgPageName'))
 	) {
 		return;
 	}
@@ -57,7 +57,7 @@ Twinkle.deprod.callback = function() {
 		const respon = apiobj.getResponse();
 		const pages = (respon.query && respon.query.pages) || [];
 		const list = [];
-		const re = /\{\{Proposed deletion/;
+		const re = /\{\{Usulan penghapusan/;
 		pages.sort(Twinkle.sortByNamespace);
 		pages.forEach((page) => {
 			const metadata = [];

@@ -21,7 +21,7 @@ Twinkle.arv = function twinklearv() {
 	if (Morebits.ip.isRange(username) && !Morebits.ip.validCIDR(username)) {
 		return;
 	}
-	const userType = isIP ? 'IP' + (Morebits.ip.isRange(username) ? ' range' : '') : 'user';
+	const userType = isIP ? (Morebits.ip.isRange(username) ? ' Jarak' : 'IP') : 'pengguna';
 
 	Twinkle.addPortletLink(() => {
 		Twinkle.arv.callback(username, isIP);
@@ -32,8 +32,8 @@ Twinkle.arv.callback = function (uid, isIP) {
 	const Window = new Morebits.SimpleWindow(600, 500);
 	Window.setTitle('Pelaporan dan Pemeriksaan Lanjutan'); // Backronym
 	Window.setScriptName('Twinkle');
-	Window.addFooterLink('Panduan Intervensi pengurus terhadap vandalisme', 'WP:UAA');
-	Window.addFooterLink('Panduan panduan nama pengguna', 'WP:UAAI');
+	Window.addFooterLink('Panduan Intervensi pengurus terhadap vandalisme', 'WP:IPTV');
+	Window.addFooterLink('Panduan nama pengguna', 'WP:WP:NAMA');
 	Window.addFooterLink('Panduan IPS', 'Wikipedia:Investigasi pengguna siluman');
 	Window.addFooterLink('Preferensi ARV', 'WP:TW/PREF#arv');
 	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#arv');
@@ -105,7 +105,7 @@ Twinkle.arv.callback = function (uid, isIP) {
 		if (blocklist.length) {
 			// If an IP is blocked *and* rangeblocked, only use whichever is more recent
 			const block = blocklist[0];
-			let message = (isIP ? 'IP ini ' + (Morebits.ip.isRange(uid) ? 'range' : 'address') : 'Akun ini') + (block.partial ? 'parsial' : 'sudah') + ' diblokir';
+			let message = (isIP ? + (Morebits.ip.isRange(uid) ? 'Jarak' : 'Alamat' + 'ip ini ') : 'Akun ini') + (block.partial ? 'parsial' : 'sudah') + ' diblokir';
 			// Start and end differ, range blocked
 			message += block.rangestart !== block.rangeend ? ' sebagai bagian dari pemblokiran berjarak.' : '.';
 			if (block.partial) {
@@ -179,7 +179,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 				name: 'arvtype',
 				list: [
 					{
-						label: 'Vandalisme setelah peringatan akhir (level 4 atau 4im) diberikan',
+						label: 'Vandalisme setelah peringatan akhir (tingkat 4 atau 4im) diberikan',
 						value: 'final'
 					},
 					{
@@ -311,7 +311,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 					name: 'sockpuppets',
 					label: 'Akun kedua:',
 					sublabel: 'Sock:',
-					tooltip: 'Nama pengguna dari akun kedua tanpa prefix "Pengguna:"',
+					tooltip: 'Nama pengguna dari akun kedua tanpa awalan "Pengguna:"',
 					min: 2
 				});
 			work_area.append({
@@ -334,7 +334,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 		case 'an3':
 			work_area = new Morebits.QuickForm.Element({
 				type: 'field',
-				label: 'Report edit warring',
+				label: 'Melaporkan penyuntingan serangan',
 				name: 'work_area'
 			});
 			work_area.append({
@@ -409,7 +409,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 
 								const $free_label = $('<label>', {
 									for: 's_resolves_free',
-									html: 'URL link of diff with additional discussions: '
+									html: 'Pranala URL dari diff dengan diskusi tambahan: '
 								});
 								$free_entry.append($free_label).append($free_input).appendTo($field);
 							}
@@ -495,18 +495,18 @@ Twinkle.arv.callback.evaluate = function(e) {
 			Morebits.wiki.actionCompleted.redirect = 'Wikipedia:Intervensi pengurus terhadap vandalisme';
 			Morebits.wiki.actionCompleted.notice = 'Pelaporan selesai';
 
-			var aivPage = new Morebits.wiki.Page('Wikipedia:Intervensi pengurus terhadap vandalisme', 'Memproses permintaan AIV');
+			var aivPage = new Morebits.wiki.Page('Wikipedia:Intervensi pengurus terhadap vandalisme', 'Memproses permintaan IPTV');
 			aivPage.setPageSection(1);
 			aivPage.setFollowRedirect(true);
 
 			aivPage.load(() => {
 				const text = aivPage.getPageText();
-				const $aivLink = '<a target="_blank" href="/wiki/WP:AIV">WP:AIV</a>';
+				const $aivLink = '<a target="_blank" href="/wiki/WP:AIV">WP:IPTV</a>';
 
 				// check if user has already been reported
 				if (new RegExp('\\{\\{\\s*(?:(?:[Ii][Pp])?[Vv]andal|[Uu]serlinks)\\s*\\|\\s*(?:1=)?\\s*' + Morebits.string.escapeRegExp(input.uid) + '\\s*\\}\\}').test(text)) {
 					aivPage.getStatusElement().error('Telah ada laporan, tidak akan membuatmnya lagi');
-					Morebits.Status.printUserText(reason, 'Komentar yang Anda ketik disediakan di bawah ini, jika Anda ingin mempostingnya secara manual di bawah laporan yang ada untuk pengguna ini di ' + $aivLink + ':');
+					Morebits.Status.printUserText(reason, 'Komentar yang Anda ketik disediakan di bawah ini, jika anda ingin memberikannya secara manual dibawah pelaporan yang sudah ada untuk pengguna ini di ' + $aivLink + ':');
 					return;
 				}
 
@@ -521,7 +521,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 							tb2statelem.info('Melaporkan walau dilaporkan bot');
 						} else {
 							tb2statelem.error('Laporan dari bot sudah ada, berhenti');
-							Morebits.Status.printUserText(reason, 'Komentar yang Anda ketik disediakan di bawah ini, jika Anda ingin mempostingnya secara manual di ' + $aivLink + ':');
+							Morebits.Status.printUserText(reason, 'Komentar yang Anda berikan tersedia di bawah ini, jika Anda ingin memberikannya secara manual di ' + $aivLink + ':');
 							return;
 						}
 					} else {
@@ -529,7 +529,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 					}
 
 					aivPage.getStatusElement().status('Menambahkan laporan baru...');
-					aivPage.setEditSummary('Melaporkan [[Special:Contributions/' + input.uid + '|' + input.uid + ']].');
+					aivPage.setEditSummary('Melaporkan [[Istimewa:Kontribusi/' + input.uid + '|' + input.uid + ']].');
 					aivPage.setChangeTags(Twinkle.changeTags);
 					aivPage.setAppendText(Twinkle.arv.callback.buildAivReport(input));
 					aivPage.append();
@@ -557,13 +557,13 @@ Twinkle.arv.callback.evaluate = function(e) {
 
 				// check if user has already been reported
 				if (new RegExp('\\{\\{\\s*user-uaa\\s*\\|\\s*(1\\s*=\\s*)?' + Morebits.string.escapeRegExp(input.uid) + '\\s*(\\||\\})').test(text)) {
-					uaaPage.getStatusElement().error('User is already listed.');
+					uaaPage.getStatusElement().error('Pengguna sudah ada.');
 					const $uaaLink = '<a target="_blank" href="/wiki/WP:UAA">WP:UAA</a>';
-					Morebits.Status.printUserText(reason, 'The comments you typed are provided below, in case you wish to manually post them under the existing report for this user at ' + $uaaLink + ':');
+					Morebits.Status.printUserText(reason, 'Komentar yang Anda berikan tersedia di bawah ini, jika anda ingin memberikannya secara manual dibawah pelaporan yang sudah ada untuk pengguna ini di ' + $uaaLink + ':');
 					return;
 				}
 				uaaPage.getStatusElement().status('Menambahkan laporan baru...');
-				uaaPage.setEditSummary('Melaporkan ' + (censorUsername ? 'sebagai nama pengguna ofensif.' : '[[Special:Contributions/' + input.uid + '|' + input.uid + ']].'));
+				uaaPage.setEditSummary('Melaporkan ' + (censorUsername ? 'sebagai nama pengguna ofensif.' : '[[Istimewa:Kontribusi/' + input.uid + '|' + input.uid + ']].'));
 				uaaPage.setChangeTags(Twinkle.changeTags);
 
 				// Blank newline per [[Special:Permalink/996949310#Spacing]]; see also [[WP:LISTGAP]] and [[WP:INDENTGAP]]
@@ -595,7 +595,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 
 			var spiPage = new Morebits.wiki.page(reportpage, 'Nengambil halaman diskusi');
 			spiPage.setFollowRedirect(true);
-			spiPage.setEditSummary('Menambahkan laporan baru untuk [[Special:Contributions/' + reportData.sockmaster + '|' + reportData.sockmaster + ']].');
+			spiPage.setEditSummary('Menambahkan laporan baru untuk [[Istimewa:Kontribusi/' + reportData.sockmaster + '|' + reportData.sockmaster + ']].');
 			spiPage.setChangeTags(Twinkle.changeTags);
 			spiPage.setAppendText(reportData.wikitext);
 			spiPage.setWatchlist(Twinkle.getPref('spiWatchReport'));
@@ -643,7 +643,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 			if (free_resolves) {
 				let query;
 				let diff, oldid;
-				const specialDiff = /Special:Diff\/(\d+)(?:\/(\S+))?/i.exec(free_resolves);
+				const specialDiff = /Istimewa:Diff\/(\d+)(?:\/(\S+))?/i.exec(free_resolves);
 				if (specialDiff) {
 					if (specialDiff[2]) {
 						oldid = specialDiff[1];
@@ -797,9 +797,9 @@ Twinkle.arv.callback.buildAivReport = function(input) {
 Twinkle.arv.callback.getUsernameReportWikitext = function(input) {
 	// generate human-readable string, e.g. "misleading and promotional username"
 	if (input.arvtype.length <= 2) {
-		input.arvtype = input.arvtype.join(' and ');
+		input.arvtype = input.arvtype.join(' dan ');
 	} else {
-		input.arvtype = [ input.arvtype.slice(0, -1).join(', '), input.arvtype.slice(-1) ].join(' and ');
+		input.arvtype = [ input.arvtype.slice(0, -1).join(', '), input.arvtype.slice(-1) ].join(' dan ');
 	}
 
 	// a or an?
@@ -925,7 +925,7 @@ Twinkle.arv.processAN3 = function(params) {
 			if (sub.length >= 2) {
 				const last = sub[0];
 				const first = sub.slice(-1)[0];
-				const label = 'Suntingan konsenkutif dari ' + new Morebits.Date(first.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC) to ' + new Morebits.Date(last.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC)';
+				const label = 'Suntingan konsenkutif dari ' + new Morebits.Date(first.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC) hingga ' + new Morebits.Date(last.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC)';
 				ret = '# {{diff|oldid=' + first.parentid + '|diff=' + last.revid + '|label=' + label + '}}\n';
 			}
 			ret += sub.reverse().map((v) => (sub.length >= 2 ? '#' : '') + '# {{diff2|' + v.revid + '|' + new Morebits.Date(v.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC)}} ' + hasHiddenComment(v)).join('\n');
@@ -937,7 +937,7 @@ Twinkle.arv.processAN3 = function(params) {
 		if (params.free_resolves) {
 			const page = params.free_resolves;
 			if (page.compare) {
-				resolvetext += '\n#  {{diff|oldid=' + page.compare.fromrevid + '|diff=' + page.compare.torevid + '|label=Consecutive edits on ' + page.compare.totitle + '}}';
+				resolvetext += '\n#  {{diff|oldid=' + page.compare.fromrevid + '|diff=' + page.compare.torevid + '|label=Penyuntingan berturut-turut pada ' + page.compare.totitle + '}}';
 			} else if (page.revisions) {
 				const revCount = page.revisions.length;
 				let rev;
@@ -947,7 +947,7 @@ Twinkle.arv.processAN3 = function(params) {
 				} else { // diff and oldid are nonconsecutive
 					rev = page.revisions[0];
 					const revLatest = page.revisions[revCount - 1];
-					const label = 'Suntingan konsenkutif dari ' + new Morebits.Date(rev.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC) to ' + new Morebits.Date(revLatest.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC) di ' + page.title;
+					const label = 'Suntingan konsenkutif dari ' + new Morebits.Date(rev.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC) hingga ' + new Morebits.Date(revLatest.timestamp).format('HH:mm, D MMMM YYYY', 'utc') + ' (UTC) di ' + page.title;
 					resolvetext += '\n# {{diff|oldid=' + rev.revid + '|diff=' + revLatest.revid + '|label=' + label + '}}\n';
 				}
 			}
@@ -977,7 +977,7 @@ Twinkle.arv.processAN3 = function(params) {
 
 		const notifyText = '\n\n{{subst:an3-notice|1=' + mw.util.wikiUrlencode(params.uid) + '|auto=1}} ~~~~';
 
-		const talkPage = new Morebits.wiki.Page('Pembicaraa pengguna:' + params.uid, 'Notifying edit warrior');
+		const talkPage = new Morebits.wiki.Page('Pembicaraa pengguna:' + params.uid, 'Memberitahu penyunting');
 		talkPage.setFollowRedirect(true);
 		talkPage.setEditSummary('Memberitahukan papan diskusi peringatan peyuntingan.');
 		talkPage.setChangeTags(Twinkle.changeTags);

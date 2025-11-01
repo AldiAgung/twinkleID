@@ -18,7 +18,7 @@ Twinkle.image = function twinkleimage() {
 
 Twinkle.image.callback = function twinkleimageCallback() {
 	const Window = new Morebits.SimpleWindow(600, 330);
-	Window.setTitle('File for dated speedy deletion');
+	Window.setTitle('Penghapusan cepat berkas');
 	Window.setScriptName('Twinkle');
 	Window.addFooterLink('Kebijakan pengahpusan cepat', 'WP:KPC#Berkas');
 	Window.addFooterLink('Preferesni berkas', 'WP:TW/PREF#image');
@@ -161,7 +161,7 @@ Twinkle.image.callback.choice = function twinkleimageCallbackChoose(event) {
 				type: 'input',
 				name: 'replacement',
 				label: 'Penggantian:',
-				tooltip: 'Berkas opsional yang mengganti berkas lama. Prefix "Berkas:" opsional.'
+				tooltip: 'Berkas opsional yang mengganti berkas lama. Awalan "Berkas:" opsional.'
 			});
 			break;
 		case 'replaceable non-free use':
@@ -222,7 +222,7 @@ Twinkle.image.callback.evaluate = function twinkleimageCallbackEvaluate(event) {
 	Morebits.Status.init(event.target);
 
 	Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
-	Morebits.wiki.actionCompleted.notice = 'Memberi tag selesai';
+	Morebits.wiki.actionCompleted.notice = 'Pemberian tag selesai';
 
 	// Tagging image
 	const wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Memberi tag pada berkas dengan tag penghapusan');
@@ -290,7 +290,7 @@ Twinkle.image.callbacks = {
 		if (initialContrib === mw.config.get('wgUserName')) {
 			pageobj.getStatusElement().warn('Anda (' + initialContrib + ') membuat halaman ini; melewati notifikasi pengguna');
 		} else {
-			const usertalkpage = new Morebits.wiki.Page('User talk:' + initialContrib, 'Memberitahu kontributor awal (' + initialContrib + ')');
+			const usertalkpage = new Morebits.wiki.Page('Pembicaraan pengguna:' + initialContrib, 'Memberitahu kontributor awal (' + initialContrib + ')');
 			let notifytext = '\n{{subst:di-' + params.templatename + '-notice|1=' + mw.config.get('wgTitle');
 			if (params.type === 'no permission') {
 				notifytext += params.source ? '|source=' + params.source : '';
@@ -328,9 +328,9 @@ Twinkle.image.callbacks = {
 		let extraInfo = '';
 
 		// If a logged file is deleted but exists on commons, the wikilink will be blue, so provide a link to the log
-		const fileLogLink = ' ([{{fullurl:Special:Log|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}} log])';
+		const fileLogLink = ' ([{{fullurl:Istimewa:Catatan|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}} catatan])';
 
-		let appendText = '# [[:' + Morebits.pageNameNorm + ']]' + fileLogLink + ': DI [[WP:KPC#' + params.normalized.toUpperCase() + '|KPC ' + params.normalized.toUpperCase() + ']] ({{tl|di-' + params.templatename + '}})';
+		let appendText = '# [[:' + Morebits.pageNameNorm + ']]' + fileLogLink + ': Di [[WP:KPC#' + params.normalized.toUpperCase() + '|KPC ' + params.normalized.toUpperCase() + ']] ({{tl|di-' + params.templatename + '}})';
 
 		['reason', 'replacement', 'source'].forEach((item) => {
 			if (params[item]) {

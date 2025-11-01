@@ -727,7 +727,7 @@ Twinkle.tag.article.tagList = {
 		],
 		'Informasi dan detail': [
 			{ tag: 'Context', description: 'konten tidak cukup bagi mereka yang tidak familiar dengan subyek' },
-			{ tag: 'Excessive examples', description: 'may contain indiscriminate, excessive, or irrelevant examples' },
+			{ tag: 'Excessive examples', description: 'mengandung contoh-contoh yang tidak pandang bulu, berlebihan, atau tidak relevan' },
 			{ tag: 'Expert needed', description: 'butuh perhatian dari ahli pada subyek',
 				subgroup: [
 					{
@@ -735,7 +735,7 @@ Twinkle.tag.article.tagList = {
 						parameter: '1',
 						type: 'input',
 						label: 'Nama dari WikiProject relevan:',
-						tooltip: 'Optionally, enter the name of a WikiProject which might be able to help recruit an expert. Don\'t include the "WikiProject" prefix.'
+						tooltip: 'Secara opsional, masukkan nama ProyekWiki yang mungkin dapat membantu merekrut pakar. Jangan sertakan awalan "ProyekWiki".'
 					},
 					{
 						name: 'expertNeededReason',
@@ -757,7 +757,7 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'Undue weight', description: 'lends undue weight to certain ideas, incidents, or controversies' }
 		],
 		Timeliness: [
-			{ tag: 'Current', description: 'documents a current event', excludeMI: true }, // Works but not intended for use in MI
+			{ tag: 'Current', description: 'mendokumentasikan acara terkini', excludeMI: true }, // Works but not intended for use in MI
 			{ tag: 'Current related', description: 'mendokumentasikan topik yang dipengaruhi oleh peristiwa terkini', excludeMI: true }, // Works but not intended for use in MI
 			{ tag: 'Update', description: 'membutuhkan informasi tambahan terbaru',
 				subgroup: [
@@ -773,7 +773,7 @@ Twinkle.tag.article.tagList = {
 						name: 'updateReason',
 						parameter: 'reason',
 						type: 'input',
-						label: 'Reason:',
+						label: 'Alasan:',
 						tooltip: 'Penjelasan mengapa artikel sudah kadaluwarsa',
 						size: '55'
 					}
@@ -809,9 +809,9 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'Paid contributions', description: 'mengandung kontributor bayaran, dan membutuhkan perapian' },
 			{ tag: 'Peacock', description: 'mengandung kalimat yang mempromosikan subyek dengan pandangan subjektif tanpa menambahkan informasi' },
 			{ tag: 'POV', description: 'tidak memakai pandang netral' },
-			{ tag: 'Recentism', description: 'slanted towards recent events' },
+			{ tag: 'Recentism', description: 'mencondong pada peristiwa terkini' },
 			{ tag: 'Too few opinions', description: 'tidak memasukan semua pandangan signifikan' },
-			{ tag: 'Undisclosed paid', description: 'may have been created or edited in return for undisclosed payments' },
+			{ tag: 'Undisclosed paid', description: 'telah dibuat atau diedit sebagai imbalan atas pembayaran yang tidak diungkapkan' },
 			{ tag: 'Weasel', description: 'neutrality or verifiability is compromised by the use of weasel words' }
 		],
 		'Pemeriksaan sumber': [
@@ -876,7 +876,7 @@ Twinkle.tag.article.tagList = {
 					parameter: 'otherarticle',
 					type: 'input',
 					label: 'Nama artikel:',
-					tooltip: 'Nama artikel yang ingin dikembangkan dari, tanpa prefix interwiki'
+					tooltip: 'Nama artikel yang ingin dikembangkan dari, tanpa awalan interwiki'
 				}]
 			}
 		],
@@ -888,10 +888,10 @@ Twinkle.tag.article.tagList = {
 		],
 		'Teknik referensi': [
 			{ tag: 'Citation style', description: 'gaya pengutipan tidak konsisten atau jelas' },
-			{ tag: 'Cleanup bare URLs', description: 'uses bare URLs for references, which are prone to link rot' },
-			{ tag: 'More footnotes needed', description: 'mempunyai beberapa refrensi, but insufficient inline citations' },
-			{ tag: 'No footnotes', description: 'mempunyai referensi, but lacks inline citations' },
-			{ tag: 'Parenthetical referencing', description: 'uses parenthetical referencing, which is deprecated on Wikipedia' }
+			{ tag: 'Cleanup bare URLs', description: 'menggunakan URL kosong untuk referensi, yang rentan terhadap pembusukan tautan' },
+			{ tag: 'More footnotes needed', description: 'mempunyai beberapa refrensi, tapi kutipan satu baris tidak mencukupi' },
+			{ tag: 'No footnotes', description: 'mempunyai referensi, tetapi tidak memiliki kutipan satu baris' },
+			{ tag: 'Parenthetical referencing', description: 'menggunakan referensi dalam tanda kurung, yang sudah tidak digunakan lagi di Wikipedia' }
 		],
 		Categories: [
 			{ tag: 'Improve categories', description: 'membutuhkan kategori tambahan atau spesifik', excludeMI: true },
@@ -1000,7 +1000,7 @@ Twinkle.tag.redirectList = {
 					{
 						name: 'altLangInfo',
 						type: 'div',
-						label: $.parseHTML('<p>Untuk daftar kode bahasa, lihat <a href="/wiki/Wp:Template_messages/Redirect_language_codes">Wikipedia:Template messages/Redirect language codes</a></p>')
+						label: $.parseHTML('<p>Untuk daftar kode bahasa, lihat <a href="/wiki/Wp:Template_messages/Redirect_language_codes">Wikipedia:Indeks templat/Kode pengalihan bahasa</a></p>')
 					}
 				]
 			},
@@ -1432,7 +1432,7 @@ Twinkle.tag.callbacks = {
 				// Special functions for {{not English}} and {{rough translation}}
 				// Post at WP:PNT (mainspace only)
 				if (params.translationPostAtPNT) {
-					const pntPage = new Morebits.wiki.Page('Wikipedia:Pages needing translation into English',
+					const pntPage = new Morebits.wiki.Page('Wikipedia:Halaman yang membutuhkan penerjemahan',
 						'Listing article at Wikipedia:Pages needing translation into English');
 					pntPage.setFollowRedirect(true);
 					pntPage.load((pageobj) => {
@@ -1486,7 +1486,7 @@ Twinkle.tag.callbacks = {
 						userTalkPage.setNewSectionTitle('Artikel anda [[' + Morebits.pageNameNorm + ']]');
 						userTalkPage.setNewSectionText('{{subst:uw-notenglish|1=' + Morebits.pageNameNorm +
 							(params.translationPostAtPNT ? '' : '|nopnt=yes') + '}} ~~~~');
-						userTalkPage.setEditSummary('Pemberitahua: Tolong gunakan Bahasa Indonesia saat berkontribusi ke Wikipedia Indonesia.');
+						userTalkPage.setEditSummary('Pemberitahuan: Mohon gunakan Bahasa Indonesia saat berkontribusi ke Wikipedia Indonesia.');
 						userTalkPage.setChangeTags(Twinkle.changeTags);
 						userTalkPage.setCreateOption('recreate');
 						userTalkPage.setFollowRedirect(true, false);

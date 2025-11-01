@@ -119,7 +119,7 @@ Twinkle.config.commonSets.csdAndImageDeletionCriteriaDisplayOrder = Object.keys(
 
 Twinkle.config.sections = [
 	{
-		title: 'General',
+		title: 'Umum',
 		preferences: [
 			// TwinkleConfig.summaryAd (string)
 			// Text to be appended to the edit summary of edits made using Twinkle
@@ -225,7 +225,7 @@ Twinkle.config.sections = [
 	},
 
 	{
-		title: 'Image deletion (DI)',
+		title: 'Penghapusan gambar',
 		preferences: [
 			// TwinkleConfig.notifyUserOnDeli (boolean)
 			// If the user should be notified after placing a file deletion tag
@@ -386,7 +386,7 @@ Twinkle.config.sections = [
 	},
 
 	{
-		title: 'Shared IP tagging',
+		title: 'Menandai IP bersama',
 		preferences: [
 			{
 				name: 'markSharedIPAsMinor',
@@ -644,7 +644,7 @@ Twinkle.config.sections = [
 	},
 
 	{
-		title: 'Memperingatkan pengguna',
+		title: 'Peringati pengguna',
 		preferences: [
 			// TwinkleConfig.defaultWarningGroup (int)
 			// Which level warning should be the default selected group, default is 1
@@ -663,7 +663,7 @@ Twinkle.config.sections = [
 					// 8 was used for block templates before #260
 					'9': 'Peringatan lainnya',
 					'10': 'Semua templat peringatan',
-					'11': 'Pemilihan otomatis tingkatan (1-4)'
+					'11': 'Pilihan otomatis tingkatan (1-4)'
 				}
 			},
 
@@ -705,7 +705,7 @@ Twinkle.config.sections = [
 			{
 				name: 'customWarningList',
 				label: 'Tampilan templat peringatan kustom',
-				helptip: 'Anda dapat menambahkan subhalaman pengguna atau templat pribadi. Peringatan kustom ditampilkan dalam kategori "Peringatan kustom" di dalam kotak dialog peringatan.',
+				helptip: 'Anda dapat menambahkan subhalaman pengguna atau templat pribadi. Peringatan kustom ditampilkan dalam kategori "Peringatan khusus" di dalam kotak dialog peringatan.',
 				type: 'customList',
 				customListValueTitle: 'Nama templat (tanpa tanda kurung kurawal)',
 				customListLabelTitle: 'Teks yang ditampilkan di daftar peringatan (juga di ringkasan suntingan)'
@@ -749,7 +749,7 @@ Twinkle.config.sections = [
 			{
 				name: 'customWelcomeList',
 				label: 'Tampilan templat selamat datang kustom',
-				helptip: 'Anda dapat menambahkan templat selamat datang lainnya, atau subhalaman pengguna yang merupakan templat selamat datang (diawali dengan "User:"). Harap diingat bahwa templat ini disubstitusi ke halaman pembicaraan pengguna.',
+				helptip: 'Anda dapat menambahkan templat selamat datang lainnya, atau subhalaman pengguna yang merupakan templat selamat datang (diawali dengan "Pengguna:"). Harap diingat bahwa templat ini disubstitusi ke halaman pembicaraan pengguna.',
 				type: 'customList',
 				customListValueTitle: 'Nama templat (tanpa kurung kurawal)',
 				customListLabelTitle: 'Teks yang ditampilkan di kotak dialog Selamat datang'
@@ -1203,7 +1203,7 @@ Twinkle.config.init = function twinkleconfigInit() {
 				if (pref.helptip) {
 					// convert mentions of templates in the helptip to clickable links
 					cell.innerHTML = pref.helptip.replace(/{{(.+?)}}/g,
-						'{{<a href="' + mw.util.getUrl('Template:') + '$1" target="_blank">$1</a>}}');
+						'{{<a href="' + mw.util.getUrl('Templat:') + '$1" target="_blank">$1</a>}}');
 				}
 				// add reset link (custom lists don't need this, as their config value isn't displayed on the form)
 				if (pref.type !== 'customList') {
