@@ -17,7 +17,7 @@ Twinkle.protect = function twinkleprotect() {
 		return;
 	}
 
-	Twinkle.addPortletLink(Twinkle.protect.callback, Morebits.userIsSysop ? 'PP' : 'RPP', 'tw-rpp',
+	Twinkle.addPortletLink(Twinkle.protect.callback, Morebits.userIsSysop ? 'PH' : 'RPP', 'tw-rpp',
 		Morebits.userIsSysop ? 'Lindungi halaman' : 'Meminta perlindungan halaman');
 };
 
@@ -91,7 +91,7 @@ Twinkle.protect.callback = function twinkleprotectCallback() {
 
 // A list of bots who may be the protecting sysop, for whom we shouldn't
 // remind the user contact before requesting unprotection (evaluate)
-Twinkle.protect.trustedBots = ['MusikBot II', 'TFA Protector Bot'];
+Twinkle.protect.trustedBots = ['MusikBot II', 'Ruhivabot'];
 
 // Customizable namespace and FlaggedRevs settings
 // In theory it'd be nice to have restrictionlevels defined here,
@@ -254,7 +254,7 @@ Twinkle.protect.callback.showLogAndCurrentProtectInfo = function twinkleprotectC
 		}
 
 		if (Twinkle.protect.hasStableLog) {
-			$linkMarkup.append($('<a target="_blank" href="' + mw.util.getUrl('Special:Log', {action: 'view', page: mw.config.get('wgPageName'), type: 'stable'}) + '">catatan perubahan tertunda</a>)'));
+			$linkMarkup.append($('<a target="_blank" href="' + mw.util.getUrl('Istimewa:Catatan', {action: 'view', page: mw.config.get('wgPageName'), type: 'stable'}) + '">catatan perubahan tertunda</a>)'));
 			if (!currentlyProtected || !Twinkle.protect.currentProtectionLevels.stabilize) {
 				const lastStabilizeAction = Twinkle.protect.stableLog[0];
 				if (lastStabilizeAction.action === 'reset') {
@@ -508,7 +508,7 @@ Twinkle.protect.callback.changeAction = function twinkleprotectCallbackChangeAct
 			});
 
 			var isTemplateNamespace = mw.config.get('wgNamespaceNumber') === 10;
-			var isAFD = Morebits.pageNameNorm.startsWith('Wikipedia:Wikipedia:Permintaan pelindungan halaman');
+			var isAFD = Morebits.pageNameNorm.startsWith('Wikipedia:Permintaan pelindungan halaman');
 			var isCode = ['javascript', 'css', 'sanitized-css'].includes(mw.config.get('wgPageContentModel'));
 			field1.append({
 				type: 'checkbox',
@@ -660,7 +660,7 @@ Twinkle.protect.protectionLevels = [
 	{ label: 'Terkonfirmasik otomatis', value: 'autoconfirmed' },
 	{ label: 'Terkonfirmasi lanjutan', value: 'extendedconfirmed' },
 	{ label: 'Penyunting templat', value: 'templateeditor' },
-	{ label: 'Sysop', value: 'sysop', selected: true }
+	{ label: 'Pengurus', value: 'sysop', selected: true }
 ];
 
 // default expiry selection is conditionally set in Twinkle.protect.callback.changePreset
@@ -1070,7 +1070,7 @@ Twinkle.protect.callback.changePreset = function twinkleprotectCallbackChangePre
 
 			// Default settings for adding <noinclude> tags to protection templates
 			const isTemplateEditorProtection = form.category.value === 'pp-template';
-			const isAFD = Morebits.pageNameNorm.startsWith('Wikipedia:Wikipedia:Usulan penghapusan/');
+			const isAFD = Morebits.pageNameNorm.startsWith('Wikipedia:Usulan penghapusan/');
 			const isNotTemplateNamespace = mw.config.get('wgNamespaceNumber') !== 10;
 			const isCode = ['javascript', 'css', 'sanitized-css'].includes(mw.config.get('wgPageContentModel'));
 			if ((isTemplateEditorProtection || isAFD) && !isCode) {
@@ -1152,7 +1152,7 @@ Twinkle.protect.callback.evaluate = function twinkleprotectCallbackEvaluate(e) {
 				}
 
 				if (input.protectReason_notes_rfppRevid && !/^\d+$/.test(input.protectReason_notes_rfppRevid)) {
-					alert(' ID revisi yang diberikan tidak sesuai. Tolong lihat https://en.wikipedia.org/wiki/Help:Permanent_link untuk informasi dalam mencari ID yang tepat (juga dikenal sebagai "oldid").');
+					alert(' ID revisi yang diberikan tidak sesuai. Tolong lihat https://id.wikipedia.org/wiki/Bantuan:Pranala_permanen untuk informasi dalam mencari ID yang tepat (juga dikenal sebagai "oldid").');
 					return;
 				}
 
@@ -1399,9 +1399,9 @@ Twinkle.protect.callback.annotateProtectReason = function twinkleprotectCallback
 			$(form.protectReason_notes_rfppRevid).parent().hide();
 		}
 	} else if (this.name === 'protectReason_notes_rfppRevid') {
-		Twinkle.protect.protectReasonAnnotations = Twinkle.protect.protectReasonAnnotations.filter((el) => !el.includes('[[Istimewa:Permalink'));
+		Twinkle.protect.protectReasonAnnotations = Twinkle.protect.protectReasonAnnotations.filter((el) => !el.includes('[[Istimewa:Pranala permanen'));
 		if (e.target.value.length) {
-			const permalink = '[[Istimewa:Permalink/' + e.target.value + '#' + Morebits.pageNameNorm + ']]';
+			const permalink = '[[Istimewa:Pranala permanen/' + e.target.value + '#' + Morebits.pageNameNorm + ']]';
 			Twinkle.protect.protectReasonAnnotations.push(permalink);
 		}
 	}
@@ -1450,8 +1450,8 @@ Twinkle.protect.callbacks = {
 
 			if (/^\s*#redirect/i.test(text)) { // redirect page
 				// Only tag if no {{rcat shell}} is found
-				if (!text.match(/{{(?:redr|this is a redirect|r(?:edirect)?(?:.?cat.*)?[ _]?sh)/i)) {
-					text = text.replace(/#REDIRECT ?(\[\[.*?\]\])(.*)/i, '#ALIH $1$2\n\n{{' + tag + '}}');
+				if (!text.match(/{{(?:redr|ini adalah pengalihan|r(?:edirect)?(?:.?cat.*)?[ _]?sh)/i)) {
+					text = text.replace(/#ALIH ?(\[\[.*?\]\])(.*)/i, '#ALIH $1$2\n\n{{' + tag + '}}');
 				} else {
 					Morebits.Status.info('Redirect category shell present', 'tidak ada yang dilakukan');
 					return;
@@ -1509,7 +1509,7 @@ Twinkle.protect.callbacks = {
 
 			const rppLink = document.createElement('a');
 			rppLink.setAttribute('href', mw.util.getUrl('Wikipedia:RPP'));
-			rppLink.appendChild(document.createTextNode('Wikipedia:Permintaan pelindungan halaman/'));
+			rppLink.appendChild(document.createTextNode('Wikipedia:Permintaan pelindungan halaman/Peningkatan'));
 
 			if (tag) {
 				statusElement.error([ 'Sudah terdapat permintaan perlindungan untuk halaman ini di ', rppLink, ', membatalkan.' ]);
@@ -1579,7 +1579,7 @@ Twinkle.protect.callbacks = {
 				text += '\n' + newtag;
 				if (text.length === originalTextLength) {
 					const linknode = document.createElement('a');
-					linknode.setAttribute('href', mw.util.getUrl('Wikipedia:Twinkle/Fixing RPP'));
+					linknode.setAttribute('href', mw.util.getUrl('Wikipedia:Twinkle/Memperbaiki RPP'));
 					linknode.appendChild(document.createTextNode('Bagaimana cara memperbaiki RPP'));
 					statusElement.error([ 'Tidak dapat menemukan heading terkait di WP:RPP. Untuk memperbaiki masalah ini, tolong lihat ', linknode, '.' ]);
 					return;

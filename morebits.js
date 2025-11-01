@@ -1889,15 +1889,17 @@ Morebits.date.localeData = {
  * @property {string} months
  * @property {string} years
  */
+
 Morebits.date.unitMap = {
-	seconds: 'Detik',
-	minutes: 'Menit',
-	hours: 'Jam',
-	days: 'Tanggal',
-	weeks: 'Minggu', // Not a function but handled in `add` through cunning use of multiplication
-	months: 'Bulan',
-	years: 'Satu tahun penuh'
+	seconds: 'Seconds',
+	minutes: 'Minutes',
+	hours: 'Hours',
+	days: 'Date',
+	weeks: 'Minggu', // 'Minggu' (Week) adalah kasus khusus yang ditangani secara internal,  biarkan saja
+	months: 'Month',
+	years: 'FullYear'
 };
+
 
 Morebits.date.prototype = {
 	/** @return {boolean} */

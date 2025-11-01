@@ -15,7 +15,7 @@ Twinkle.warn = function twinklewarn() {
 
 	// Users and IPs but not IP ranges
 	if (mw.config.exists('wgRelevantUserName') && !Morebits.ip.isRange(mw.config.get('wgRelevantUserName'))) {
-		Twinkle.addPortletLink(Twinkle.warn.callback, 'Warn', 'tw-warn', 'Peringati/beritahu pengguna');
+		Twinkle.addPortletLink(Twinkle.warn.callback, 'Peringati', 'tw-warn', 'Peringati/beritahu pengguna');
 		if (Twinkle.getPref('autoMenuAfterRollback') &&
 			mw.config.get('wgNamespaceNumber') === 3 &&
 			Twinkle.getPrefill('vanarticle') &&
@@ -95,7 +95,7 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 	}
 	main_group.append({ type: 'option', label: 'Semua templat peringatan', value: 'kitchensink', selected: defaultGroup === 10 });
 
-	main_select.append({ type: 'select', name: 'sub_grup', event: Twinkle.warn.callback.change_subcategory });
+	main_select.append({ type: 'select', name: 'sub_group', event: Twinkle.warn.callback.change_subcategory });
 
 	form.append({
 		type: 'input',
@@ -1325,7 +1325,7 @@ Twinkle.warn.callback.change_category = function twinklewarnCallbackChangeCatego
 			});
 			createGroup(Twinkle.warn.messages.singlenotice, 'Pemberitahuan isu tunggal');
 			createGroup(Twinkle.warn.messages.singlewarn, 'Peringatan isu tunggal');
-			createGroup(Twinkle.getPref('customWarningList'), 'Peringatan kustom');
+			createGroup(Twinkle.getPref('customWarningList'), 'Peringatan khusus');
 			break;
 		case 'level1':
 		case 'level2':
@@ -1363,7 +1363,7 @@ Twinkle.warn.callback.change_category = function twinklewarnCallbackChangeCatego
 			if (Twinkle.warn.talkpageObj) {
 				autolevelProc();
 			} else {
-				const usertalk_page = new Morebits.wiki.Page('User_talk:' + mw.config.get('wgRelevantUserName'), 'Loading previous warnings');
+				const usertalk_page = new Morebits.wiki.Page('Pembicaraan_pengguna:' + mw.config.get('wgRelevantUserName'), 'Memuat peringatan sebelumnya');
 				usertalk_page.setFollowRedirect(true, false);
 				usertalk_page.load((pageobj) => {
 					Twinkle.warn.talkpageObj = pageobj; // Update talkpageObj
@@ -1770,7 +1770,7 @@ Twinkle.warn.callbacks = {
 				case 'm':
 					if (template.slice(-3) === '4im') {
 						prefix = 'Only warning';
-						break;
+					break;
 					}
 					// falls through
 				default:

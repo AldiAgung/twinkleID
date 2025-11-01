@@ -29,7 +29,7 @@ let subpagesLoaded;
 Twinkle.batchdelete.callback = function twinklebatchdeleteCallback() {
 	subpagesLoaded = false;
 	const Window = new Morebits.SimpleWindow(600, 400);
-	Window.setTitle('Proses penghapusan');
+	Window.setTitle('Operasi penghapusan');
 	Window.setScriptName('Twinkle');
 	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#batchdelete');
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
@@ -422,7 +422,7 @@ Twinkle.batchdelete.callback.evaluate = function twinklebatchdeleteCallbackEvalu
 	Morebits.SimpleWindow.setButtonsEnabled(false);
 	Morebits.Status.init(form);
 	if (input.pages.length === 0) {
-		Morebits.Status.error('Galat', 'tidak ada untuk dihapus membatalkan');
+		Morebits.Status.error('Galat', 'tidak ada untuk dihapus, membatalkan');
 		return;
 	}
 

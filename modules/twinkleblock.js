@@ -20,7 +20,7 @@ Twinkle.block = function twinkleblock() {
 	// should show on Contributions or Block pages, anywhere there's a relevant user
 	// Ignore ranges wider than the CIDR limit
 	if (Morebits.userIsSysop && relevantUserName && (!Morebits.ip.isRange(relevantUserName) || Morebits.ip.validCIDR(relevantUserName))) {
-		Twinkle.addPortletLink(Twinkle.block.callback, 'Block', 'tw-block', 'Blokir pengguna terkait');
+		Twinkle.addPortletLink(Twinkle.block.callback, 'Blokir', 'tw-block', 'Blokir pengguna terkait');
 	}
 };
 
@@ -523,7 +523,7 @@ Twinkle.block.callback.change_action = function twinkleblockCallbackChangeAction
 	}
 
 	// grab discretionary sanctions list from en-wiki
-	Twinkle.block.dsinfo = Morebits.wiki.getCachedJson('Template:Ds/topics.json');
+	Twinkle.block.dsinfo = Morebits.wiki.getCachedJson('Templat:Ds/topics.json');
 
 	Twinkle.block.dsinfo.then((dsinfo) => {
 		const $select = $('[name="dstopic"]');
@@ -765,17 +765,17 @@ Twinkle.block.callback.change_action = function twinkleblockCallbackChangeAction
 			statusStr += ' (kadaluwarsa ' + new Morebits.Date(Twinkle.block.currentBlockInfo.expiry).calendar('utc') + ')';
 		}
 
-		let infoStr = 'This form will';
+		let infoStr = 'Form ini akan';
 		if (sameUser) {
-			infoStr += ' change that block';
+			infoStr += ' mengubah pemblokiran tersebut';
 			if (Twinkle.block.currentBlockInfo.partial === undefined && partialBox) {
-				infoStr += ', converting it to a partial block';
+				infoStr += ', mengubah menjadi pemblokiran parsial';
 			} else if (Twinkle.block.currentBlockInfo.partial === '' && !partialBox) {
-				infoStr += ', converting it to a sitewide block';
+				infoStr += ', mengubah menjadi pemblokiran tertentu';
 			}
 			infoStr += '.';
 		} else {
-			infoStr += ' add an additional ' + (partialBox ? 'partial ' : '') + 'block.';
+			infoStr += ' menambahkan pemblokiran' + (partialBox ? 'parsial ' : '') +'.';
 		}
 
 		Morebits.Status.warn(statusStr, infoStr);

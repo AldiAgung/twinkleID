@@ -15,7 +15,7 @@ Twinkle.shared = function twinkleshared() {
 		const username = mw.config.get('wgRelevantUserName');
 		Twinkle.addPortletLink(() => {
 			Twinkle.shared.callback(username);
-		}, 'Shared IP', 'twinkle-shared', 'Shared IP tagging');
+		}, 'IP berbagi', 'twinkle-shared', 'Menandai ip berbagi');
 	}
 };
 

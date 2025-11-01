@@ -182,7 +182,7 @@ Twinkle.welcome.populateWelcomeList = function(e) {
 	const container = new Morebits.QuickForm.Element({ type: 'fragment' });
 
 	if ((type === 'standard' || type === 'unregistered') && Twinkle.getPref('customWelcomeList').length) {
-		container.append({ type: 'header', label: 'Templat sambutan kustom' });
+		container.append({ type: 'header', label: 'Templat sambutan khusus' });
 		container.append({
 			type: 'radio',
 			name: 'template',
@@ -366,7 +366,7 @@ Twinkle.welcome.templates = {
 	},
 
 	unregistered: {
-		'Unregistered user welcome templates': {
+		'Templat selamat datang pengguna tidak terdaftar': {
 			'welcome-unregistered': {
 				description: 'for unregistered users; encourages creating an account',
 				linkedArticle: true,
@@ -522,9 +522,9 @@ Twinkle.welcome.templates = {
 	},
 
 	nonEnglish: {
-		'Templat selamat datang non-Inggris': {
+		'Templat selamat datang non-Indonesia': {
 			welcomeen: {
-				description: 'welcome for users whose first language is not listed here',
+				description: 'menyambut pengguna bahasa pertamanya tidak tersedia disini',
 				syntax: '{{subst:welcomeen}}'
 			},
 			'welcomeen-ar': {
@@ -642,7 +642,7 @@ Twinkle.welcome.callbacks = {
 
 		const previewer = new Morebits.wiki.Preview(previewdiv);
 		const input = Morebits.QuickForm.getInputData(form);
-		previewer.beginRender(Twinkle.welcome.getTemplateWikitext(input.type, input.template, input.article), 'User talk:' + mw.config.get('wgRelevantUserName')); // Force wikitext/correct username
+		previewer.beginRender(Twinkle.welcome.getTemplateWikitext(input.type, input.template, input.article), 'Pembicaraan pengguna:' + mw.config.get('wgRelevantUserName')); // Force wikitext/correct username
 
 		const submit = document.createElement('input');
 		submit.setAttribute('type', 'submit');
