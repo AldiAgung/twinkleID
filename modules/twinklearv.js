@@ -59,12 +59,12 @@ Twinkle.arv.callback = function (uid, isIP) {
 	});
 	categories.append({
 		type: 'option',
-		label: 'Akun boneka (induk) (WP:SPI)',
+		label: 'Akun boneka (induk) (WP:IPS)',
 		value: 'sock'
 	});
 	categories.append({
 		type: 'option',
-		label: 'Akun boneka (WP:SPI)',
+		label: 'Akun boneka (WP:IPS)',
 		value: 'puppet'
 	});
 	categories.append({

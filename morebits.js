@@ -1,8 +1,8 @@
 // <nowiki>
 /**
- * A library full of lots of goodness for user scripts on MediaWiki wikis, including Wikipedia.
+ * Pustaka dari untuk skrip pribadi pengguna untuk Wiki MediaWiki, termasuk Wikipedia.
  *
- * The highlights include:
+ * Kunci poin penting termasuk:
  * - {@link Morebits.wiki.api} - memanggil API MediaWiki
  * - {@link Morebits.wiki.page} - modifikasi halaman di Wiki (sunting, balikan, hapus, etc.)
  * - {@link Morebits.date} - Pemrosesan objek penanggalan yang dimutakhirkan, seperti moment.js ringan
@@ -37,7 +37,7 @@
 
 /** @lends Morebits */
 const Morebits = {};
-window.Morebits = Morebits; // allow global access
+window.Morebits = Morebits; // memungkinkan akses global
 
 /**
  * i18n support for strings in Morebits
@@ -765,7 +765,7 @@ Morebits.quickForm.element.prototype.compute = function QuickFormElementCompute(
 			if (data.remove) {
 				const remove = this.compute({
 					type: 'button',
-					label: 'remove',
+					label: msg('quickform-remove', 'remove'),
 					event: function(e) {
 						const list = e.target.listnode;
 						const node = e.target.inputnode;
@@ -1976,7 +1976,7 @@ Morebits.date.prototype = {
 			// No built-in week functions, so rather than build out ISO's getWeek/setWeek, just multiply
 			// Probably can't be used for Julian->Gregorian changeovers, etc.
 			if (unitNorm === 'Minggu') {
-				unitNorm = 'Tanggal';
+				unitNorm = 'Date';
 				num *= 7;
 			}
 			this['set' + unitNorm](this['get' + unitNorm]() + num);
@@ -2727,7 +2727,7 @@ Morebits.wiki.page = function(pageName, status) {
 
 		// Need to be able to do something after the page loads
 		if (!onSuccess) {
-			ctx.statusElement.error('Kesalahan internal: tidak disediakan pemanggilan kembali onSuccess untuk load()!');
+			ctx.statusElement.error(msg('internal-error-no-onSuccess', 'Kesalahan internal: tidak disediakan pemanggilan kembali onSuccess untuk load()!'));
 			ctx.onLoadFailure(this);
 			return;
 		}
@@ -2800,7 +2800,7 @@ Morebits.wiki.page = function(pageName, status) {
 			if (ctx.editMode === 'new' && ctx.newSectionTitle) {
 				ctx.editSummary = '';
 			} else {
-				ctx.statusElement.error('Kesalahan internal: ringkasan suntingan tidak di atur sebelum disimpan!');
+				ctx.statusElement.error(msg('internal-error-no-summary', 'Kesalahan internal: ringkasan suntingan tidak di atur sebelum disimpan!'));
 				ctx.onSaveFailure(this);
 				return;
 			}
@@ -2810,9 +2810,7 @@ Morebits.wiki.page = function(pageName, status) {
 		if (ctx.fullyProtected && !ctx.suppressProtectWarning &&
 			!confirm(
 				ctx.fullyProtected === 'infinity' ?
-					msg('protected-indef-edit-warning', ctx.pageName,
-						'Anda akan membuat sebuah suntingan pada halaman perlindungan penuh"' + ctx.pageName + '" (perlidungan tidak terdefinisikan).  \n\Tekan OK untuk melanjutkan penyuntingan, atau Batal untuk lewati suntingan ini.'
-					) :
+					msg('protected-indef-edit-warning', 'Anda akan membuat sebuah suntingan pada halaman perlindungan penuh "' + ctx.pageName + '" (perlindungan tidak terdefinisikan).\n\nTekan OK untuk melanjutkan penyuntingan, atau Batal untuk lewati suntingan ini.', ctx.pageName) :
 					msg('protected-edit-warning', ctx.pageName, ctx.fullyProtected,
 						'Anda akan membuat sebuah suntingan pada halaman perlindungan penuh "' + ctx.pageName +
 					'" (protection expiring ' + new Morebits.date(ctx.fullyProtected).calendar('utc') + ' (UTC)).  \n\Tekan OK untuk melanjutkan suntingan, atau Batal untuk lewati suntingan ini.'
@@ -3204,7 +3202,7 @@ Morebits.wiki.page = function(pageName, status) {
 	 * accept a string value of `default`.
 	 */
 	this.setWatchlistFromPreferences = function(watchlistOption) {
-		console.warn('NOTE: Morebits.wiki.page.setWatchlistFromPreferences tidak digunakan lagi pada Desember 2020, tolong gunakan setWatchlist'); // eslint-disable-line no-console
+		console.warn('Catatan: Morebits.wiki.page.setWatchlistFromPreferences tidak digunakan lagi pada Desember 2020, tolong gunakan setWatchlist'); // eslint-disable-line no-console
 		if (watchlistOption) {
 			ctx.watchlistOption = 'preferences';
 		} else {
@@ -3683,7 +3681,7 @@ Morebits.wiki.page = function(pageName, status) {
 		}
 
 		if (!ctx.protectEdit && !ctx.protectMove && !ctx.protectCreate) {
-			ctx.statusElement.error('Kesalahan internal: anda harus atur penyuntingan and/atau pindahkan dan/atau buat perlindungan sebelum memanggil protect()!');
+			ctx.statusElement.error('Kesalahan internal: anda harus atur penyuntingan dan/atau pindahkan dan/atau buat perlindungan sebelum memanggil protect()!');
 			ctx.onProtectFailure(this);
 			return;
 		}
@@ -4013,7 +4011,7 @@ Morebits.wiki.page = function(pageName, status) {
 			const link = document.createElement('a');
 			link.setAttribute('href', mw.util.getUrl(ctx.pageName));
 			link.appendChild(document.createTextNode(ctx.pageName));
-			ctx.statusElement.info(['selesai (', link, ')']);
+			ctx.statusElement.info([msg('save-completed', 'selesai'), ' (', link, ')']);
 			if (ctx.onSaveSuccess) {
 				ctx.onSaveSuccess(this); // invoke callback
 			}
@@ -5573,7 +5571,7 @@ Morebits.batchOperation = function(currentAction) {
 	 */
 	this.run = function(worker, postFinish) {
 		if (ctx.running) {
-			ctx.statusElement.error('Operasi telah berjalan');
+			ctx.statusElement.error(msg('batch-in-progress', 'Operasi telah berjalan'));
 			return;
 		}
 		ctx.running = true;
@@ -5693,7 +5691,7 @@ Morebits.batchOperation = function(currentAction) {
 		} else {
 			// ctx.countFinished > total
 			// just for giggles! (well, serious debugging, actually)
-			ctx.statusElement.warn('Selesai (dilakukan oleh ' + (ctx.countFinished - total) + ')');
+			ctx.statusElement.warn(msg('batch-completed-over', 'Selesai (dilakukan oleh $1)', (ctx.countFinished - total)));
 			Morebits.wiki.removeCheckpoint();
 			ctx.running = false;
 		}

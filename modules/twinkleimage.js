@@ -12,7 +12,7 @@
 
 Twinkle.image = function twinkleimage() {
 	if (mw.config.get('wgNamespaceNumber') === 6 && mw.config.get('wgArticleId') && !document.getElementById('mw-sharedupload') && !Morebits.isPageRedirect()) {
-		Twinkle.addPortletLink(Twinkle.image.callback, 'DI', 'tw-di', 'Menominasikan berkas untuk penundaan penghapusan cepat');
+		Twinkle.addPortletLink(Twinkle.image.callback, 'HB', 'tw-di', 'Menominasikan berkas untuk penundaan penghapusan cepat');
 	}
 };
 
@@ -206,7 +206,7 @@ Twinkle.image.callback.evaluate = function twinkleimageCallbackEvaluate(event) {
 			csdcrit = 'F11';
 			break;
 		default:
-			throw new Error('Twinkle.image.callback.evaluate: unknown criterion');
+			throw new Error('Twinkle.image.callback.evaluate: kriteria tidak diketahui');
 	}
 
 	const lognomination = Twinkle.getPref('logSpeedyNominations') && !Twinkle.getPref('noLogOnSpeedyNomination').includes(csdcrit.toLowerCase());
@@ -250,7 +250,7 @@ Twinkle.image.callbacks = {
 		const params = pageobj.getCallbackParameters();
 
 		// remove "move to Commons" tag - deletion-tagged files cannot be moved to Commons
-		text = text.replace(/\{\{(mtc|(copy |move )?to ?commons|move to wikimedia commons|copy to wikimedia commons)[^}]*\}\}/gi, '');
+		text = text.replace(/\{\{(mtc|(copy |move )?to ?commons|pindah to wikimedia commons|salin to wikimedia commons)[^}]*\}\}/gi, '');
 
 		let tag = '{{di-' + params.templatename + '|date={{subst:#time:j F Y}}';
 		switch (params.type) {

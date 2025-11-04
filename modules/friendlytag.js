@@ -717,7 +717,7 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'Over-quotation', description: 'Terlalu banyak kutipan panjang untuk entri ensiklopedis' },
 			{ tag: 'Promotional', description: 'Mengandung konten promosi atau ditulis seperti iklan' },
 			{ tag: 'Prose', description: 'written in a list format but may read better as prose' },
-			{ tag: 'Resume-like', description: 'ditulis seperti resume' },
+			{ tag: 'Resume', description: 'ditulis seperti resume' },
 			{ tag: 'Technical', description: 'terlalu teknis untuk dibaca pembaca' },
 			{ tag: 'Tone', description: 'penulisan gaya dan nada tidak memenuhi nada ensklopedis yang digunakan Wikipedia' }
 		],

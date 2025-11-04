@@ -452,7 +452,7 @@ Twinkle.config.sections = [
 			// What types of actions should result in the author of the page being notified of speedy deletion (admin only)
 			{
 				name: 'warnUserOnSpeedyDelete',
-				label: 'Notify page creator when deleting under these criteria',
+				label: 'Beritahu pembuat halaman saat menghapus dibawah kriteria ini',
 				helptip: 'Bahkan jika anda memilih untuk memberitahu dari layar KPC, notifikasinya hanya akan muncul untuk kriteria yang dipilih disini.',
 				adminOnly: true,
 				type: 'set',

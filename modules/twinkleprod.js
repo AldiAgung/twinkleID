@@ -68,15 +68,15 @@ Twinkle.prod.callback = function twinkleprodCallback() {
 		event: Twinkle.prod.callback.prodtypechanged,
 		list: [
 			{
-				label: 'UP (Usulan pengahpusan)',
+				label: 'UP (Usulan penghapusan)',
 				value: 'prod',
 				checked: true,
-				tooltip: 'Usulan penghapusan biasa, per [[WP:PROD]]'
+				tooltip: 'Usulan penghapusan biasa, per [[WP:UP]]'
 			},
 			{
-				label: 'BLP PROD (Usulan penghapusan untuk BLP tidak ada sumber)',
+				label: 'UP BIO (Usulan penghapusan untuk BIO tidak ada sumber)',
 				value: 'prodblp',
-				tooltip: 'Usulan penghapusan biografi orang hidup baru yang tidak mempunyai sumber, per [[WP:BLPPROD]]'
+				tooltip: 'Usulan penghapusan biografi orang hidup baru tanpa sumber, per [[WP:BIO]]'
 			}
 		]
 	});
@@ -160,7 +160,7 @@ Twinkle.prod.callback.prodtypechanged = function(event) {
 			});
 			// temp warning, can be removed down the line once BLPPROD is more established. Amalthea, May 2010.
 			var boldtext = document.createElement('b');
-			boldtext.appendChild(document.createTextNode('Catatan, hanya biografi orang hidup yang tidak ada sumber diberi tag ini.'));
+			boldtext.appendChild(document.createTextNode('Catatan, hanya biografi orang hidup tanpa sumber diberi tag ini.'));
 			field.append({
 				type: 'div',
 				label: boldtext
@@ -264,7 +264,7 @@ Twinkle.prod.callbacks = {
 				// Page previously PROD-ed
 				if (params.oldProdPresent) {
 					if (params.blp) {
-						if (!confirm('Nominasi UP ditemukan di halaman pembicaraans. Apakah anda masih ingin menambahkan BLPPROD? ')) {
+						if (!confirm('Nominasi UP ditemukan di halaman pembicaraan. Apakah anda masih ingin menambahkan BIO? ')) {
 							statelem.warn('Usulan telah ditemukan di halaman pengguna,, dibatalkan oleh pengguna');
 							return def.reject();
 						}
@@ -364,7 +364,7 @@ Twinkle.prod.callbacks = {
 		if (params.blp) {
 			notifyTemplate = 'prodwarningBLP';
 		} else {
-			notifyTemplate = 'peringatan usulan penghapusan';
+			notifyTemplate = 'proposed deletion notify';
 		}
 		const notifytext = '\n{{subst:' + notifyTemplate + '|1=' + Morebits.pageNameNorm + '|concern=' + params.reason + '}} ~~~~';
 

@@ -20,7 +20,7 @@ Twinkle.deprod = function() {
 	) {
 		return;
 	}
-	Twinkle.addPortletLink(Twinkle.deprod.callback, 'Deprod', 'tw-deprod', 'Halaman penghapusan prod ditemukan di kategori ini');
+	Twinkle.addPortletLink(Twinkle.deprod.callback, 'Deprod', 'tw-deprod', 'Halaman yang diusulkan dihapus ditemukan di kategori ini');
 };
 
 const concerns = {};

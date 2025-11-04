@@ -24,7 +24,7 @@ Twinkle.speedy = function twinklespeedy() {
 		return;
 	}
 
-	Twinkle.addPortletLink(Twinkle.speedy.callback, 'KPC', 'tw-csd', Morebits.userIsSysop ? 'Menghapus halaman menurut WP:KPC' : 'Meminta penghapusan cepat menurut WP:KPC');
+	Twinkle.addPortletLink(Twinkle.speedy.callback, 'KPC', 'tw-csd', Morebits.userIsSysop ? 'Hapus halaman menurut WP:KPC' : 'Meminta penghapusan cepat menurut WP:KPC');
 };
 
 Twinkle.speedy.data = [
