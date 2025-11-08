@@ -15,7 +15,7 @@ Twinkle.warn = function twinklewarn() {
 
 	// Users and IPs but not IP ranges
 	if (mw.config.exists('wgRelevantUserName') && !Morebits.ip.isRange(mw.config.get('wgRelevantUserName'))) {
-		Twinkle.addPortletLink(Twinkle.warn.callback, 'Peringati', 'tw-warn', 'Peringati/beritahu pengguna');
+		Twinkle.addPortletLink(Twinkle.warn.callback, 'Peringati', 'tw-warn', 'Peringati/beri tahu pengguna');
 		if (Twinkle.getPref('autoMenuAfterRollback') &&
 			mw.config.get('wgNamespaceNumber') === 3 &&
 			Twinkle.getPrefill('vanarticle') &&
@@ -31,7 +31,7 @@ Twinkle.warn = function twinklewarn() {
 		const $vandalTalkLink = $('#mw-rollback-success').find('.mw-usertoollinks a').first();
 		if ($vandalTalkLink.length) {
 			$vandalTalkLink.css('font-weight', 'bold');
-			$vandalTalkLink.wrapInner($('<span>').attr('title', 'Jika memungkinkan, Anda dapat menggunakan Twinkle untuk memperingati seorang pengguna—terhadap suntingannya—di halaman pembicaraan.'));
+			$vandalTalkLink.wrapInner($('<span>').attr('title', 'Jika diperlukan, Anda bisa menggunakan Twinkle untuk memberi peringatan kepada seorang pengguna terkait suntingannya, langsung di halaman pembicaraan.'));
 
 			// Can't provide vanarticlerevid as only wgCurRevisionId is provided
 			const extraParam = 'vanarticle=' + mw.util.rawurlencode(Morebits.pageNameNorm);
@@ -67,13 +67,13 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 	const main_select = form.append({
 		type: 'field',
 		label: 'Pilih jenis peringatan/pemberitahuan untuk ditampilkan',
-		tooltip: 'Pilih dahulu opsi dari kelompok peringatan utama, lalu peringatan spesifik untuk dikirimkan.'
+		tooltip: 'Pilih kelompok peringatan utama terlebih dahulu, lalu pilih peringatan spesifik untuk dikirim.'
 	});
 
 	const main_group = main_select.append({
 		type: 'select',
 		name: 'main_group',
-		tooltip: 'Anda dapat mengubahsuai pilihan bawaan melalui preferensi Twinkle Anda.',
+		tooltip: 'Pilihan bawaan dapat diubah sesuai keinginan melalui pengaturan Twinkle Anda.',
 		event: Twinkle.warn.callback.change_category
 	});
 
