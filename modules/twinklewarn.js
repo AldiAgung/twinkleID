@@ -31,7 +31,7 @@ Twinkle.warn = function twinklewarn() {
 		const $vandalTalkLink = $('#mw-rollback-success').find('.mw-usertoollinks a').first();
 		if ($vandalTalkLink.length) {
 			$vandalTalkLink.css('font-weight', 'bold');
-			$vandalTalkLink.wrapInner($('<span>').attr('title', 'Jika diperlukan, Anda bisa menggunakan Twinkle untuk memberi peringatan kepada seorang pengguna terkait suntingannya, langsung di halaman pembicaraan.'));
+			$vandalTalkLink.wrapInner($('<span>').attr('title', 'Jika diperlukan, Anda bisa menggunakan Twinkle untuk memberi peringatan kepada seorang pengguna mengenai suntingannya, langsung di halaman pembicaraan.'));
 
 			// Can't provide vanarticlerevid as only wgCurRevisionId is provided
 			const extraParam = 'vanarticle=' + mw.util.rawurlencode(Morebits.pageNameNorm);
