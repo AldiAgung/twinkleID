@@ -715,13 +715,13 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'Inappropriate person', description: 'menggunakan pandangan orang pertama dan kedua secara tidak benar' },
 			{ tag: 'How-to', description: 'ditulis seperti buku manual atau panduan' },
 			{ tag: 'Over-quotation', description: 'Terlalu banyak kutipan panjang untuk entri ensiklopedis' },
-			{ tag: 'Promotional', description: 'Mengandung konten promosi atau ditulis seperti iklan' },
-			{ tag: 'Prose', description: 'written in a list format but may read better as prose' },
+			{ tag: 'Iklan', description: 'Mengandung konten promosi atau ditulis seperti iklan' },
+			{ tag: 'Prose', description: 'ditulis dalam format daftar tetapi dibaca sebagai prosa' },
 			{ tag: 'Resume', description: 'ditulis seperti resume' },
 			{ tag: 'Technical', description: 'terlalu teknis untuk dibaca pembaca' },
 			{ tag: 'Tone', description: 'penulisan gaya dan nada tidak memenuhi nada ensklopedis yang digunakan Wikipedia' }
 		],
-		'Sense (or lack thereof)': [
+		'Keterjelasan': [
 			{ tag: 'Confusing', description: 'membingungkan atau tidak jelas' },
 			{ tag: 'Unfocused', description: 'kekuarangan fokus atau lebih dari satu topik' }
 		],
@@ -1204,7 +1204,7 @@ Twinkle.tag.fileList = {
 				type: 'input',
 				name: 'nominatedOnCommonsName',
 				label: 'Nama di Commons:',
-				tooltip: 'Nama gambar di Commons (jika berbeda dari nama lokal), mengecualikan Berkas: prefix:'
+				tooltip: 'Nama gambar di Commons (jika berbeda dari nama lokal), mengecualikan awalan Berkas:'
 			}
 		}
 	],
@@ -1360,17 +1360,15 @@ Twinkle.tag.callbacks = {
 			let summaryText;
 			const addedTags = params.tags.map(makeTemplateLink);
 			const removedTags = params.tagsToRemove.map(makeTemplateLink);
-			if (addedTags.length) {
-				summaryText = 'Ditambahkan ' + makeSentence(addedTags);
-				summaryText += removedTags.length ? '; dan dihilangkan ' + makeSentence(removedTags) : '';
-			} else {
-				summaryText = 'Dihilangkan ' + makeSentence(removedTags);
-			}
-			summaryText += ' tag' + (addedTags.length + removedTags.length > 1 ? 's' : '');
-			if (params.reason) {
-				summaryText += ': ' + params.reason;
-			}
-
+			if (addedTags.length > 0 && removedTags.length > 0) {
+				summaryText = 'Ditambahkan tag ' + makeSentence(addedTags) + ' dan dihilangkan tag ' + makeSentence(removedTags);
+				} else if (addedTags.length > 0) {
+				summaryText = 'Ditambahkan tag ' + makeSentence(addedTags);
+				} else if (removedTags.length > 0) {
+				summaryText = 'Dihilangkan tag ' + makeSentence(removedTags);
+				} else {
+				summaryText = 'Tidak ada perubahan tag yang dilakukan';
+				}
 			// avoid truncated summaries
 			if (summaryText.length > 499) {
 				summaryText = summaryText.replace(/\[\[[^|]+\|([^\]]+)\]\]/g, '$1');
@@ -1628,11 +1626,11 @@ Twinkle.tag.callbacks = {
 								// nonDiscussArticle is the article which won't have the discussion
 								params.nonDiscussArticle = tagName === 'Merge to' ? mw.config.get('wgTitle') : params.mergeTarget;
 								const direction = '[[' + params.nonDiscussArticle + ']]' + (params.mergeTag === 'Merge' ? ' dengan ' : ' ke ') + '[[' + params.discussArticle + ']]';
-								params.talkDiscussionTitleLinked = 'Pengusulan penggabungan dari ' + direction;
+								params.talkDiscussionTitleLinked = 'Usulan penggabungan dari ' + direction;
 								params.talkDiscussionTitle = params.talkDiscussionTitleLinked.replace(/\[\[(.*?)\]\]/g, '$1');
 							}
 							const titleWithSectionRemoved = params.discussArticle.replace(/^([^#]*)#.*$/, '$1'); // If article name is Test#Section, delete #Section
-							currentTag += '|discuss=Talk:' + titleWithSectionRemoved + '#' + params.talkDiscussionTitle;
+							currentTag += '|discuss=Pembicaraan:' + titleWithSectionRemoved + '#' + params.talkDiscussionTitle;
 						}
 						break;
 					default:
@@ -1666,7 +1664,7 @@ Twinkle.tag.callbacks = {
 				'salt|proposed deletion endorsed';
 			// AfD is special, as the tag includes html comments before and after the actual template
 			// trailing whitespace/newline needed since this subst's a newline
-			const afdRegex = '(?:<!--.*UP.*\\n\\{\\{(?:Usulan penghapusan\\/dated|AfDM).*\\}\\}\\n<!--.*(?:\\n<!--.*)?UP.*(?:\\s*\\n))?';
+			const afdRegex = '(?:<!--.*UP.*\\n\\{\\{(?:proposed deletion\\/dated|AfDM).*\\}\\}\\n<!--.*(?:\\n<!--.*)?UP.*(?:\\s*\\n))?';
 			pageText = wikipage.insertAfterTemplates(tagText, templatesAfter, null, afdRegex).getText();
 
 			removeTags();

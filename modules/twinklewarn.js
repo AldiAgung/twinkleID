@@ -120,7 +120,7 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 		Twinkle.warn.callbacks.preview(result); // |result| is defined below
 	});
 	previewlink.style.cursor = 'pointer';
-	previewlink.textContent = 'Preview';
+	previewlink.textContent = 'Pratinjau';
 	more.append({ type: 'div', id: 'warningpreview', label: [ previewlink ] });
 	more.append({ type: 'div', id: 'twinklewarn-previewbox', style: 'display: none' });
 
@@ -241,7 +241,7 @@ Twinkle.warn.messages = {
 				},
 				level3: {
 					label: 'Suntingan tidak membangun',
-					summary: 'Warning: Suntingan tidak membangun'
+					summary: 'Peringatan: Suntingan tidak membangun'
 				},
 				level4: {
 					label: 'Suntingan tidak membangun',
@@ -285,7 +285,7 @@ Twinkle.warn.messages = {
 				},
 				level3: {
 					label: 'Menghapus konten, mengosongkan halaman',
-					summary: 'Warning: Menghapus konten, mengosongkan halaman'
+					summary: 'Peringatan: Menghapus konten, mengosongkan halaman'
 				},
 				level4: {
 					label: 'Menghapus konten, mengosongkan halaman',
@@ -1498,12 +1498,12 @@ Twinkle.warn.callback.change_subcategory = function twinklewarnCallbackChangeSub
 	if (selected_template === 'uw-username') {
 		$redWarning = $("<div style='color: red;' id='tw-warn-red-notice'>harusnya{{uw-username}} <b>tidak</b> digunakan untuk pelanggaran kebijakan nama pengguna <b>secara terang-terangan</b>. " +
 			"Pelanggaran terang-terangan harus dilaporkan langsung kepada UAA (melalui tab ARV Twinkle). " +
-			'{{uw-username}} hanya digunakan diujung nama untuk  edge cases in order to engage in discussion with the user.</div>');
+			'{{uw-username}} hanya boleh digunakan dalam kasus-kasus tertentu untuk melakukan diskusi dengan pengguna.</div>');
 		$redWarning.insertAfter(Morebits.QuickForm.getElementLabelObject(e.target.form.reasonGroup));
 	} else if (selected_template === 'uw-coi-username') {
 		$redWarning = $("<div style='color: red;' id='tw-warn-red-notice'>{{uw-coi-username}} harusnya <b>tidak</b> digunakan untuk pelanggaran kebijakan nama pengguna <b>secara terang-terangan</b>. " +
 			"Pelanggaran terang-terangan harus dilaporkan langsung kepada UAA (melalui tab ARV Twinkle). " +
-			'{{uw-coi-username}} should only be used in edge cases in order to engage in discussion with the user.</div>');
+			'{{uw-coi-username}} hanya boleh digunakan dalam kasus-kasus tertentu untuk melakukan diskusi dengan pengguna.</div>');
 		$redWarning.insertAfter(Morebits.QuickForm.getElementLabelObject(e.target.form.reasonGroup));
 	}
 };
@@ -1678,7 +1678,7 @@ Twinkle.warn.callbacks = {
 							}
 						});
 						const $statusNode = $('<div>', {
-							text: mw.config.get('wgRelevantUserName') + ' baru saja mendapat peringatan tingkat 4 (' + latest.type + ') jadi lebih baik melaporkannya saja; ',
+							text: mw.config.get('wgRelevantUserName') + ' baru saja mendapat peringatan tingkat 4 (' + latest.type + ') lebih baik melaporkannya saja; ',
 							css: {color: 'red' }
 						});
 						$statusNode.append($link[0]);

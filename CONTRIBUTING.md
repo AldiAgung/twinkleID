@@ -6,11 +6,11 @@ Banyak cara untuk membantu!
 
 ## Pelaporan galat dan permintaan fitur
 
-If you think you've found a bug or have a great idea for a new feature, great!  You can [open a new GitHub issue here](https://github.com/azatoth/twinkle/issues/new) (GitHub account required) or report it at [Pembicaraan Wiki:Twinkle][Pembicaraan Wiki:Twinkle].  Bigger changes or more complicated requests should be made on-wiki so other users can take part in the discussion of your feature proposal.  If you're unsure if something is a bug, other editors may be able to help identify the issue.  Be sure to search the talk page archives and GitHub issues to see if your request has already been discussed in the past.
+Jika anda menemukan sebuah galat, hebat!  Anda dapat [open a new GitHub issue here](https://github.com/azatoth/twinkle/issues/new) (GitHub account required) atau dapat melaporkannya di [Pembicaraan Wiki:Twinkle][Pembicaraan Wiki:Twinkle].  Bigger changes or more complicated requests should be made on-wiki so other users can take part in the discussion of your feature proposal.  If you're unsure if something is a bug, other editors may be able to help identify the issue.  Be sure to search the talk page archives and GitHub issues to see if your request has already been discussed in the past.
 
 Apapun kasusnya, lebih mendeksripsikan permasalahnnya mempermudah untuk merespon laporan atau permintaan anda.
 
-### Melaporkan sebuah bug
+### Melaporkan sebuah galat
 
 Penulisan laporan galat yang bagus terdiri dari:
 
@@ -45,7 +45,7 @@ Some things to watch out for:
 
 As Twinkle is used many thousands of times a day, changes to how Twinkle works may be confusing or disruptive to editors.  Significant or major changes to workflow, design, or functionality should gain some modicum of consensus before being proposed or suggested, either through discussion at [Pembicaraan Wiki:Twinkle] or elsewhere.
 
-### Submitting your pull request
+### Mengirim pull request anda
 
 When you are ready to submit, commit your changes on a new branch, then [initiate a pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).  The title of your pull request should be the module you are proposing changes to, followed by a brief but descriptive explanation of what the changes do, such as:
 

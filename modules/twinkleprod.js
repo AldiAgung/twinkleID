@@ -303,7 +303,7 @@ Twinkle.prod.callbacks = {
 					return def.reject();
 				}
 
-				summaryText = 'Mendukung usulan penghapusan per [[WP:' + (params.blp ? 'BLP' : '') + 'UP]].';
+				summaryText = 'Pengusulan per [[WP:' + (params.blp ? 'BLP' : '') + 'UP]].';
 				text = text.replace(prod_re, text.match(prod_re) + '\n{{Proposed deletion endorsed|1=' + (params.blp ?
 					'artikel merupakan [[WP:HIDUP|biografi orang hidup tanpa sumber]]' :
 					Morebits.string.formatReasonText(params.reason)) + '}}\n');
@@ -356,7 +356,7 @@ Twinkle.prod.callbacks = {
 
 		// Disallow warning yourself
 		if (params.initialContrib === mw.config.get('wgUserName')) {
-			Morebits.Status.info('Memberitahu pembuat', 'Anda (' + params.initialContrib + ') membuat halaman ini; melewati notifikasi pengguna');
+			Morebits.Status.info('Beritahu pembuat', 'Anda (' + params.initialContrib + ') membuat halaman ini; melewati notifikasi pengguna');
 			return def.resolve();
 		}
 		// [[Template:Proposed deletion notify]] supports File namespace
@@ -398,7 +398,7 @@ Twinkle.prod.callbacks = {
 		// If a logged file is deleted but exists on commons, the wikilink will be blue, so provide a link to the log
 		logText += namespace === 'file' ? ' ([{{fullurl:Istimewa:Catatan|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}} catata]): ' : ': ';
 		if (params.logEndorsing) {
-			logText += 'mendukung ' + (params.blp ? 'BIO ' : '') + 'UP. ~~~~~';
+			logText += 'menambahkan ' + (params.blp ? 'BIO ' : '') + 'UP. ~~~~~';
 			if (params.reason) {
 				logText += "\n#* '''Alasan''': " + params.reason + '\n';
 			}
@@ -432,7 +432,7 @@ Twinkle.prod.callback.evaluate = function twinkleprodCallbackEvaluate(e) {
 	};
 
 	if (!params.blp && !params.reason) {
-		if (!confirm('Kamu membiarkan bagian alasan kosong, apakah anda yakin ingin melanjutkan?')) {
+		if (!confirm('Anda membiarkan bagian alasan kosong, apakah anda yakin ingin melanjutkan?')) {
 			return;
 		}
 	}

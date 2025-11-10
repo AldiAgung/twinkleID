@@ -19,32 +19,32 @@ Twinkle.xfd = function twinklexfd() {
 		return;
 	}
 
-	let tooltip = 'Start a discussion for deleting';
+	let tooltip = 'Mulai sebuah diskusi penghapusan';
 	if (mw.config.get('wgIsRedirect')) {
 		tooltip += ' or retargeting this redirect';
 	} else {
 		switch (mw.config.get('wgNamespaceNumber')) {
 			case 0:
-				tooltip += ' or moving this article';
+				tooltip += ' atau memindahkan artikel ini';
 				break;
 			case 10:
-				tooltip += ' or merging this template';
+				tooltip += ' atau gabungkan templat ini';
 				break;
 			case 828:
-				tooltip += ' or merging this module';
+				tooltip += ' atau gabungkan modul ini';
 				break;
 			case 6:
-				tooltip += ' this file';
+				tooltip += ' berkas ini';
 				break;
 			case 14:
-				tooltip += ', merging or renaming this category';
+				tooltip += ', gabungkan atau menamakan ulang berkas ini';
 				break;
 			default:
-				tooltip += ' this page';
+				tooltip += ' halaman ini';
 				break;
 		}
 	}
-	Twinkle.addPortletLink(Twinkle.xfd.callback, 'XFD', 'tw-xfd', tooltip);
+	Twinkle.addPortletLink(Twinkle.xfd.callback, 'UP-X', 'tw-xfd', tooltip);
 };
 
 const utils = {
@@ -52,9 +52,9 @@ const utils = {
 	num2order: function(num) {
 		switch (num) {
 			case 1: return '';
-			case 2: return '2nd';
-			case 3: return '3rd';
-			default: return num + 'th';
+			case 2: return 'kedua';
+			case 3: return 'ketiga';
+			default: return num;
 		}
 	},
 
@@ -109,7 +109,7 @@ Twinkle.xfd.currentRationale = null;
 // error callback on Morebits.Status.object
 Twinkle.xfd.printRationale = function twinklexfdPrintRationale() {
 	if (Twinkle.xfd.currentRationale) {
-		Morebits.Status.printUserText(Twinkle.xfd.currentRationale, 'Your deletion rationale is provided below, which you can copy and paste into a new XFD dialog if you wish to try again:');
+		Morebits.Status.printUserText(Twinkle.xfd.currentRationale, 'Kriteria penghapusan anda disediakan dibawah, yang anda dapat salin dan tempel ke dialog UP yang baru jika ingin mengulang kembali:');
 		// only need to print the rationale once
 		Twinkle.xfd.currentRationale = null;
 	}
@@ -117,32 +117,32 @@ Twinkle.xfd.printRationale = function twinklexfdPrintRationale() {
 
 Twinkle.xfd.callback = function twinklexfdCallback() {
 	const Window = new Morebits.SimpleWindow(700, 400);
-	Window.setTitle('Start a deletion discussion (XfD)');
+	Window.setTitle('Mulai sebuah diskusi penghapusan (PP)');
 	Window.setScriptName('Twinkle');
-	Window.addFooterLink('About deletion discussions', 'WP:XFD');
-	Window.addFooterLink('XfD prefs', 'WP:TW/PREF#xfd');
-	Window.addFooterLink('Twinkle help', 'WP:TW/DOC#xfd');
-	Window.addFooterLink('Give feedback', 'WT:TW');
+	Window.addFooterLink('Tentang diskusi penghapusan', 'WP:UP-X');
+	Window.addFooterLink('Preferensi UP', 'WP:TW/PREF#xfd');
+	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#xfd');
+	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
 
 	const form = new Morebits.QuickForm(Twinkle.xfd.callback.evaluate);
 	const categories = form.append({
 		type: 'select',
 		name: 'venue',
-		label: 'Deletion discussion venue:',
-		tooltip: 'When activated, a default choice is made, based on what namespace you are in. This default should be the most appropriate.',
+		label: 'Tempat diskusi penghapusan:',
+		tooltip: 'Saat diaktifkan, pilihan default dibuat berdasarkan ruangnama anda saat ini.',
 		event: Twinkle.xfd.callback.change_category
 	});
 	const namespace = mw.config.get('wgNamespaceNumber');
 
 	categories.append({
 		type: 'option',
-		label: 'AfD (Articles for deletion)',
+		label: 'UP (Usulan penghapusan)',
 		selected: namespace === 0, // Main namespace
 		value: 'afd'
 	});
 	categories.append({
 		type: 'option',
-		label: 'TfD (Templates for discussion)',
+		label: 'TfD (Usulan penghapusan Templat)',
 		selected: [ 10, 828 ].includes(namespace), // Template and module namespaces
 		value: 'tfd'
 	});
@@ -166,7 +166,7 @@ Twinkle.xfd.callback = function twinklexfdCallback() {
 	categories.append({
 		type: 'option',
 		label: 'MfD (Miscellany for deletion)',
-		selected: ![ 0, 6, 10, 14, 828 ].includes(namespace) || Morebits.pageNameNorm.indexOf('Template:User ', 0) === 0,
+		selected: ![ 0, 6, 10, 14, 828 ].includes(namespace) || Morebits.pageNameNorm.indexOf('Templat:Pengguna ', 0) === 0,
 		// Other namespaces, and userboxes in template namespace
 		value: 'mfd'
 	});
@@ -193,10 +193,10 @@ Twinkle.xfd.callback = function twinklexfdCallback() {
 		type: 'checkbox',
 		list: [
 			{
-				label: 'Notify page creator if possible',
+				label: 'Beritahu pembuat halaman',
 				value: 'notify',
 				name: 'notifycreator',
-				tooltip: "A notification template will be placed on the creator's talk page if this is true.",
+				tooltip: "Sebuah templat notifikasi akan ditempatkan di halaman pembicaraan pembuat halaman.",
 				checked: true
 			}
 		]
@@ -236,9 +236,9 @@ Twinkle.xfd.callback.wrongVenueWarning = function twinklexfdWrongVenueWarning(ve
 	switch (venue) {
 		case 'afd':
 			if (namespace !== 0) {
-				text = 'AfD is generally appropriate only for articles.';
+				text = 'UP secara umum diperuntukkan hanya untuk artikel.';
 			} else if (mw.config.get('wgIsRedirect')) {
-				text = 'Please use RfD for redirects.';
+				text = 'Mohon gunakan RfD untuk pengalihan.';
 			}
 			break;
 		case 'tfd':
@@ -292,9 +292,9 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 		work_area.append({
 			type: 'textarea',
 			name: 'reason',
-			label: 'Reason:',
+			label: 'Alasan:',
 			value: oldreason,
-			tooltip: 'You can use wikimarkup in your reason. Twinkle will automatically sign your post.'
+			tooltip: 'Anda dapat menggunakan markahwiki anda dalam alasan. Twinkle secara otomatis akan menandatangani usulan anda.'
 		});
 	};
 
@@ -306,7 +306,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 		case 'afd':
 			work_area = new Morebits.QuickForm.Element({
 				type: 'field',
-				label: 'Articles for deletion',
+				label: 'Usulan penghapusan',
 				name: 'work_area'
 			});
 
@@ -321,30 +321,30 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 				type: 'checkbox',
 				list: [
 					{
-						label: 'Wrap deletion tag with &lt;noinclude&gt;',
+						label: 'Bungkus tag penghapusan dengan &lt;noinclude&gt;',
 						value: 'noinclude',
 						name: 'noinclude',
-						tooltip: 'Will wrap the deletion tag in &lt;noinclude&gt; tags, so that it won\'t transclude. This option is not normally required.'
+						tooltip: 'Akan membungkus tag penghapusana dalam tag &lt;noinclude&gt;.'
 					}
 				]
 			});
 			work_area.append({
 				type: 'select',
 				name: 'xfdcat',
-				label: 'Choose what category this nomination belongs in:',
+				label: 'Pilih kategori usulan penghapusan:',
 				list: [
-					{ type: 'option', label: 'Unknown', value: '?', selected: true },
-					{ type: 'option', label: 'Media and music', value: 'M' },
-					{ type: 'option', label: 'Organisation, corporation, or product', value: 'O' },
-					{ type: 'option', label: 'Biographical', value: 'B' },
-					{ type: 'option', label: 'Society topics', value: 'S' },
-					{ type: 'option', label: 'Web or internet', value: 'W' },
-					{ type: 'option', label: 'Games or sports', value: 'G' },
-					{ type: 'option', label: 'Science and technology', value: 'T' },
-					{ type: 'option', label: 'Fiction and the arts', value: 'F' },
-					{ type: 'option', label: 'Places and transportation', value: 'P' },
-					{ type: 'option', label: 'Indiscernible or unclassifiable topic', value: 'I' },
-					{ type: 'option', label: 'Debate not yet sorted', value: 'U' }
+					{ type: 'option', label: 'Tidak diketaui', value: '?', selected: true },
+					{ type: 'option', label: 'Media dan musik', value: 'M' },
+					{ type: 'option', label: 'Organisasi, korporasi, atau produk', value: 'O' },
+					{ type: 'option', label: 'Biografi', value: 'B' },
+					{ type: 'option', label: 'Topik sosial', value: 'S' },
+					{ type: 'option', label: 'Web atau internet', value: 'W' },
+					{ type: 'option', label: 'Permainan atau olahraga', value: 'G' },
+					{ type: 'option', label: 'Sains dan teknologi', value: 'T' },
+					{ type: 'option', label: 'Fiksi dan seni', value: 'F' },
+					{ type: 'option', label: 'Tempat dan transportasi', value: 'P' },
+					{ type: 'option', label: 'Topik yang tidak dapat dibedakan atau tidak dapat diklasifikasikan', value: 'I' },
+					{ type: 'option', label: 'Perdebatan belum terselesaikan', value: 'U' }
 				]
 			});
 
@@ -352,7 +352,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 				type: 'select',
 				multiple: true,
 				name: 'delsortCats',
-				label: 'Choose deletion sorting categories:',
+				label: 'Pilih kategori pengurutan penghapusan deletion sorting categories:',
 				tooltip: 'Select a few categories that are specifically relevant to the subject of the article. Be as precise as possible; categories like People and USA should only be used when no other categories apply.'
 			});
 
@@ -418,10 +418,10 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 				name: 'work_area'
 			});
 
-			var templateOrModule = mw.config.get('wgPageContentModel') === 'Scribunto' ? 'module' : 'template';
+			var templateOrModule = mw.config.get('wgPageContentModel') === 'Scribunto' ? 'modul' : 'templat';
 			work_area.append({
 				type: 'select',
-				label: 'Choose type of action wanted:',
+				label: 'Pilih jenis tindakan:',
 				name: 'xfdcat',
 				event: function(e) {
 					const target = e.target;
@@ -431,8 +431,8 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 						tfdtarget = new Morebits.QuickForm.Element({
 							name: 'tfdtarget',
 							type: 'input',
-							label: 'Other ' + templateOrModule + ' to be merged:',
-							tooltip: 'Required. Should not include the ' + Morebits.string.toUpperCaseFirstChar(templateOrModule) + ': namespace prefix.',
+							label: templateOrModule + 'lainnya untuk digabungkan:',
+							tooltip: 'Wajib. Tidak memasukan prefix ruangnama ' + Morebits.string.toUpperCaseFirstChar(templateOrModule) + ':.',
 							required: true
 						});
 						target.parentNode.appendChild(tfdtarget.render());
@@ -442,19 +442,19 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 					}
 				},
 				list: [
-					{ type: 'option', label: 'Deletion', value: 'tfd', selected: true },
-					{ type: 'option', label: 'Merge', value: 'tfm' }
+					{ type: 'option', label: 'Penghapusan', value: 'tfd', selected: true },
+					{ type: 'option', label: 'Gabung', value: 'tfm' }
 				]
 			});
 			work_area.append({
 				type: 'select',
 				name: 'templatetype',
-				label: 'Deletion tag display style:',
-				tooltip: 'Which <code>type=</code> parameter to pass to the TfD tag template.',
+				label: 'Gaya tampilan tag penghapusan:',
+				tooltip: 'Yang dimana parameter <code>type=</code> untuk menambahkan templat tag TfD.',
 				list: templateOrModule === 'module' ? [
 					{ type: 'option', value: 'module', label: 'Module', selected: true }
 				] : [
-					{ type: 'option', value: 'standard', label: 'Standard', selected: true },
+					{ type: 'option', value: 'standard', label: 'Standar', selected: true },
 					{ type: 'option', value: 'sidebar', label: 'Sidebar/infobox', selected: $('.infobox').length },
 					{ type: 'option', value: 'inline', label: 'Inline template', selected: $('.mw-parser-output > p .Inline-Template').length },
 					{ type: 'option', value: 'tiny', label: 'Tiny inline' },
@@ -564,11 +564,11 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 					if (isCategory) {
 						// update label
 						if (value === 'cfs') {
-							Morebits.QuickForm.setElementLabel(cfdtarget, 'Target categories: ');
+							Morebits.QuickForm.setElementLabel(cfdtarget, 'Tujuan kategori-kategori: ');
 						} else if (value === 'cfc') {
-							Morebits.QuickForm.setElementLabel(cfdtarget, 'Target article: ');
+							Morebits.QuickForm.setElementLabel(cfdtarget, 'Tujuan artikel: ');
 						} else {
-							Morebits.QuickForm.setElementLabel(cfdtarget, 'Target category: ');
+							Morebits.QuickForm.setElementLabel(cfdtarget, 'Tujuan kategori: ');
 						}
 						// add/remove extra input box
 						if (value === 'cfs') {
@@ -587,25 +587,25 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 							$(cfdtarget2).hide();
 						}
 					} else { // Update stub template label
-						Morebits.QuickForm.setElementLabel(cfdtarget, 'Target stub template: ');
+						Morebits.QuickForm.setElementLabel(cfdtarget, 'Tujuan templat stub: ');
 					}
 				},
 				list: isCategory ? [
-					{ type: 'option', label: 'Deletion', value: 'cfd', selected: true },
-					{ type: 'option', label: 'Merge', value: 'cfm' },
-					{ type: 'option', label: 'Renaming', value: 'cfr' },
-					{ type: 'option', label: 'Split', value: 'cfs' },
-					{ type: 'option', label: 'Convert into article', value: 'cfc' }
+					{ type: 'option', label: 'Penghapusan', value: 'cfd', selected: true },
+					{ type: 'option', label: 'Gabung', value: 'cfm' },
+					{ type: 'option', label: 'Penamaan ulang', value: 'cfr' },
+					{ type: 'option', label: 'Pisah', value: 'cfs' },
+					{ type: 'option', label: 'Ubah ke artikel', value: 'cfc' }
 				] : [
-					{ type: 'option', label: 'Stub Deletion', value: 'sfd-t', selected: true },
-					{ type: 'option', label: 'Stub Renaming', value: 'sfr-t' }
+					{ type: 'option', label: 'Penghapusan Stub', value: 'sfd-t', selected: true },
+					{ type: 'option', label: 'Penamaan ulang Stub', value: 'sfr-t' }
 				]
 			});
 
 			work_area.append({
 				type: 'input',
 				name: 'cfdtarget',
-				label: 'Target category:', // default, changed above
+				label: 'Tujuan Kategori:', // default, changed above
 				disabled: true,
 				required: true, // only when enabled
 				value: ''
@@ -618,7 +618,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 		case 'cfds':
 			work_area = new Morebits.QuickForm.Element({
 				type: 'field',
-				label: 'Categories for speedy renaming',
+				label: 'Kategori untuk penamaan ulang cepat',
 				name: 'work_area'
 			});
 			work_area.append({
@@ -907,7 +907,7 @@ Twinkle.xfd.callbacks = {
 		if (targetNS === 3) {
 			// Disallow warning yourself
 			if (usernameOrTarget === mw.config.get('wgUserName')) {
-				Morebits.Status.warn('You (' + usernameOrTarget + ') created this page; skipping user notification');
+				Morebits.Status.warn('Anda (' + usernameOrTarget + ') membuat halaman ini; melewati notifikasi pengguna');
 
 				// if we thought we would notify someone but didn't,
 				// then jump to logging.
@@ -916,10 +916,10 @@ Twinkle.xfd.callbacks = {
 			}
 			// Default is notifying the initial contributor, but MfD also
 			// notifies userspace page owner
-			actionName = actionName || 'Notifying initial contributor (' + usernameOrTarget + ')';
+			actionName = actionName || 'Memberitahu kontributor awal (' + usernameOrTarget + ')';
 		}
 
-		let notifytext = '\n{{subst:' + params.venue + ' notice';
+		let notifytext = '\n{{subst:' + params.venue + ' pemberitahuan';
 		// Venue-specific parameters
 		switch (params.venue) {
 			case 'afd':
@@ -1045,7 +1045,7 @@ Twinkle.xfd.callbacks = {
 				break;
 			case 'rfd':
 				if (params.rfdtarget) {
-					appendText += '; Target: [[:' + params.rfdtarget + ']]';
+					appendText += '; Tujuan: [[:' + params.rfdtarget + ']]';
 					if (params.relatedpage) {
 						appendText += ' (notified)';
 					}
@@ -1136,12 +1136,12 @@ Twinkle.xfd.callbacks = {
 			}
 
 			// Check for existing AfD tag, for the benefit of new page patrollers
-			const textNoAfd = text.replace(/<!--.*AfD.*\n\{\{(?:Article for deletion\/dated|AfDM).*\}\}\n<!--.*(?:\n<!--.*)?AfD.*(?:\s*\n)?/g, '');
+			const textNoAfd = text.replace(/<!--.*UP.*\n\{\{(?:Usul penghapusan\/dated|AfDM).*\}\}\n<!--.*(?:\n<!--.*)?AfD.*(?:\s*\n)?/g, '');
 			if (text !== textNoAfd) {
-				if (confirm('An AfD tag was found on this article. Maybe someone beat you to it.  \nClick OK to replace the current AfD tag (not recommended), or Cancel to abandon your nomination.')) {
+				if (confirm('Sebuah tag UP telah ditemuka di artikel ini.  \nTekan OK untuk mengganti tag UP, atau Batal untuk membatalkan.')) {
 					text = textNoAfd;
 				} else {
-					statelem.error('Article already tagged with AfD tag, and you chose to abort');
+					statelem.error('Artikel telah diberi tag UP, dan anda memilih untuk membatalkan');
 					window.location.reload();
 					return;
 				}
@@ -1155,7 +1155,7 @@ Twinkle.xfd.callbacks = {
 			}
 
 			// Start discussion page, will also handle pagetriage and delsort listings
-			let wikipedia_page = new Morebits.wiki.Page(params.discussionpage, 'Creating article deletion discussion page');
+			let wikipedia_page = new Morebits.wiki.Page(params.discussionpage, 'Membuat halaman usulan penghapusan artikel');
 			wikipedia_page.setCallbackParameters(params);
 			wikipedia_page.load(Twinkle.xfd.callbacks.afd.discussionPage);
 
@@ -1582,7 +1582,7 @@ Twinkle.xfd.callbacks = {
 			const params = pageobj.getCallbackParameters();
 
 			pageobj.setPageText(Twinkle.xfd.callbacks.getDiscussionWikitext('mfd', params));
-			pageobj.setEditSummary('Creating deletion discussion page for [[:' + Morebits.pageNameNorm + ']].');
+			pageobj.setEditSummary('Membuat halaman diskusi penghapusan untuk [[:' + Morebits.pageNameNorm + ']].');
 			pageobj.setChangeTags(Twinkle.changeTags);
 			pageobj.setWatchlist(Twinkle.getPref('xfdWatchDiscussion'));
 			pageobj.setCreateOption('createonly');
@@ -1604,12 +1604,12 @@ Twinkle.xfd.callbacks = {
 				statelem.info('Found today\'s section, proceeding to add new entry');
 				text = text.replace(date_header_regex, '$1\n' + added_data);
 			} else { // we need to create a new section
-				statelem.info('No section for today found, proceeding to create one');
+				statelem.info('Tidak ada bagian baru hari ini, melanjutkan membuat yang baru');
 				text = text.replace('===', date_header + added_data + '\n\n===');
 			}
 
 			pageobj.setPageText(text);
-			pageobj.setEditSummary('Adding [[:' + params.discussionpage + ']].');
+			pageobj.setEditSummary('Menambahkan [[:' + params.discussionpage + ']].');
 			pageobj.setChangeTags(Twinkle.changeTags);
 			pageobj.setWatchlist(Twinkle.getPref('xfdWatchList'));
 			pageobj.setCreateOption('recreate');
@@ -1645,7 +1645,7 @@ Twinkle.xfd.callbacks = {
 			let text = pageobj.getPageText();
 			const params = pageobj.getCallbackParameters();
 
-			const date = new Morebits.Date(pageobj.getLoadTime()).format('YYYY MMMM D', 'utc');
+			const date = new Morebits.Date(pageobj.getLoadTime()).format('D MMMM YYYY', 'utc');
 			params.logpage = 'Wikipedia:Files for discussion/' + date;
 			params.discussionpage = params.logpage + '#' + Morebits.pageNameNorm;
 
@@ -2009,7 +2009,7 @@ Twinkle.xfd.callbacks = {
 					statelem.warn('Soft redirect; skipping target page notification');
 				// Don't issue if target talk is the initial contributor's talk or your own
 				} else if (targetTalk.getNamespaceId() === 3 && targetTalk.getNameText() === initialContrib) {
-					statelem.warn('Target is initial contributor; skipping target page notification');
+					statelem.warn('Tujuan is initial contributor; skipping target page notification');
 				} else if (targetTalk.getNamespaceId() === 3 && targetTalk.getNameText() === mw.config.get('wgUserName')) {
 					statelem.warn('You (' + mw.config.get('wgUserName') + ') are the target; skipping target page notification');
 				} else {

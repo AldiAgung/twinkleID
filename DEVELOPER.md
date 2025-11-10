@@ -1,19 +1,19 @@
-# Reviewing and merging pull requests
+# Mengulas dan meminta pull request
 
 (WIP)
 
-Kolaborator sangat dianjurkan untuk membaca  are encouraged to thoroughly review and [test](./CONTRIBUTING.md) setiap pull request, termasuk masing-masing.  Kecuali sangat perlu, dapat membantu untuk membiarkan PRs dibuka untuk berdiskusi.
+Kolaborator sangat dianjurkan untuk membaca  are encouraged to thoroughly review and [test](./CONTRIBUTING.md) setiap pull request, termasuk masing-masing. Kecuali sangat perlu, dapat membantu untuk membiarkan PRs dibuka untuk berdiskusi.
 
 Hal yang perlu diperhatikan:
 
 - Items and processes laid out in [CONTRIBUTING.md](./CONTRIBUTING.md) are followed.
-- Twinkle is meant to run on the latest weekly version of MediaWiki as rolled out every Thursday on the English Wikipedia.  Backwards compatibility is not guaranteed.
+- Twinkle dimaksudkan untuk berjalan di versi terbaru mingguan MediaWiki yang diperbarui setiap Kamis di Wikipedia English. Kompabilitas belakang tidak dijamin.
 - The goal is for Twinkle and Morebits to support the same [browsers that MediaWiki supports](https://www.mediawiki.org/wiki/Browser_compatibility).  In particular, collaborators should look out for [unsupported additions](https://kangax.github.io/compat-table/es6/) from ES6 (aka ES2015); `.includes` and `.find` are among the most likely to show up, although the jQuery `$.find()` is fine.
 - Certain positional jQuery selectors like `:first`, `:last`, and `:eq` were [deprecated in jQuery version 3.4.0](https://blog.jquery.com/2019/04/10/jquery-3-4-0-released/) and should probably not be reintroduced.  Instead, use methods like `.first()`, `.last()`, or `.eq()`.
 
 ## Memperbarui skrip di Wikipedia
 
-There are two ways to upload Twinkle scripts to Wikipedia or another destination. You can do it with a [Perl script](#synchronization-using-syncpl) (recommended) or [manually](#manual-synchronization).
+Terdapat dua cara untuk mengunggah skrip Twinkle ke Wikipedia atau tujuan lainnya. Anda dapat menggunakan dengan [Perl script](#synchronization-using-syncpl) (rekomendasi) atau [manual](#manual-synchronization).
 
 Setelah berkas-berkasnya disinkronasikan, pastikan [MediaWiki:Gadgets-definition][] memiliki modul-modul berikut:
 
@@ -24,7 +24,7 @@ Setelah berkas-berkasnya disinkronasikan, pastikan [MediaWiki:Gadgets-definition
 
 This loads the `morebits` library as a hidden gadget, making it efficiently available for other tools to use. `Twinkle-pagestyles` is a hidden [peer gadget](https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_(users)#Gadget_peers) of Twinkle. Before Twinkle has loaded, it adds space where the TW menu would go in the Vector skin, so that the top bar does not "jump".  [select2][] is also uploaded as a hidden gadget for better menus and to take advantage of the Resource Loader over the [Toolforge CDN](https://tools.wmflabs.org/cdnjs/); it is done so under the [MIT license](https://github.com/select2/select2/blob/develop/LICENSE.md).  Loading via the ResourceLoader causes it to register as a nodejs/commonjs environment with `module.exports`, so a slight tweak has been made, eliminating that check.  Ideally, this will be handled differently (see [external libraries](https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_for_extension_developers#Special_case_of_external_libraries) and [T108655](https://phabricator.wikimedia.org/T108655).  As such, be careful when updating select2 from upstream.
 
-### Manual synchronization
+### Sinkronisasi manual
 
 Each Twinkle module and dependency lives on the wiki as a separate file. The list of modules and what pages they should be on are as follows:
 
@@ -56,7 +56,7 @@ Each Twinkle module and dependency lives on the wiki as a separate file. The lis
 * `modules/friendlytalkback.js` &rarr; [MediaWiki:Gadget-friendlytalkback.js][]
 * `modules/twinkleblock.js` &rarr; [MediaWiki:Gadget-twinkleblock.js][]
 
-### Synchronization using `sync.pl`
+### Sinkronisasi dengan `sync.pl`
 
 There is a synchronization script called `sync.pl`, which can be used to deploy updates to on-wiki gadgets, or update the repository based on on-wiki changes. For full details, run `perl sync.pl --help`.
 
@@ -98,7 +98,6 @@ To `pull` user Foobar's changes (i.e. `User:Foobar/morebits.js`) down from the w
 To `push` your changes to user Foobar's wiki page, do:
 
     ./sync.pl --base User:Foobar/ --mode=push twinkle.js morebits.js ...
-
 
 [MediaWiki:Gadgets-definition]: https://id.wikipedia.org/wiki/MediaWiki:Gadgets-definition
 [MediaWiki:Gadget-Twinkle.js]: https://id.wikipedia.org/wiki/MediaWiki:Gadget-Twinkle.js

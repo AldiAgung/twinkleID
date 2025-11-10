@@ -7,6 +7,26 @@ let relevantUserName, blockedUserName, blockWindow;
 const menuFormattedNamespaces = $.extend({}, mw.config.get('wgFormattedNamespaces'));
 menuFormattedNamespaces[0] = '(Article)';
 
+const durationTranslations = { //lokalisasi penerjemahan waktu
+    '3 hours': '3 jam',
+    '12 hours': '12 jam',
+    '24 hours': '24 jam',
+    '31 hours': '31 jam',
+    '36 hours': '36 jam',
+    '48 hours': '48 jam',
+    '60 hours': '60 jam',
+    '72 hours': '72 jam',
+    '1 week': '1 minggu',
+    '2 weeks': '2 minggu',
+    '1 month': '1 bulan',
+    '3 months': '3 bulan',
+    '6 months': '6 bulan',
+    '1 year': '1 tahun',
+    '2 years': '2 tahun',
+    '3 years': '3 tahun',
+    'infinity': 'selamanya'
+};
+
 /*
  ****************************************
  *** twinkleblock.js: Block module
@@ -1946,8 +1966,8 @@ Twinkle.block.callback.getBlockNoticeWikitext = function(params) {
 			if (params.indefinite) {
 				text += '|indef=yes';
 			} else if (!params.blank_duration && !new Morebits.Date(params.expiry).isValid()) {
-				// Block template wants a duration, not date
-				text += '|time=' + params.expiry;
+				const translatedExpiry = durationTranslations[params.expiry] || params.expiry;
+				text += '|time=' + translatedExpiry;
 			}
 		}
 

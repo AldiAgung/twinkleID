@@ -56,7 +56,7 @@ Twinkle.rollback = function twinklerollback() {
 // makes edits seconds after the original edit is made.  This only affects
 // vandalism rollback; for good faith rollback, it will stop, indicating a bot
 // has no faith, and for normal rollback, it will rollback that edit.
-Twinkle.rollback.trustedBots = ['AnomieBOT', 'SineBot', 'MajavahBot','Ruhivabot'];
+Twinkle.rollback.trustedBots = ['AnomieBOT', 'SineBot', 'MajavahBot','Ruhivabot', 'HsfBot'];
 Twinkle.rollback.skipTalk = null;
 Twinkle.rollback.rollbackInPlace = null;
 // String to insert when a username is hidden
@@ -112,8 +112,8 @@ Twinkle.rollback.linkBuilder = {
 		const normNode = document.createElement('span');
 		const vandNode = document.createElement('span');
 
-		const normLink = Twinkle.rollback.linkBuilder.buildLink('SteelBlue', 'rollback');
-		const vandLink = Twinkle.rollback.linkBuilder.buildLink('Red', 'vandalism');
+		const normLink = Twinkle.rollback.linkBuilder.buildLink('SteelBlue', 'kembalikkan');
+		const vandLink = Twinkle.rollback.linkBuilder.buildLink('Red', 'vandalisme');
 
 		normLink.style.fontWeight = 'bold';
 		vandLink.style.fontWeight = 'bold';
@@ -140,7 +140,7 @@ Twinkle.rollback.linkBuilder = {
 
 		if (!inline) {
 			const agfNode = document.createElement('span');
-			const agfLink = Twinkle.rollback.linkBuilder.buildLink('DarkOliveGreen', 'rollback (ANB)');
+			const agfLink = Twinkle.rollback.linkBuilder.buildLink('DarkOliveGreen', 'kembalikkan (ANB)');
 			$(agfLink).on('click', (e) => {
 				e.preventDefault();
 				Twinkle.rollback.revert('agf', vandal, rev, page);
@@ -169,7 +169,7 @@ Twinkle.rollback.linkBuilder = {
 		revertToRevisionNode.setAttribute('id', 'tw-revert-to-' + revisionRef);
 		revertToRevisionNode.style.fontWeight = 'bold';
 
-		const revertToRevisionLink = Twinkle.rollback.linkBuilder.buildLink('SaddleBrown', 'kembalikkan versi ini');
+		const revertToRevisionLink = Twinkle.rollback.linkBuilder.buildLink('SaddleBrown', 'Kembalikkan versi ini');
 		$(revertToRevisionLink).on('click', (e) => {
 			e.preventDefault();
 			Twinkle.rollback.revertToRevision(revisionRef);
@@ -362,7 +362,7 @@ Twinkle.rollback.revert = function revertPage(type, vandal, rev, page) {
 		const notifyStatus = document.createElement('span');
 		mw.notify(notifyStatus, {
 			autoHide: false,
-			title: 'Rollback on ' + page,
+			title: 'Pengembalian pada ' + page,
 			tag: 'twinklerollback_' + rev // Shouldn't be necessary given disableLink
 		});
 		Morebits.Status.init(notifyStatus);
@@ -414,9 +414,6 @@ Twinkle.rollback.revertToRevision = function revertToRevision(oldrev) {
 		format: 'json'
 	};
 	const wikipedia_api = new Morebits.wiki.Api('Mengambil dari revisi sebelumnya', query, Twinkle.rollback.callbacks.toRevision);
-		if (extra_summary) { // Hanya tambahkan jika tidak null DAN tidak kosong
-		summary += ': ' + Morebits.string.toUpperCaseFirstChar(extra_summary);
-}
 	wikipedia_api.params = { rev: oldrev };
 	wikipedia_api.post();
 };
@@ -438,18 +435,18 @@ Twinkle.rollback.callbacks = {
 		const revertToUserHidden = !!rev.userhidden;
 
 		if (revertToRevID !== apiobj.params.rev) {
-			apiobj.statelem.error('Revisiyang diperoleh tidak sama dengan revisi yang doiminta. Membatalkan.');
+			apiobj.statelem.error('Revisi yang diperoleh tidak sama dengan revisi yang diminta. Membatalkan.');
 			return;
 		}
 
-		const optional_summary = prompt('Sebutkan alasan dikembalikkan:                                ', ''); // padded out to widen prompt in Firefox
+		const optional_summary = prompt('Sebutkan alasan pengembalian:                                ', ''); // padded out to widen prompt in Firefox
 		if (optional_summary === null) {
 			apiobj.statelem.error('Dibatalkan oleh pengguna.');
 			return;
 		}
 
-		const summary = Twinkle.rollback.formatSummary('Revisi dipulihkan' + revertToRevID + ' oleh $USER',
-			revertToUserHidden ? null : revertToUser, optional_summary);
+		const summary = Twinkle.rollback.formatSummary('Revisi dipulihkan ' + revertToRevID + ' oleh $USER',
+			revertToUserHidden ? null : revertToUser, optional_summary || '');
 
 		const query = {
 			action: 'edit',
@@ -482,9 +479,9 @@ Twinkle.rollback.callbacks = {
 		}
 
 		Morebits.wiki.actionCompleted.redirect = mw.config.get('wgPageName');
-		Morebits.wiki.actionCompleted.notice = 'Pembalikkan selesai';
+		Morebits.wiki.actionCompleted.notice = 'Pembatalan selesai';
 
-		const wikipedia_api = new Morebits.wiki.Api('Menyimpan konten balikkan', query, Twinkle.rollback.callbacks.complete, apiobj.statelem);
+		const wikipedia_api = new Morebits.wiki.Api('Menyimpan konten pembatalan', query, Twinkle.rollback.callbacks.complete, apiobj.statelem);
 		wikipedia_api.params = apiobj.params;
 		wikipedia_api.post();
 	},
@@ -524,20 +521,20 @@ Twinkle.rollback.callbacks = {
 		let userNorm = params.user || Twinkle.rollback.hiddenName;
 		let index = 1;
 		if (params.revid !== lastrevid) {
-			Morebits.Status.warn('Warning', [ 'Revisi terakhir ', Morebits.htmlNode('strong', lastrevid), ' tidak sesuai dengan revisi kami ', Morebits.htmlNode('strong', self.params.revid) ]);
+			Morebits.Status.warn('Warning', [ 'Revisi terakhir ', Morebits.htmlNode('strong', lastrevid), ' tidak sesuai dengan revisi kami ', Morebits.htmlNode('strong', params.revid) ]);
 			// Treat ipv6 users on same 64 block as the same
 			if (lastuser === params.user || (mw.util.isIPv6Address(params.user) && Morebits.ip.get64(lastuser) === Morebits.ip.get64(params.user))) {
 				switch (params.type) {
 					case 'vand':
 						var diffUser = lastuser !== params.user;
 						Morebits.Status.info('Info', [ 'Revisi terbaru ' + (diffUser ? '' : 'juga ') + 'dibuat oleh ', Morebits.htmlNode('strong', userNorm),
-							diffUser ? ', yang juga sama dalam subnet /64' : '', '. Karena kami menduga adanya vandalisme, melanjutkan untuk mengembalikannya.' ]);
+							diffUser ? ', yang juga sama dalam subnet /64' : '', '. Karena menduga adanya vandalisme, melanjutkan untuk mengembalikan.' ]);
 						break;
 					case 'agf':
 						Morebits.Status.warn('Warning', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', userNorm), '. Asumsi suntingan niat baik, membatalkan pembalikkan dikarenakan masalahnya telah selesai.' ]);
 						return;
 					default:
-						Morebits.Status.warn('Notice', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', userNorm), ', membatalkan.' ]);
+						Morebits.Status.warn('Pemberitahuan', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', userNorm), ', membatalkan.' ]);
 						return;
 				}
 			} else if (params.type === 'vand' &&
@@ -562,26 +559,26 @@ Twinkle.rollback.callbacks = {
 		if (Twinkle.rollback.trustedBots.includes(params.user)) {
 			switch (params.type) {
 				case 'vand':
-					Morebits.Status.info('Info', [ 'Suntingan vandal telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Karena ini adalah bot tepercaya, kami berasumsi Anda ingin mengembalikan vandalisme yang dilakukan oleh pengguna sebelumnya.' ]);
+					Morebits.Status.info('Info', [ 'Suntingan vandal telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Karena ini adalah bot tepercaya, berasumsi Anda ingin mengembalikan vandalisme yang dilakukan oleh pengguna sebelumnya.' ]);
 					index = 2;
 					params.user = revs[1].user;
 					params.userHidden = !!revs[1].userhidden;
 					break;
 				case 'agf':
-					Morebits.Status.warn('Notice', [ 'Pembalikkan suntingan niat baik telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya dan karenanya pengembalian ANB tidak akan dilanjutkan.' ]);
+					Morebits.Status.warn('Notice', [ 'Pembatalan suntingan niat baik telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya dan karenanya pembatalan ANB tidak akan dilanjutkan.' ]);
 					return;
 				case 'norm':
 				/* falls through */
 				default:
-					var cont = confirm('Normal revert was chosen, but the most recent edit was made by a trusted bot (' + userNorm + '). Do you want to revert the revision before instead?');
+					var cont = confirm('Pembatalan biasa telah dipilih, tetapi suntingan baru-baru ini telah dilakukan oleh bot terpecaya (' + userNorm + '). Apakah anda ingin mengembalikkan revisi sebelumnya saja?');
 					if (cont) {
-						Morebits.Status.info('Info', [ 'Pembalikkan biasa telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya, tetapi berdasarkan konfirmasi, pengembalian pada revisi sebelumnya saja.' ]);
+						Morebits.Status.info('Info', [ 'Pembatalan biasa telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya, tetapi berdasarkan konfirmasi, pengembalian pada revisi sebelumnya saja.' ]);
 						index = 2;
 						params.user = revs[1].user;
 						params.userHidden = !!revs[1].userhidden;
 						userNorm = params.user || Twinkle.rollback.hiddenName;
 					} else {
-						Morebits.Status.warn('Notice', [ 'Pembalikkan biasa telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya, tetapi berdasarkan konfirmasi, pengembalian pada revisi yang dipilih akan dilanjutkan.' ]);
+						Morebits.Status.warn('Notice', [ 'Pembatalan biasa telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya, tetapi berdasarkan konfirmasi, pengembalian pada revisi yang dipilih akan dilanjutkan.' ]);
 					}
 					break;
 			}
@@ -644,12 +641,12 @@ Twinkle.rollback.callbacks = {
 				}
 				userHasAlreadyConfirmedAction = true;
 
-				summary = Twinkle.rollback.formatSummary('Dibalikkan suntingan [[WP:ANB|berniat baik]] oleh $USER',
-					params.userHidden ? null : params.user, extra_summary);
+				summary = Twinkle.rollback.formatSummary('Membatalkan suntingan [[WP:ANB|berniat baik]] oleh $USER',
+					params.userHidden ? null : params.user, extra_summary || '');
 				break;
 
 			case 'vand':
-				summary = Twinkle.rollback.formatSummary('Dibalikkan suntingan ' + params.count + ' oleh $USER ke revisi sebelumnya oleh ' +
+				summary = Twinkle.rollback.formatSummary('Membatalkan ' + params.count + ' suntingan oleh $USER ke revisi terakhir oleh ' +
 					(params.gooduserHidden ? Twinkle.rollback.hiddenName : params.gooduser), params.userHidden ? null : params.user);
 				break;
 
@@ -665,8 +662,8 @@ Twinkle.rollback.callbacks = {
 					userHasAlreadyConfirmedAction = true;
 				}
 
-				summary = Twinkle.rollback.formatSummary('Dibalikkan suntingan ' + params.count + ' oleh $USER',
-					params.userHidden ? null : params.user, extra_summary);
+				summary = Twinkle.rollback.formatSummary('Membatalkan ' + params.count + ' suntingan ' + ' oleh $USER',
+					params.userHidden ? null : params.user, extra_summary || '');
 				break;
 		}
 
@@ -739,7 +736,7 @@ Twinkle.rollback.callbacks = {
 		}
 		Morebits.wiki.actionCompleted.notice = 'Pembalikkan selesai';
 
-		const wikipedia_api = new Morebits.wiki.Api('Menyimpan konten dibalikkan', query, Twinkle.rollback.callbacks.complete, statelem);
+		const wikipedia_api = new Morebits.wiki.Api('Menyimpan konten pembatalan', query, Twinkle.rollback.callbacks.complete, statelem);
 		wikipedia_api.params = params;
 		wikipedia_api.post();
 
@@ -752,7 +749,7 @@ Twinkle.rollback.callbacks = {
 		if (edit.captcha) {
 			apiobj.statelem.error('Tidak dapat dibalikkan, dikarenakan peladen wiki mengharuskan anda mengisi CAPTCHA.');
 		} else if (edit.nochange) {
-			apiobj.statelem.error('Revisi yang dibalikkan sama dengan revisi sekarang, membatalkan.');
+			apiobj.statelem.error('Revisi yang dibatalkan sama dengan revisi sekarang, membatalkan.');
 		} else {
 			if (!Twinkle.getPref('rollbackInPlace')) {
                 $('#catlinks').remove();
@@ -805,7 +802,7 @@ Twinkle.rollback.callbacks = {
 					action: 'review',
 					revid: edit.newrevid,
 					token: apiobj.params.csrftoken,
-					comment: 'Otomatis menerima pembalikkan' + Twinkle.summaryAd // until the below
+					comment: 'Otomatis menerima pengembalian' + Twinkle.summaryAd // until the below
 					// 'tags': Twinkle.changeTags // flaggedrevs tag support: [[phab:T247721]]
 				};
 				const wikipedia_api = new Morebits.wiki.Api('Otomatis menerima suntingan Anda', query);
@@ -834,7 +831,7 @@ Twinkle.rollback.formatSummary = function(builtInString, userName, customString)
 			const contribsLink = '[[Istimewa:Kontribusi/' + userName + '|' + userName + ']]';
 			const contribsLen = unescape(encodeURIComponent(contribsLink)).length;
 			if (resultLen + contribsLen <= 499) {
-				const talkLink = ' ([[Pembicaraan pengguna:' + userName + '|' + msg('talk-link-text', 'talk') + ']])';
+				const talkLink = ' ([[Pembicaraan pengguna:' + userName + '|' + Morebits.i18n.getMessage('talk-link-text', 'bicara') + ']])';
 				if (resultLen + contribsLen + unescape(encodeURIComponent(talkLink)).length <= 499) {
 					result = Morebits.string.safeReplace(result, '$USER', contribsLink + talkLink);
 				} else {

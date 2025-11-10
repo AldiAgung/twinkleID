@@ -206,7 +206,7 @@ Twinkle.speedy.data = [
 		code: 'a7',
 		db: 'a7',
 		tooltip: 'Artikel tentang tokoh, organisasi (termasuk di dalamnya band, klub, perusahaan, dll., kecuali sekolah), atau isi situs yang tidak menunjukkan alasan mengapa subyek itu dianggap penting. Jika yang kontroversial, maka Anda dapat mengusulkan penghapusan dengan templat {{hapus}} atau membawanya ke halaman Wikipedia:Usulan penghapusan',
-		hideWhenSingle: true
+		// hideWhenSingle: true // <- dikarenakan di Wiki EN harus digabung, maka harus di komen atau lebih baik dihapus saja untuk memunculkan tombol ini
 	},
 	{
 		list: 'articleList',
@@ -231,7 +231,7 @@ Twinkle.speedy.data = [
 		list: 'articleList',
 		label: 'A11: Tidak ada kepentingan klaim',
 		code: 'a11',
-		db: 'madeup',
+		db: 'deleted-multiple',
 		tooltip: 'Artikel yang secara gamblang menyatakan bahwa topiknya diciptakan/diciptakan/ditemukan oleh pembuat artikel atau seseorang yang mereka kenal secara pribadi, dan tidak secara meyakinkan menyatakan mengapa topiknya penting atau signifikan'
 	},
 	{
@@ -264,7 +264,7 @@ Twinkle.speedy.data = [
 	{
 		list: 'userList',
 		label: 'H1: Permintaan pengguna',
-		code: 'u1',
+		code: 'h1',
 		db: 'userreq',
 		tooltip: 'Permintaan Wikipediawan yang memulai halaman itu, jika halaman tersebut belum disunting secara berarti oleh pengguna lain. Jika pembuat halaman mengosongkan halaman yang dibuatnya, hal ini dapat diartikan bahwa ia menginginkan halaman tersebut dihapus',
 		subgroup: mw.config.get('wgNamespaceNumber') === 3 && !mw.config.get('wgTitle').includes('/') ? {
@@ -278,15 +278,15 @@ Twinkle.speedy.data = [
 	},
 	{
 		list: 'userList',
-		code: 'u2',
+		code: 'H2',
 		label: 'H2: Pengguna tidak nyata',
 		db: 'nouser',
-		tooltip: 'Halaman pengguna dari pengguna tidak nyata (Cek Istimewa:daftarpengguna)'
+		tooltip: 'Halaman pengguna dari pengguna tidak nyata (Cek Istimewa:Daftar pengguna)'
 	},
 	{
 		list: 'userList',
 		label: 'H5: Non-kontributor menyalahgunaan Wikipedia sebagai hos web pribadi',
-		code: 'u5',
+		code: 'h5',
 		db: 'notwebhost',
 		tooltip: 'Halaman di ruang pengguna yang berisi tulisan, informasi, diskusi, atau aktivitas yang tidak berkaitan erat dengan tujuan Wikipedia, di mana pemiliknya hanya melakukan sedikit atau tidak melakukan penyuntingan di luar halaman pengguna, kecuali untuk draf yang masuk akal dan halaman yang mematuhi WP:UPYES. Ketentuan ini berlaku terlepas dari usia halaman yang dimaksudkan',
 		hideWhenRedirect: true
@@ -398,10 +398,10 @@ Twinkle.speedy.data = [
 	},
 	{
 		list: 'generalList',
-		label: 'U6: XfD',
+		label: 'U6: Proses penghapusan (UP-X)',
 		code: 'u6',
 		db: 'xfd',
-		tooltip: 'Sebuah diskusi pengahpusan (di UP, UP-B, RfD, TfD, CfD, atau MfD) ditutup sebagai "hapus", tapi halamannya tidak dihapus.',
+		tooltip: 'Sebuah diskusi penghapusan (di UP, UP-B, RfD, TfD, CfD, atau MfD) ditutup sebagai "hapus", tapi halamannya tidak dihapus.',
 		subgroup: {
 			name: 'xfd_fullvotepage',
 			type: 'input',
@@ -449,6 +449,13 @@ Twinkle.speedy.data = [
 			label: 'Alasan:',
 			size: 60
 		}
+	},
+		{
+		list: 'generalList',
+		label: 'U6: Halaman disambiguasi yang tak perlu',
+		code: 'u6',
+		db: 'disambig',
+		tooltip: 'Untuk halaman disambiguasi yatim yang: (1) mendisambiguasi kurang dari dua halaman Wikipedia untuk yang judulnya berakhiran "(disambiguasi)"; atau (2) mendisambiguasi tidak ada halaman'
 	},
 	{
 		list: 'generalList',
@@ -543,16 +550,9 @@ Twinkle.speedy.data = [
 	{
 		list: 'generalList',
 		label: 'U13: Artikel dibuat secara murni dengan tulisan AI generatif',
-		code: 'U13',
+		code: 'u13',
 		db: 'u13',
 		tooltip: 'Artikel dibuat secara murni mengguakan alat AI, dan tanpa adanya sumber/referensi yang jelas.',
-	},
-	{
-		list: 'generalList',
-		label: 'U6: Halaman disambiguasi yang tak perlu',
-		code: 'u6',
-		db: 'disambig',
-		tooltip: 'Untuk halaman disambiguasi yatim yang: (1) mendisambiguasi kurang dari dua halaman Wikipedia untuk yang judulnya berakhiran "(disambiguasi)"; atau (2) mendisambiguasi tidak ada halaman'
 	},
 	/* <-- Belum ada kriteria yang sesuai di WBI, silahkan hilangkan komentar ini jika sudah ada -->
 	{
@@ -943,7 +943,7 @@ Twinkle.speedy.callback.modeChanged = function twinklespeedyCallbackModeChanged(
 		switch (namespace) {
 			case 0: // article
 			case 1: // talk
-				appendList('Artikel', Twinkle.speedy.articleList);
+				appendList('Kriteria Artikel (A)', Twinkle.speedy.articleList);
 				break;
 
 			case 2: // user
@@ -987,7 +987,7 @@ Twinkle.speedy.callback.modeChanged = function twinklespeedyCallbackModeChanged(
 	if (!mode.isSysop) {
 		generalCriteria = Twinkle.speedy.customRationale.concat(generalCriteria);
 	}
-	appendList('Kriteria umum', generalCriteria);
+	appendList('Kriteria umum (U)', generalCriteria);
 
 	const old_area = Morebits.QuickForm.getElements(form, 'work_area')[0];
 	form.replaceChild(work_area.render(), old_area);
@@ -1251,7 +1251,7 @@ Twinkle.speedy.callbacks = {
 			}
 			notifytext += (params.welcomeuser ? '' : '|nowelcome=yes') + '}} ~~~~';
 
-			editsummary = 'Notifikasi: penghapusan cepat' + (params.warnUser ? '' : ' nominasi');
+			editsummary = (params.warnUser) ? 'Notifikasi: penghapusan cepat' : 'Notifikasi: nominasi penghapusan cepat';
 			if (!params.normalizeds.includes('u10')) { // no article name in summary for G10 taggings
 				editsummary += ' dari [[:' + Morebits.pageNameNorm + ']].';
 			} else {
@@ -1336,7 +1336,7 @@ Twinkle.speedy.callbacks = {
 					params.normalized !== 'b8' &&
 					!document.getElementById('ca-talk').classList.contains('new')) {
 				const talkpage = new Morebits.wiki.Page(mw.config.get('wgFormattedNamespaces')[mw.config.get('wgNamespaceNumber') + 1] + ':' + mw.config.get('wgTitle'), 'Menghapus halaman pembicaraan');
-				talkpage.setEditSummary('[[WP:KPC#U8|U8]]: Halaman pembicaraan dari halaman terhapus [[' + Morebits.pageNameNorm + ']]');
+				talkpage.setEditSummary('[[WP:KPC#U8|U8]]: Halaman pembicaraan dari halaman terhapus [[' + mw.config.get('wgTitle') + ']]');
 				talkpage.setChangeTags(Twinkle.changeTags);
 				talkpage.deletePage();
 				// this is ugly, but because of the architecture of wiki.api, it is needed
@@ -1583,10 +1583,10 @@ Twinkle.speedy.callbacks = {
 		addToLog: function(params, initialContrib) {
 			const usl = new Morebits.UserspaceLogger(Twinkle.getPref('speedyLogPageName'));
 			usl.initialText =
-				"This is a log of all [[WP:CSD|speedy deletion]] nominations made by this user using [[WP:TW|Twinkle]]'s CSD module.\n\n" +
-				'If you no longer wish to keep this log, you can turn it off using the [[Wikipedia:Twinkle/Preferences|preferences panel]], and ' +
-				'nominate this page for speedy deletion under [[WP:CSD#U1|CSD U1]].' +
-				(Morebits.userIsSysop ? '\n\nThis log does not track outright speedy deletions made using Twinkle.' : '');
+				"Ini adalah semua catatan dari semua nominasi [[WP:KPC|penghapusan cepat]] yang dibuat oleh pengguna ini dengan modul KPC [[WP:TW|Twinkle]].\n\n" +
+				'Jika anda tidak ingin menyimpan catatan ini, anda dapat mematikannya di [[Wikipedia:Twinkle/Preferences|panel preferensi]], dan ' +
+				'nominasikan halaman ini untuk penghapusan cepat dibawah [[WP:KPC#U1|KPC U1]].' +
+				(Morebits.userIsSysop ? '\n\Catatan ini tidak mencatat diluar penghapusan cepat yang dibuat dengan Twinkle.' : '');
 
 			const formatParamLog = function(normalize, csdparam, input) {
 				if ((normalize === 'G4' && csdparam === 'xfd') ||
@@ -1657,7 +1657,7 @@ Twinkle.speedy.callbacks = {
 			}
 
 			if (params.requestsalt) {
-				appendText += '; meminta perlindungan pembuatan ([[WP:SALT|salting]])';
+				appendText += '; meminta perlindungan pembuatan ([[WP:SALT|berulang]])';
 			}
 			if (extraInfo) {
 				appendText += '; informasi tambahan:' + extraInfo;
@@ -1716,7 +1716,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 
 			case 'banned': // G5
 				if (form['csd.banned_user'] && form['csd.banned_user'].value) {
-					currentParams.user = form['csd.banned_user'].value.replace(/^\s*User:/i, '');
+					currentParams.user = form['csd.banned_user'].value.replace(/^\s*Pengguna:/i, '');
 				}
 				break;
 
@@ -1858,7 +1858,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 				if (form['csd.commons_filename']) {
 					const filename = form['csd.commons_filename'].value;
 					if (filename && filename.trim() && filename !== Morebits.pageNameNorm) {
-						currentParams.filename = new RegExp('^\\s*' + Morebits.namespaceRegex(6) + ':', 'i').test(filename) ? filename : 'File:' + filename;
+						currentParams.filename = new RegExp('^\\s*' + Morebits.namespaceRegex(6) + ':', 'i').test(filename) ? filename : 'Berkas:' + filename;
 					}
 				}
 				break;

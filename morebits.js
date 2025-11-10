@@ -1890,7 +1890,7 @@ Morebits.date.localeData = {
  * @property {string} years
  */
 
-Morebits.date.unitMap = {
+Morebits.date.unitMap = { //Tolong jangan diubah karena ini udah menyangkut semua format penangalan Wiki
 	seconds: 'Seconds',
 	minutes: 'Minutes',
 	hours: 'Hours',
@@ -2813,7 +2813,7 @@ Morebits.wiki.page = function(pageName, status) {
 					msg('protected-indef-edit-warning', 'Anda akan membuat sebuah suntingan pada halaman perlindungan penuh "' + ctx.pageName + '" (perlindungan tidak terdefinisikan).\n\nTekan OK untuk melanjutkan penyuntingan, atau Batal untuk lewati suntingan ini.', ctx.pageName) :
 					msg('protected-edit-warning', ctx.pageName, ctx.fullyProtected,
 						'Anda akan membuat sebuah suntingan pada halaman perlindungan penuh "' + ctx.pageName +
-					'" (protection expiring ' + new Morebits.date(ctx.fullyProtected).calendar('utc') + ' (UTC)).  \n\Tekan OK untuk melanjutkan suntingan, atau Batal untuk lewati suntingan ini.'
+					'" (perlindungan kedaluwarsa ' + new Morebits.date(ctx.fullyProtected).calendar('utc') + ' (UTC)).  \n\Tekan OK untuk melanjutkan suntingan, atau Batal untuk lewati suntingan ini.'
 					)
 			)
 		) {
@@ -2867,7 +2867,7 @@ Morebits.wiki.page = function(pageName, status) {
 				break;
 			case 'prepend':
 				if (ctx.prependText === null) {
-					ctx.statusElement.error('Kesalahan internal: prepend text not set before save!');
+					ctx.statusElement.error('Kesalahan internal: tambahkan teks yang tidak diatur sebelum menyimpan!');
 					ctx.onSaveFailure(this);
 					return;
 				}

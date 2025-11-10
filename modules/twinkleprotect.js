@@ -12,6 +12,26 @@
 
 // Note: a lot of code in this module is re-used/called by batchprotect.
 
+const protectionDurationTranslations = {
+    '1 hour': '1 jam',
+    '2 hours': '2 jam',
+    '3 hours': '3 jam',
+    '6 hours': '6 jam',
+    '12 hours': '12 jam',
+    '1 day': '1 hari',
+    '2 days': '2 hari',
+    '3 days': '3 hari',
+    '4 days': '4 hari',
+    '1 week': '1 minggu',
+    '2 weeks': '2 minggu',
+    '1 month': '1 bulan',
+    '2 months': '2 bulan',
+    '3 months': '3 bulan',
+    '1 year': '1 tahun',
+    'indefinite': 'selamanya',
+    'infinity': 'selamanya' // Menambahkan alias
+};
+
 Twinkle.protect = function twinkleprotect() {
 	if (mw.config.get('wgNamespaceNumber') < 0 || mw.config.get('wgNamespaceNumber') === 8) {
 		return;
@@ -70,7 +90,7 @@ Twinkle.protect.callback = function twinkleprotectCallback() {
 		]
 	});
 
-	form.append({ type: 'field', label: 'Preset', name: 'field_preset' });
+	form.append({ type: 'field', label: 'Alasan', name: 'field_preset' });
 	form.append({ type: 'field', label: '1', name: 'field1' });
 	form.append({ type: 'field', label: '2', name: 'field2' });
 
@@ -91,7 +111,7 @@ Twinkle.protect.callback = function twinkleprotectCallback() {
 
 // A list of bots who may be the protecting sysop, for whom we shouldn't
 // remind the user contact before requesting unprotection (evaluate)
-Twinkle.protect.trustedBots = ['MusikBot II', 'Ruhivabot'];
+Twinkle.protect.trustedBots = ['MusikBot II', 'Ruhivabot', 'HsfBot'];
 
 // Customizable namespace and FlaggedRevs settings
 // In theory it'd be nice to have restrictionlevels defined here,
@@ -280,7 +300,7 @@ Twinkle.protect.callback.showLogAndCurrentProtectInfo = function twinkleprotectC
 			let label = type === 'stabilize' ? 'Perubahan tertunda' : Morebits.string.toUpperCaseFirstChar(type);
 
 			if (type === 'cascading') { // Covered by another page
-				label = 'Menaikkan perlindungan ';
+				label = 'Meningkatkan perlindungan ';
 				protectionNode.push($('<b>' + label + '</b>')[0]);
 				if (settings.source) { // Should by definition exist
 					const sourceLink = '<a target="_blank" href="' + mw.util.getUrl(settings.source) + '">' + settings.source + '</a>';
@@ -326,7 +346,7 @@ Twinkle.protect.callback.changeAction = function twinkleprotectCallbackChangeAct
 			field_preset.append({
 				type: 'select',
 				name: 'category',
-				label: 'Pilih sebuah preset:',
+				label: 'Pilih sebuah alasan perlindungan:',
 				event: Twinkle.protect.callback.changePreset,
 				list: mw.config.get('wgArticleId') ? Twinkle.protect.protectionTypes : Twinkle.protect.protectionTypesCreate
 			});
@@ -657,7 +677,7 @@ Twinkle.protect.doCustomExpiry = function twinkleprotectDoCustomExpiry(target) {
 // NOTE: This list is used by batchprotect as well
 Twinkle.protect.protectionLevels = [
 	{ label: 'Semua', value: 'all' },
-	{ label: 'Terkonfirmasik otomatis', value: 'autoconfirmed' },
+	{ label: 'Terkonfirmasi otomatis', value: 'autoconfirmed' },
 	{ label: 'Terkonfirmasi lanjutan', value: 'extendedconfirmed' },
 	{ label: 'Penyunting templat', value: 'templateeditor' },
 	{ label: 'Pengurus', value: 'sysop', selected: true }
@@ -706,8 +726,8 @@ Twinkle.protect.protectionTypes = [
 		label: 'Perlindungan terkonfirmasi lanjutan',
 		list: [
 			{ label: 'Umum (ECP)', value: 'pp-30-500' },
-			{ label: 'Arbitration enforcement (ECP)', selected: true, value: 'pp-30-500-arb' },
-			{ label: 'Persistent vandalism (ECP)', value: 'pp-30-500-vandalism' },
+			{ label: 'Penegakan arbitrase (ECP)', selected: true, value: 'pp-30-500-arb' },
+			{ label: 'Vandalisme berulang (ECP)', value: 'pp-30-500-vandalism' },
 			{ label: 'Suntingan mengganggu (ECP)', value: 'pp-30-500-disruptive' },
 			{ label: 'Pelanggaran kebijakan BLP (ECP)', value: 'pp-30-500-blp' },
 			{ label: 'Pelaggaran akun ganda (ECP)', value: 'pp-30-500-sock' }
@@ -951,7 +971,7 @@ Twinkle.protect.protectionPresetsInfo = {
 
 Twinkle.protect.protectionTags = [
 	{
-		label: 'None (hilangkan templat yang sudah ad)',
+		label: 'None (hilangkan templat yang sudah ada)',
 		value: 'none'
 	},
 	{
@@ -1532,8 +1552,12 @@ Twinkle.protect.callbacks = {
 					words = 'Selamanya ';
 					break;
 				default:
-					words = '';
+					words = protectionDurationTranslations[params.expiry] || params.expiry || '';
+					if (words) {
+						words += ' ';
+					}
 					break;
+
 			}
 
 			words += params.typename;
