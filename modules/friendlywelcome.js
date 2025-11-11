@@ -90,7 +90,7 @@ Twinkle.welcome.normal = function() {
 	if (mw.config.exists('wgRelevantUserName') && !Morebits.ip.isRange(mw.config.get('wgRelevantUserName'))) {
 		Twinkle.addPortletLink(() => {
 			Twinkle.welcome.callback(mw.config.get('wgRelevantUserName'));
-		}, 'Wel', 'twinkle-welcome', 'Sambut pengguna');
+		}, 'Sambut', 'twinkle-welcome', 'Sambut pengguna');
 	}
 };
 
@@ -120,9 +120,9 @@ Twinkle.welcome.callback = function twinklewelcomeCallback(uid) {
 	}
 
 	const Window = new Morebits.SimpleWindow(600, 420);
-	Window.setTitle('Welcome user');
+	Window.setTitle('Sambut pengguna');
 	Window.setScriptName('Twinkle');
-	Window.addFooterLink('Welcoming Committee', 'WP:WC');
+	Window.addFooterLink('Penyambutan komite', 'WP:WC');
 	Window.addFooterLink('Preferensi selamat datang', 'WP:TW/PREF#welcome');
 	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#welcome');
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
@@ -136,7 +136,7 @@ Twinkle.welcome.callback = function twinklewelcomeCallback(uid) {
 		event: Twinkle.welcome.populateWelcomeList,
 		list: [
 			{ type: 'option', value: 'standard', label: 'Penyambutan standar', selected: !mw.util.isIPAddress(mw.config.get('wgRelevantUserName')) },
-			{ type: 'option', value: 'unregistered', label: 'Penyambutan pengguna beralamat IP', selected: mw.util.isIPAddress(mw.config.get('wgRelevantUserName')) },
+			{ type: 'option', value: 'unregistered', label: 'Penyambutan pengguna tidak teregistrasi', selected: mw.util.isIPAddress(mw.config.get('wgRelevantUserName')) || mw.util.isTemporaryUser(mw.config.get('wgRelevantUserName')) },
 			{ type: 'option', value: 'wikiProject', label: 'Penyambutan ProyekWiki' },
 			{ type: 'option', value: 'nonEnglish', label: 'Penyambutan pengguna non-bahasa Indonesia' }
 		]

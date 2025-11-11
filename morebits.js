@@ -3939,7 +3939,7 @@ Morebits.wiki.page = function(pageName, status) {
 				}
 
 				// only notify user for redirects, not normalization
-				new Morebits.status('Note', msg('redirected', ctx.pageName, resolvedName, 'Dialihkan dari ' + ctx.pageName + ' ke ' + resolvedName));
+				new Morebits.status('Catatan', msg('redirected', ctx.pageName, resolvedName, 'dialihkan dari ' + ctx.pageName + ' ke ' + resolvedName));
 			}
 
 			ctx.pageName = resolvedName; // update to redirect target or normalized name
@@ -4083,7 +4083,7 @@ Morebits.wiki.page = function(pageName, status) {
 					break;
 
 				case 'abusefilter-disallowed':
-					ctx.statusElement.error('Suntingan tidak diperbolehkan oleh filter penyuntingan: "' + errorData.abusefilter.description + '".');
+					ctx.statusElement.error('Suntingan tidak diizinkan oleh filter penyuntingan: "' + errorData.abusefilter.description + '".');
 					break;
 
 				case 'abusefilter-warning':

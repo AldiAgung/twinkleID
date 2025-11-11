@@ -521,7 +521,7 @@ Twinkle.rollback.callbacks = {
 		let userNorm = params.user || Twinkle.rollback.hiddenName;
 		let index = 1;
 		if (params.revid !== lastrevid) {
-			Morebits.Status.warn('Warning', [ 'Revisi terakhir ', Morebits.htmlNode('strong', lastrevid), ' tidak sesuai dengan revisi kami ', Morebits.htmlNode('strong', params.revid) ]);
+			Morebits.Status.warn('Peringatan', [ 'Revisi terakhir ', Morebits.htmlNode('strong', lastrevid), ' tidak sesuai dengan revisi kami ', Morebits.htmlNode('strong', params.revid) ]);
 			// Treat ipv6 users on same 64 block as the same
 			if (lastuser === params.user || (mw.util.isIPv6Address(params.user) && Morebits.ip.get64(lastuser) === Morebits.ip.get64(params.user))) {
 				switch (params.type) {
@@ -531,7 +531,7 @@ Twinkle.rollback.callbacks = {
 							diffUser ? ', yang juga sama dalam subnet /64' : '', '. Karena menduga adanya vandalisme, melanjutkan untuk mengembalikan.' ]);
 						break;
 					case 'agf':
-						Morebits.Status.warn('Warning', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', userNorm), '. Asumsi suntingan niat baik, membatalkan pembalikkan dikarenakan masalahnya telah selesai.' ]);
+						Morebits.Status.warn('Peringatan', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', userNorm), '. Asumsi suntingan niat baik, membatalkan pembalikkan dikarenakan masalahnya telah selesai.' ]);
 						return;
 					default:
 						Morebits.Status.warn('Pemberitahuan', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', userNorm), ', membatalkan.' ]);
@@ -542,7 +542,7 @@ Twinkle.rollback.callbacks = {
 					// Besides, none of the trusted bots are going to be revdel'd
 					Twinkle.rollback.trustedBots.includes(top.user) && revs.length > 1 &&
 					revs[1].revid === params.revid) {
-				Morebits.Status.info('Info', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', lastuser), ', sebuah bot terpecaya, dan revisinya telah dibuat sebelum vandal, melanjutkan.' ]);
+				Morebits.Status.info('Info', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', lastuser), ', bot terpecaya, dan revisinya telah dibuat sebelum vandal, melanjutkan.' ]);
 				index = 2;
 			} else {
 				Morebits.Status.error('Error', [ 'Revisi terbaru dibuat oleh ', Morebits.htmlNode('strong', lastuser), ', mungkin telah dibalikkan, membatalkan.']);
@@ -565,7 +565,7 @@ Twinkle.rollback.callbacks = {
 					params.userHidden = !!revs[1].userhidden;
 					break;
 				case 'agf':
-					Morebits.Status.warn('Notice', [ 'Pembatalan suntingan niat baik telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya dan karenanya pembatalan ANB tidak akan dilanjutkan.' ]);
+					Morebits.Status.warn('Pemberitahuan', [ 'Pembatalan suntingan niat baik telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya dan karenanya pembatalan ANB tidak akan dilanjutkan.' ]);
 					return;
 				case 'norm':
 				/* falls through */
@@ -578,7 +578,7 @@ Twinkle.rollback.callbacks = {
 						params.userHidden = !!revs[1].userhidden;
 						userNorm = params.user || Twinkle.rollback.hiddenName;
 					} else {
-						Morebits.Status.warn('Notice', [ 'Pembatalan biasa telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya, tetapi berdasarkan konfirmasi, pengembalian pada revisi yang dipilih akan dilanjutkan.' ]);
+						Morebits.Status.warn('Pemberitahuan', [ 'Pembatalan biasa telah dipilih pada ', Morebits.htmlNode('strong', userNorm), '. Ini adalah bot tepercaya, tetapi berdasarkan konfirmasi, pengembalian pada revisi yang dipilih akan dilanjutkan.' ]);
 					}
 					break;
 			}
@@ -593,7 +593,7 @@ Twinkle.rollback.callbacks = {
 				// Treat ipv6 users on same 64 block as the same
 				if (mw.util.isIPv6Address(revs[i].user) && Morebits.ip.get64(revs[i].user) === Morebits.ip.get64(params.user)) {
 					if (!seen64) {
-						new Morebits.Status('Note', 'Memperlakukan alamat IPv6 berurutan di /64 yang sama dengan pengguna yang sama');
+						new Morebits.Status('Catatan', 'Memperlakukan alamat IPv6 berurutan di /64 yang sama dengan pengguna yang sama');
 						seen64 = true;
 					}
 					continue;

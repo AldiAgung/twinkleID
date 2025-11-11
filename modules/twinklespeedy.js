@@ -1610,7 +1610,7 @@ Twinkle.speedy.callbacks = {
 			let extraInfo = '';
 
 			// If a logged file is deleted but exists on commons, the wikilink will be blue, so provide a link to the log
-			const fileLogLink = mw.config.get('wgNamespaceNumber') === 6 ? ' ([{{fullurl:Special:Log|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}} log])' : '';
+			const fileLogLink = mw.config.get('wgNamespaceNumber') === 6 ? ' ([catatan {{fullurl:Special:Log|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}}])' : '';
 
 			let editsummary = 'Mencatat nominansi penghapusan cepat';
 			let appendText = '# [[:' + Morebits.pageNameNorm;

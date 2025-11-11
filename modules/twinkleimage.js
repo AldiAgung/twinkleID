@@ -12,7 +12,7 @@
 
 Twinkle.image = function twinkleimage() {
 	if (mw.config.get('wgNamespaceNumber') === 6 && mw.config.get('wgArticleId') && !document.getElementById('mw-sharedupload') && !Morebits.isPageRedirect()) {
-		Twinkle.addPortletLink(Twinkle.image.callback, 'HB', 'tw-di', 'Menominasikan berkas untuk penundaan penghapusan cepat');
+		Twinkle.addPortletLink(Twinkle.image.callback, 'Berkas', 'tw-di', 'Menominasikan berkas untuk penundaan penghapusan cepat');
 	}
 };
 

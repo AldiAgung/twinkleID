@@ -37,7 +37,7 @@ Twinkle.protect = function twinkleprotect() {
 		return;
 	}
 
-	Twinkle.addPortletLink(Twinkle.protect.callback, Morebits.userIsSysop ? 'PH' : 'RPP', 'tw-rpp',
+	Twinkle.addPortletLink(Twinkle.protect.callback, Morebits.userIsSysop ? 'Lindungi' : 'RPP', 'tw-rpp',
 		Morebits.userIsSysop ? 'Lindungi halaman' : 'Meminta perlindungan halaman');
 };
 
@@ -1390,7 +1390,7 @@ Twinkle.protect.callback.evaluate = function twinkleprotectCallbackEvaluate(e) {
 			var rppName = 'Wikipedia:RPP';
 
 			// Updating data for the action completed event
-			Morebits.wiki.actionCompleted.redirect = 'Wikipedia: RPP';
+			Morebits.wiki.actionCompleted.redirect = 'Wikipedia:RPP';
 			Morebits.wiki.actionCompleted.notice = 'Pemberian selesai, mengalihkan ke halaman diskusi';
 
 			var rppPage = new Morebits.wiki.Page(rppName, 'Meminta perlindungan halaman');
