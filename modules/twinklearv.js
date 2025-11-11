@@ -55,7 +55,7 @@ Twinkle.arv.callback = function (uid, isIP) {
 		type: 'option',
 		label: 'Nama pengguna (WP:UAA)',
 		value: 'username',
-		disabled: mw.util.isIPAddress(uid)
+		disabled: isIP
 	});
 	categories.append({
 		type: 'option',
@@ -70,11 +70,32 @@ Twinkle.arv.callback = function (uid, isIP) {
 	categories.append({
 		type: 'option',
 		label: 'Perang suntingan (WP:AN3)',
-		value: 'an3'
+		value: 'an3',
+		disabled: Morebits.ip.isRange(uid)
 	});
 	form.append({
+		type: 'div',
+		label: '',
+		style: 'color: red',
+		id: 'twinkle-arv-blockwarning'
+	});
+		// Pemberitahuan ke akun sementara
+	if (mw.config.get('wgRelevantUserName') && mw.util.isTemporaryUser(mw.config.get('wgRelevantUserName')) && !mw.config.get('wgCheckUserTemporaryAccountIPRevealAllowed')) {
+		const temporaryAccountNotice = form.append({
+			type: 'field',
+			label: 'Beritahu pengguna sementara',
+			name: 'ta_notice',
+			style: 'color: var(--morebits-color-warning, #FF4500)'
+		});
+
+		temporaryAccountNotice.append({
+			type: 'div',
+			label: 'Anda melaporkan sebuah [[Wikipedia:Akun sementara|akun sementara]]. Akun-akun ini, dengan nama pengguna seperti ~2025-12345-67, menggantikan alamat ip. Tolong berhati-hati saat melaporkan untuk penggunaan akun ganda dan saat pemblokiran, dikarenakan pengguna lain dan akun sementara di alamat ip yang sama dapat berakhir sebagai kerusakaan bersama.'
+		});
+	}
+	form.append({
 		type: 'field',
-		label: 'Work area',
+		label: 'Lingkup kerja',
 		name: 'work_area'
 	});
 	form.append({ type: 'submit' });
@@ -218,7 +239,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 			});
 			work_area.append({
 				type: 'header',
-				label: 'Jenis pelanggaran nama penggunae',
+				label: 'Jenis pelanggaran nama pengguna',
 				tooltip: 'Wikipedia tidak mengizinkan nama pengguna yang menyesatkan, promosi, menyinggung, atau mengganggu. Nama domain dan alamat email juga dilarang. Kriteria ini berlaku untuk nama pengguna dan tanda tangan. Nama pengguna yang tidak pantas dalam bahasa lain, atau yang mewakili nama yang tidak sesuai dengan kesalahan ejaan dan penggantian, atau melakukannya secara tidak langsung atau dengan implikasi, masih dianggap melanggar kebijakan Wikipedia.'
 			});
 			work_area.append({
@@ -310,7 +331,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 					type: 'dyninput',
 					name: 'sockpuppets',
 					label: 'Akun kedua:',
-					sublabel: 'Sock:',
+					sublabel: 'Akun ganda:',
 					tooltip: 'Nama pengguna dari akun kedua tanpa awalan "Pengguna:"',
 					min: 2
 				});
@@ -733,7 +754,10 @@ Twinkle.arv.callback.evaluate = function(e) {
 };
 
 Twinkle.arv.callback.getAivReasonWikitext = function(input) {
-	let text = '';
+	if (!input.reason) {
+        return '';
+    }
+	let text = input.reason.trim();
 	let type = input.arvtype;
 
 	if (!type.length && input.reason === '') {
@@ -745,7 +769,7 @@ Twinkle.arv.callback.getAivReasonWikitext = function(input) {
 			case 'final':
 				return 'vandalisme setelah peringatan terakhir';
 			case 'postblock':
-				return 'vandalism setelah pemblokiran baru-baru ini';
+				return 'vandalisme setelah pemblokiran baru-baru ini';
 			case 'vandalonly':
 				return 'tindakan mengidikasikan akun vandal saja';
 			case 'promoonly':
@@ -784,14 +808,12 @@ Twinkle.arv.callback.getAivReasonWikitext = function(input) {
 		text += '.';
 	}
 
-	text += ' ~~~~';
 	text = text.replace(/\r?\n/g, '\n*:'); // indent newlines
-
 	return text;
 };
 
 Twinkle.arv.callback.buildAivReport = function(input) {
-	return '\n*{{vandal|' + (/=/.test(input.uid) ? '1=' : '') + input.uid + '}} &ndash; ' + Twinkle.arv.callback.getAivReasonWikitext(input);
+	return '\n*{{Vandal-m|' + (/=/.test(input.uid) ? '1=' : '') + input.uid + '}} &ndash; ' + Twinkle.arv.callback.getAivReasonWikitext(input) + ' ~~~~';
 };
 
 Twinkle.arv.callback.getUsernameReportWikitext = function(input) {
@@ -961,7 +983,7 @@ Twinkle.arv.processAN3 = function(params) {
 
 		const text = '\n\n{{subst:AN3 report|diffs=' + difftext + '|warnings=' + warningtext + '|resolves=' + resolvetext + '|pagename=' + params.page + '|orig=' + origtext + '|comment=' + comment + '|uid=' + params.uid + '}}';
 
-		const reportpage = 'Wikipedia:Pengurus\' noticeboard/Edit warring';
+		const reportpage = 'Wikipedia:Papan pengumuman pengurus/Perang suntingan';
 
 		Morebits.wiki.actionCompleted.redirect = reportpage;
 		Morebits.wiki.actionCompleted.notice = 'Melaporkan selesai';

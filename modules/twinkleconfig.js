@@ -202,7 +202,7 @@ Twinkle.config.sections = [
 	},
 
 	{
-		title: 'Block user',
+		title: 'Blokir pengguna',
 		adminOnly: true,
 		preferences: [
 			// TwinkleConfig.defaultToPartialBlocks (boolean)

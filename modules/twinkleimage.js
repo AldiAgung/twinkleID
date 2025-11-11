@@ -12,7 +12,7 @@
 
 Twinkle.image = function twinkleimage() {
 	if (mw.config.get('wgNamespaceNumber') === 6 && mw.config.get('wgArticleId') && !document.getElementById('mw-sharedupload') && !Morebits.isPageRedirect()) {
-		Twinkle.addPortletLink(Twinkle.image.callback, 'HB', 'tw-di', 'Menominasikan berkas untuk penundaan penghapusan cepat');
+		Twinkle.addPortletLink(Twinkle.image.callback, 'Berkas', 'tw-di', 'Menominasikan berkas untuk penundaan penghapusan cepat');
 	}
 };
 
@@ -23,7 +23,7 @@ Twinkle.image.callback = function twinkleimageCallback() {
 	Window.addFooterLink('Kebijakan pengahpusan cepat', 'WP:KPC#Berkas');
 	Window.addFooterLink('Preferesni berkas', 'WP:TW/PREF#image');
 	Window.addFooterLink('Bantuan Twinkel', 'WP:TW/DOC#gambar');
-	Window.addFooterLink('Give feedback', 'WT:TW');
+	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
 
 	const form = new Morebits.QuickForm(Twinkle.image.callback.evaluate);
 	form.append({
