@@ -613,7 +613,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 			Morebits.wiki.actionCompleted.redirect = reportpage;
 			Morebits.wiki.actionCompleted.notice = 'Pelaporan selesai';
 
-			var spiPage = new Morebits.wiki.page(reportpage, 'Nengambil halaman diskusi');
+			var spiPage = new Morebits.wiki.Page(reportpage, 'Nengambil halaman diskusi');
 			spiPage.setFollowRedirect(true);
 			spiPage.setEditSummary('Menambahkan laporan baru untuk [[Istimewa:Kontribusi/' + reportData.sockmaster + '|' + reportData.sockmaster + ']].');
 			spiPage.setChangeTags(Twinkle.changeTags);
@@ -753,59 +753,53 @@ Twinkle.arv.callback.evaluate = function(e) {
 };
 
 Twinkle.arv.callback.getAivReasonWikitext = function(input) {
-	if (!input.reason) {
-        return '';
-    }
-	let text = input.reason.trim();
-	let type = input.arvtype;
+	let type = input.arvtype || []; // memastikan ini adalah array
+	let reason = input.reason || '';
 
-	if (!type.length && input.reason === '') {
-		return null;
+	if (type.length === 0 && reason.trim() === '') {
+		return null; // Kalau tidak ada yang dipilih atau ditulis, mengembalikan null
 	}
 
-	type = type.map((v) => {
+	let text = '';
+
+	if (input.page) {
+		text += 'Di {{No redirect|:' + input.page + '}}';
+		if (input.badid) {
+			text += ' ({{diff|' + input.page + '|' + input.badid + '|' + (input.goodid || '') + '|diff}})';
+		}
+		text += ': ';
+	}
+
+	const type_text = type.map(v => {
 		switch (v) {
-			case 'final':
-				return 'vandalisme setelah peringatan terakhir';
-			case 'postblock':
-				return 'vandalisme setelah pemblokiran baru-baru ini';
-			case 'vandalonly':
-				return 'tindakan mengidikasikan akun vandal saja';
-			case 'promoonly':
-				return 'akun hanya digunakan untuk tujuan promosi';
-			case 'spambot':
-				return 'akun terbukti sebuah bot spam atau akun terkompromi';
-			default:
-				return 'alasan tidak diketahui';
+			case 'final': return 'vandalisme setelah peringatan terakhir';
+			case 'postblock': return 'vandalisme setelah pemblokiran baru-baru ini';
+			case 'vandalonly': return 'tindakan mengindikasikan akun vandal saja';
+			case 'promoonly': return 'akun hanya digunakan untuk tujuan promosi';
+			case 'spambot': return 'akun terbukti sebuah bot spam atau akun terkompromi';
+			default: return '';
 		}
-	}).join('; ');
+	}).filter(Boolean).join('; '); // untuk menghapus string kosong
 
-	if (input.page !== '') {
-		// Allow links to redirects, files, and categories
-		text = 'Di {{No redirect|:' + input.page + '}}';
-		if (input.badid !== '') {
-			text += ' ({{diff|' + input.page + '|' + input.badid + '|' + input.goodid + '|diff}})';
+	if (type_text) {
+		text += type_text;
+	}
+
+	if (reason.trim()) {
+		if (text) {
+			text += '. '; // Kalau ada teks, tambahkan titik dibelakangnya
 		}
-		text += ':';
+		text += reason.trim();
 	}
 
-	if (type) {
-		text += ' ' + type;
+	if (!text) {
+		return null; // Hanya jaga-jaga saja
 	}
 
-	if (input.reason !== '') {
-		const textEndsInPunctuationOrBlank = /([.?!;:]|^)$/.test(text);
-		text += textEndsInPunctuationOrBlank ? '' : '.';
-		const textIsBlank = text === '';
-		text += textIsBlank ? '' : ' ';
-		text += input.reason;
-	}
-
-	text = text.trim();
-	const textEndsInPunctuation = /[.?!;]$/.test(text);
-	if (!textEndsInPunctuation) {
+	if (!/[.?!]$/.test(text)) {
 		text += '.';
 	}
+
 
 	text = text.replace(/\r?\n/g, '\n*:'); // indent newlines
 	return text;
@@ -851,7 +845,7 @@ Twinkle.arv.callback.getSpiReportData = function(input) {
 	const isPuppetReport = input.category === 'puppet';
 
 	if (!isPuppetReport) {
-		input.sockpuppets = input.sockpuppets.filter((sock) => sock !== ''); // ignore empty sockpuppet inputs
+		input.sockpuppets = input.sockpuppets.filter((sock) => sock.trim() !== ''); // ignore empty sockpuppet inputs
 	}
 
 	if (isPuppetReport && !input.sockmaster) {
@@ -861,10 +855,32 @@ Twinkle.arv.callback.getSpiReportData = function(input) {
 	}
 
 	input.sockmaster = input.sockmaster || input.uid;
-	input.sockpuppets = isPuppetReport ? [input.uid] : Morebits.array.uniq(input.sockpuppets);
+	const allSocks = [sockmaster].concat(isPuppetReport ? [input.uid] : Morebits.array.uniq(input.sockpuppets));
+	const evidence = input.evidence.trim();
 
-	let text = '\n{{subst:SPI report|' +
-		input.sockpuppets.map((sock, index) => (index + 1) + '=' + sock).join('|') + '\n|evidence=' + input.evidence + ' \n';
+	let text = '\n\n=== ' + sockmaster + ' ===\n'; // header nama induk
+	if (input.checkuser) {
+		text += '{{checkuser|' + sockmaster; // Induk siluman
+		sockpuppets.forEach(sock => {
+			text += '|' + sock;
+		});
+		text += '}}\n\n';
+	} else {
+        // Jika tidak, buat daftar biasa
+		text += '* Induk: {{sock|' + sockmaster + '}}\n';
+		sockpuppets.forEach(sock => {
+			text += '* Akun kedua: {{sock|' + sock + '}}\n';
+		});
+		text += '\n';
+	}
+
+
+	if (evidence) {
+		text += evidence;
+	} else {
+        text += '(Tidak ada bukti yang diberikan)';
+    }
+	text += ' ~~~~';
 
 	if (input.checkuser) {
 		text += '|checkuser=yes';

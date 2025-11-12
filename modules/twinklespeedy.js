@@ -1234,6 +1234,8 @@ Twinkle.speedy.callbacks = {
 				});
 			} else if (params.normalizeds[0] === 'db') {
 				notifytext = '\n{{subst:db-reason-' + (params.warnUser ? 'deleted' : 'notice') + '|1=' + Morebits.pageNameNorm;
+			} else if (params.normalizeds[0] === 'u4') {
+				notifytext = '\n{{subst:db-repost-notice|1=' + Morebits.pageNameNorm;
 			} else {
 				notifytext = '\n{{subst:db-csd-' + (params.warnUser ? 'deleted' : 'notice') + '-custom|1=';
 				if (params.values[0] === 'copypaste') {

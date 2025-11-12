@@ -818,7 +818,7 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'BLP no footnotes', description: 'BLP that lacks inline citations'},
 			{ tag: 'BLP one source', description: 'BLP that relies largely or entirely on a single source' },
 			{ tag: 'BLP sources', description: 'BLP that needs additional references or sources for verification' },
-			{ tag: 'BLP unreferenced', description: 'BLP does not cite any sources at all (use BLP PROD instead for new articles)' },
+			{ tag: 'BLP unsourced', description: 'BLP does not cite any sources at all (use BLP PROD instead for new articles)' },
 			{ tag: 'More citations needed', description: 'butuh referensi tambahan atau sumber untuk verifikasi' },
 			{ tag: 'No significant coverage', description: 'tidak mengutip sumber apapun yang berisi cakupan luas' },
 			{ tag: 'No significant coverage (sports)', description: 'sports biography that does not cite any sources containing significant coverage' },

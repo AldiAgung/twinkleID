@@ -1107,18 +1107,18 @@ Twinkle.xfd.callbacks = {
 					number = Math.max(number, Number(match[1]));
 				}
 				apiobj.params.number = utils.num2order(parseInt(number, 10) + 1);
-				apiobj.params.numbering = number > 0 ? ' (' + apiobj.params.number + ' nomination)' : '';
+				apiobj.params.numbering = number > 0 ? ' (' + apiobj.params.number + ' nominasi)' : '';
 			}
-			apiobj.params.discussionpage = 'Wikipedia:Articles for deletion/' + Morebits.pageNameNorm + apiobj.params.numbering;
+			apiobj.params.discussionpage = 'Wikipedia:Usulan penghapusan/' + Morebits.pageNameNorm + apiobj.params.numbering;
 
-			Morebits.Status.info('Next discussion page', '[[' + apiobj.params.discussionpage + ']]');
+			Morebits.Status.info('Halaman diskusi selanjutnya', '[[' + apiobj.params.discussionpage + ']]');
 
 			// Updating data for the action completed event
 			Morebits.wiki.actionCompleted.redirect = apiobj.params.discussionpage;
-			Morebits.wiki.actionCompleted.notice = 'Nomination completed, now redirecting to the discussion page';
+			Morebits.wiki.actionCompleted.notice = 'Nominasi selesai, mengarahkan ke halaman diskusi';
 
 			// Tagging article
-			const wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Adding deletion tag to article');
+			const wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Menambahkan tag penghapusan di artikel');
 			wikipedia_page.setFollowRedirect(true); // should never be needed, but if the article is moved, we would want to follow the redirect
 			wikipedia_page.setChangeTags(Twinkle.changeTags); // Here to apply to triage
 			wikipedia_page.setCallbackParameters(apiobj.params);
@@ -1187,7 +1187,7 @@ Twinkle.xfd.callbacks = {
 				text = text.replace(/\{\{\s*(dated prod|dated prod blp|Prod blp\/dated|Proposed deletion\/dated|prod2|Proposed deletion endorsed|Userspace draft)\s*(\|(?:\{\{[^{}]*\}\}|[^{}])*)?\}\}\s*/ig, '');
 				// Then, test if there are speedy deletion-related templates on the article.
 				const textNoSd = text.replace(/\{\{\s*(db(-\w*)?|delete|(?:hang|hold)[- ]?on)\s*(\|(?:\{\{[^{}]*\}\}|[^{}])*)?\}\}\s*/ig, '');
-				if (text !== textNoSd && confirm('A speedy deletion tag was found on this page. Should it be removed?')) {
+				if (text !== textNoSd && confirm('Sebuah tag penghapusan cepat ditemukan di halaman ini. Apakah ingin dihilangkan?')) {
 					text = textNoSd;
 				}
 
@@ -1208,7 +1208,7 @@ Twinkle.xfd.callbacks = {
 			const params = pageobj.getCallbackParameters();
 
 			pageobj.setPageText(Twinkle.xfd.callbacks.getDiscussionWikitext('afd', params));
-			pageobj.setEditSummary('Creating deletion discussion page for [[:' + Morebits.pageNameNorm + ']].');
+			pageobj.setEditSummary('Membuat halaman diskusi penghapusan untuk [[:' + Morebits.pageNameNorm + ']].');
 			pageobj.setChangeTags(Twinkle.changeTags);
 			pageobj.setWatchlist(Twinkle.getPref('xfdWatchDiscussion'));
 			pageobj.setCreateOption('createonly');
@@ -1220,7 +1220,7 @@ Twinkle.xfd.callbacks = {
 				// List at deletion sorting pages
 				if (params.delsortCats) {
 					params.delsortCats.forEach((cat) => {
-						const delsortPage = new Morebits.wiki.Page('Wikipedia:WikiProject Deletion sorting/' + cat, 'Adding to list of ' + cat + '-related deletion discussions');
+						const delsortPage = new Morebits.wiki.Page('Wikipedia:WikiProject Deletion sorting/' + cat, 'Menambahkan ke daftar ' + cat + '-related deletion discussions');
 						delsortPage.setFollowRedirect(true); // In case a category gets renamed
 						delsortPage.setCallbackParameters({discussionPage: params.discussionpage});
 						delsortPage.load(Twinkle.xfd.callbacks.afd.delsortListing);
@@ -1383,7 +1383,7 @@ Twinkle.xfd.callbacks = {
 				};
 				$.each(categoryNotificationPageMap, (category, page) => {
 					if (inCategories.includes(category)) {
-						Twinkle.xfd.callbacks.notifyUser(params, page, true, 'Notifying ' + page + ' of template nomination');
+						Twinkle.xfd.callbacks.notifyUser(params, page, true, 'Memberitahu ' + page + ' dari nominasi templat');
 					}
 				});
 			}
@@ -1514,13 +1514,13 @@ Twinkle.xfd.callbacks = {
 			}
 			apiobj.params.discussionpage = 'Wikipedia:Miscellany for deletion/' + Morebits.pageNameNorm + apiobj.params.numbering;
 
-			apiobj.statelem.info('next in order is [[' + apiobj.params.discussionpage + ']]');
+			apiobj.statelem.info('berikutnya dalam urutan [[' + apiobj.params.discussionpage + ']]');
 
 			let wikipedia_page;
 
 			// Tagging page
 			if (mw.config.get('wgNamespaceNumber') !== 710) { // cannot tag TimedText pages
-				wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Tagging page with deletion tag');
+				wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Menandai halaman dengan tag penghapusan');
 				wikipedia_page.setFollowRedirect(true); // should never be needed, but if the page is moved, we would want to follow the redirect
 				wikipedia_page.setCallbackParameters(apiobj.params);
 				wikipedia_page.load(Twinkle.xfd.callbacks.mfd.taggingPage);
@@ -1528,10 +1528,10 @@ Twinkle.xfd.callbacks = {
 
 			// Updating data for the action completed event
 			Morebits.wiki.actionCompleted.redirect = apiobj.params.discussionpage;
-			Morebits.wiki.actionCompleted.notice = 'Nomination completed, now redirecting to the discussion page';
+			Morebits.wiki.actionCompleted.notice = 'Nominasi selesai, mengarahkan ke halaman diskusi';
 
 			// Discussion page
-			wikipedia_page = new Morebits.wiki.Page(apiobj.params.discussionpage, 'Creating deletion discussion page');
+			wikipedia_page = new Morebits.wiki.Page(apiobj.params.discussionpage, 'Membuat halaman diskusi penghapusan');
 			wikipedia_page.setCallbackParameters(apiobj.params);
 			wikipedia_page.load(Twinkle.xfd.callbacks.mfd.discussionPage);
 
@@ -1679,7 +1679,7 @@ Twinkle.xfd.callbacks = {
 			params.uploader = initialContrib;
 
 			// Adding discussion
-			const wikipedia_page = new Morebits.wiki.Page(params.logpage, "Adding discussion to today's list");
+			const wikipedia_page = new Morebits.wiki.Page(params.logpage, "Menambahkan diskusi");
 			wikipedia_page.setFollowRedirect(true);
 			wikipedia_page.setCallbackParameters(params);
 			wikipedia_page.load(Twinkle.xfd.callbacks.ffd.todaysList);
@@ -1727,7 +1727,7 @@ Twinkle.xfd.callbacks = {
 
 			// Updating data for the action completed event
 			Morebits.wiki.actionCompleted.redirect = params.logpage;
-			Morebits.wiki.actionCompleted.notice = "Nomination completed, now redirecting to today's log";
+			Morebits.wiki.actionCompleted.notice = "Nominasi selesai, mengarahkan ke catatan hari ini";
 
 			// Adding discussion to list
 			let wikipedia_page = new Morebits.wiki.Page(params.logpage, "Adding discussion to today's list");

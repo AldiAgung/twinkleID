@@ -1650,6 +1650,15 @@ Twinkle.block.callback.update_form = function twinkleblockCallbackUpdateForm(e, 
 		const $pageSelect = $(form).find('[name=pagerestrictions]');
 		const $namespaceSelect = $(form).find('[name=namespacerestrictions]');
 
+		if (key === 'uw-sockblock' || key === 'uw-spoablock') {
+        const sockEvidence = prompt("Masukkan bukti tambahan untuk ringkasan (contoh: 'per pola suntingan; WP:LTA/...'):", "per pola suntingan");
+        if (sockEvidence) {
+            form.reason.value = 'Terduga pengguna siluman [[' +
+                'Istimewa:Kontribusi/' + relevantUserName + '|' + relevantUserName + ']] ' +
+                sockEvidence;
+        }
+    }
+
 		// Respect useInitialOptions by clearing data when switching presets
 		// In practice, this will always clear, since no partial presets use it
 		if (!data.useInitialOptions) {
