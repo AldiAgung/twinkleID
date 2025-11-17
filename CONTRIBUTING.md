@@ -1,12 +1,12 @@
 # Kontribusi ke Twinkle
 
-:tada::tada: Thanks for taking the time to contribute! :tada::tada:
+:tada::tada: Terimakasih telah meluangkan waktu untuk berkontribusi! :tada::tada:
 
 Banyak cara untuk membantu!
 
 ## Pelaporan galat dan permintaan fitur
 
-Jika anda menemukan sebuah galat, hebat! Anda dapat [open a new GitHub issue here](https://github.com/azatoth/twinkle/issues/new) (GitHub account required) atau dapat melaporkannya di [Pembicaraan Wiki:Twinkle][Pembicaraan Wiki:Twinkle].  Bigger changes or more complicated requests should be made on-wiki so other users can take part in the discussion of your feature proposal.  If you're unsure if something is a bug, other editors may be able to help identify the issue.  Be sure to search the talk page archives and GitHub issues to see if your request has already been discussed in the past.
+Jika anda menemukan sebuah galat, hebat! Anda dapat [open a new GitHub issue here](https://github.com/azatoth/twinkle/issues/new) (GitHub account required) atau dapat melaporkannya di [Pembicaraan Wiki:Twinkle][Pembicaraan Wiki:Twinkle]. Bigger changes or more complicated requests should be made on-wiki so other users can take part in the discussion of your feature proposal.  If you're unsure if something is a bug, other editors may be able to help identify the issue.  Be sure to search the talk page archives and GitHub issues to see if your request has already been discussed in the past.
 
 Apapun kasusnya, mendeskripsikan lebih detail permasalahnnya mempermudah untuk merespon laporan atau permintaan anda.
 
@@ -43,19 +43,19 @@ Beberapa hal yang perlu diperhatikan:
 - The `twinkleconfig` pseudo-module holds the code to save and determine user preferences, while `twinkle.js` holds the defaults.
 - There is some variety in how the individual modules are written, in particular among the `friendly` family as well as with `twinkleconfig.js`.
 
-As Twinkle is used many thousands of times a day, changes to how Twinkle works may be confusing or disruptive to editors.  Significant or major changes to workflow, design, or functionality should gain some modicum of consensus before being proposed or suggested, either through discussion at [Pembicaraan Wiki:Twinkle] or elsewhere.
+Saat Twinkle digunakan ribuan kali per-harinya, perubahan kepada bagaimana Twinkle berkerja dapat membingungkan atau mengganggu kepada para peyunting.  Significant or major changes to workflow, design, or functionality should gain some modicum of consensus before being proposed or suggested, either through discussion at [Pembicaraan Wiki:Twinkle] or elsewhere.
 
 ### Mengirim pull request anda
 
 Saat anda ingin mengirim, commit perubahan anda di branch baru (buat branch dengan nama yang diinginkan tapi jangan menghapus awalan "pr/"), kemudian [initiate a pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).  Judul dari pull request harus berupa modul yang anda ingin ubah, diikuti deskripsi yang anda telah lakukan, seperti:
 
-    xfd: Prevent sysops from deleting the main page
+    xfd: Mencegah pengurus menghapus halaman utama
 
 The usual rule of thumb is that a good subject line will complete the sentence "*If applied, this commit will...*"  The full commit message is a good place to explain further details, both for reviewers and anyone in the future, specifically focusing on *why* the changes are being made, not *how*.  There are many guides to writing good commit messages, one particularly helpful one is by @cbeams: https://chris.beams.io/posts/git-commit/
 
 Jika anda membuat beberapa commit sementara bekerja di fitur yang sama, dianjurkan untuk [squash and rebase your commits](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) before submitting your PR; a good policy is that every commit should be capable of replacing the live on-wiki Gadget file for all users.  Separate ideas or enhancements should be different commits, and entirely separate concepts should be different pull requests.  For example, if you made three commits while changing the pulldown options in `twinkleprotect.js` and `twinklebatchprotect.js`, those should be squashed into one commit, but if you also disabled loading `twinklespeedy.js` and `twinklexfd.js` on the mainpage, that should be a separate pull request.  See also [how to file a bug report or feature request](README.md#how-to-file-a-bug-report-or-feature-request).
 
-### Style guideline
+### Panduan gaya
 
 For consistency and to cut down on potential errors, we've recently decided to utilize a more coherent style throughout the code.  [eslint][eslint.org] can be used to check your code before submission and even repair many common issues.  To install via `npm`, just run `npm install` from the main Twinkle directory in your terminal.  You can then freely check your code by running `npm run lint`, and if you run `npm run lint:fix` then `eslint` will clean up some (but not all!) style differences.  More information on specific style rules can be seen in [issue #500][fivehundred] and in `.eslintrc.json`, but the best advice is to just follow the style of surrounding code!  Some specific examples and deviations are elucidated below.
 
@@ -65,7 +65,7 @@ For consistency and to cut down on potential errors, we've recently decided to u
 
 ## Harapan kontributor
 
-Everyone is welcome and encouraged to join in, regardless of experience.  Anybody submitting issues, code, reviews, or comments to the repository is expected to do so while complying with the principles of Wikimedia's [Code of Conduct for technical spaces][conduct].
+Semua orang dipersilakan untuk bergabung dan berkontribusi, terlepas dari pengalaman anda. Siapapun yang mengirim isu, kode, ulasan, atau komentar ke repositori diharapkan dapat melakukannya dengan mematuhi prinsip [Code of Conduct for technical spaces][conduct] Wikimedia.
 
 [Pembicaraan Wiki:Twinkle]: https://id.wikipedia.org/wiki/Pembicaraan_Wikipedia:Twinkle
 [jserrors]: https://en.wikipedia.org/wiki/Wikipedia:Reporting_JavaScript_errors
