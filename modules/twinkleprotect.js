@@ -43,7 +43,7 @@ Twinkle.protect = function twinkleprotect() {
 
 Twinkle.protect.callback = function twinkleprotectCallback() {
 	const Window = new Morebits.SimpleWindow(620, 530);
-	Window.setTitle(Morebits.userIsSysop ? 'Mememberikan atau meminta tag perlindungan halaman' : 'Meminta atau menandai perlindungan halaman');
+	Window.setTitle(Morebits.userIsSysop ? 'Berikan atau meminta tag perlindungan halaman' : 'Meminta atau menandai perlindungan halaman');
 	Window.setScriptName('Twinkle');
 	Window.addFooterLink('Templat perlindungan', 'Templat:Templat perlindungan');
 	Window.addFooterLink('Kebijakan perlindungan', 'WP:PROT');
@@ -1387,10 +1387,10 @@ Twinkle.protect.callback.evaluate = function twinkleprotectCallbackEvaluate(e) {
 			Morebits.SimpleWindow.setButtonsEnabled(false);
 			Morebits.Status.init(form);
 
-			var rppName = 'Wikipedia:RPP';
+			var rppName = 'Wikipedia:Permintaan pelindungan halaman/Peningkatan';
 
 			// Updating data for the action completed event
-			Morebits.wiki.actionCompleted.redirect = 'Wikipedia:RPP';
+			Morebits.wiki.actionCompleted.redirect = rppName;
 			Morebits.wiki.actionCompleted.notice = 'Pemberian selesai, mengalihkan ke halaman diskusi';
 
 			var rppPage = new Morebits.wiki.Page(rppName, 'Meminta perlindungan halaman');
@@ -1473,7 +1473,7 @@ Twinkle.protect.callbacks = {
 				if (!text.match(/{{(?:redr|ini adalah pengalihan|r(?:edirect)?(?:.?cat.*)?[ _]?sh)/i)) {
 					text = text.replace(/#ALIH ?(\[\[.*?\]\])(.*)/i, '#ALIH $1$2\n\n{{' + tag + '}}');
 				} else {
-					Morebits.Status.info('Redirect category shell present', 'tidak ada yang dilakukan');
+					Morebits.Status.info('Sudah ada kategori pengalihan', 'tidak ada yang dilakukan');
 					return;
 				}
 			} else {

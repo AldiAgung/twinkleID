@@ -1629,7 +1629,7 @@ Twinkle.xfd.callbacks = {
 			if (params.notifyuserspace) {
 				if (params.userspaceOwner !== initialContrib) {
 					// Don't log if notifying creator above, will log then
-					Twinkle.xfd.callbacks.notifyUser(params, params.userspaceOwner, params.notifycreator, 'Notifying owner of userspace (' + params.userspaceOwner + ')');
+					Twinkle.xfd.callbacks.notifyUser(params, params.userspaceOwner, params.notifycreator, 'Memberitahu pemilik ruangnama (' + params.userspaceOwner + ')');
 				} else if (!params.notifycreator) {
 					// If we thought we would notify the owner but didn't,
 					// then we need to log if we didn't notify the creator
@@ -1654,7 +1654,7 @@ Twinkle.xfd.callbacks = {
 				text = text.replace(/\{\{(mtc|(copy |move )?to ?commons|move to wikimedia commons|copy to wikimedia commons)[^}]*\}\}/gi, '');
 
 				pageobj.setPageText(params.tagText + text);
-				pageobj.setEditSummary('Listed for discussion at [[:' + params.discussionpage + ']].');
+				pageobj.setEditSummary('Menambahkan diskusi pada [[:' + params.discussionpage + ']].');
 				pageobj.setChangeTags(Twinkle.changeTags);
 				pageobj.setWatchlist(Twinkle.getPref('xfdWatchPage'));
 				pageobj.setCreateOption('recreate'); // it might be possible for a file to exist without a description page
@@ -1665,7 +1665,7 @@ Twinkle.xfd.callbacks = {
 
 			// Updating data for the action completed event
 			Morebits.wiki.actionCompleted.redirect = params.logpage;
-			Morebits.wiki.actionCompleted.notice = 'Nomination completed, now redirecting to the discussion page';
+			Morebits.wiki.actionCompleted.notice = 'Nominasi selesai, mengarahkan ke halaman diskusi';
 
 			// Contributor specific edits
 			const wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'));
@@ -1717,7 +1717,7 @@ Twinkle.xfd.callbacks = {
 			const params = pageobj.getCallbackParameters();
 
 			const date = new Morebits.Date(pageobj.getLoadTime());
-			params.logpage = 'Wikipedia:Categories for discussion/Log/' + date.format('YYYY MMMM D', 'utc');
+			params.logpage = 'Wikipedia:Categories for discussion/Log/' + date.format('D MMMM YYYY', 'utc');
 			params.discussionpage = params.logpage + '#' + Morebits.pageNameNorm;
 			// Add log/discussion page params to the already-loaded page object
 			pageobj.setCallbackParameters(params);
@@ -1914,21 +1914,21 @@ Twinkle.xfd.callbacks = {
 		},
 		main: function(params) {
 			const date = new Morebits.Date(params.curtimestamp);
-			params.logpage = 'Wikipedia:Redirects for discussion/Log/' + date.format('YYYY MMMM D', 'utc');
+			params.logpage = 'Wikipedia:Redirects for discussion/Log/' + date.format('D MMMM YYYY', 'utc');
 			params.discussionpage = params.logpage + '#' + Morebits.pageNameNorm;
 
 			// Tagging redirect
-			let wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Adding deletion tag to redirect');
+			let wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Menambahkan tag penghapusan untuk pengalihan');
 			wikipedia_page.setFollowRedirect(false);
 			wikipedia_page.setCallbackParameters(params);
 			wikipedia_page.load(Twinkle.xfd.callbacks.rfd.taggingRedirect);
 
 			// Updating data for the action completed event
 			Morebits.wiki.actionCompleted.redirect = params.logpage;
-			Morebits.wiki.actionCompleted.notice = "Pemberian selesai, now redirecting to today's log";
+			Morebits.wiki.actionCompleted.notice = "Pemberian selesai, mengalihkan ke catatan hari ini";
 
 			// Adding discussion
-			wikipedia_page = new Morebits.wiki.Page(params.logpage, "Adding discussion to today's log");
+			wikipedia_page = new Morebits.wiki.Page(params.logpage, "Menambahkan diskusi ke daftar hari ini");
 			wikipedia_page.setFollowRedirect(true);
 			wikipedia_page.setCallbackParameters(params);
 			wikipedia_page.load(Twinkle.xfd.callbacks.rfd.todaysList);
@@ -2004,7 +2004,7 @@ Twinkle.xfd.callbacks = {
 
 				// On the offchance it's a circular redirect
 				if (params.rfdtarget === mw.config.get('wgPageName')) {
-					statelem.warn('Circular redirect; melewati nofifikasi tujuan halaman');
+					statelem.warn('Pengalihan berulang; melewati nofifikasi tujuan halaman');
 				} else if (document.getElementById('softredirect')) {
 					statelem.warn('Pengalihan halus; melewati nofifikasi tujuan halaman');
 				// Don't issue if target talk is the initial contributor's talk or your own

@@ -47,14 +47,14 @@ Twinkle.speedy.data = [
 		label: 'U8: Halaman pembicaraan yatim',
 		code: 'u8',
 		db: 'talk',
-		tooltip: 'Ini tidak termasuk halaman yang berguna untuk proyek, khususnya halaman pembicaraan pengguna, arsip pembicaraan pengguna, dan halaman pembicaraan untuk halaman berkas yang ada di Commons.'
+		tooltip: 'Halaman seperti pembicaraan pengguna, arsipnya, dan pembicaraan berkas dari Commons tidak dianggap berguna untuk proyek.'
 	},
 	{
 		list: 'fileList',
 		label: 'B1: Redundan atau duplikat',
 		code: 'b1',
 		db: 'redundantimage',
-		tooltip: 'Berkas atau media tak terpakai yang merupakan sebuah salinan, dengan format yang sama dan resolusi/kualitas yang sama/lebih rendah, dari sebuah berkas atau media lain di Wikipedia. Yang tidak termasuk di dalamnya adalah duplikat berkas atau media di Wikimedia Commons, karena alasan-alasan lisensi',
+		tooltip: 'Berkas atau media yang tidak terpakai dan merupakan salinan dari berkas lain di Wikipedia, dengan format dan kualitas yang sama atau lebih rendah, dianggap duplikat. Namun, duplikat berkas dari Wikimedia Commons tidak termasuk, karena ada pertimbangan lisensi.',
 		subgroup: {
 			name: 'redundantimage_filename',
 			type: 'input',
@@ -67,14 +67,14 @@ Twinkle.speedy.data = [
 		label: 'B2: Rusak atau kosong',
 		code: 'b2',
 		db: 'noimage',
-		tooltip: 'Sebelum menghapus berkas jenis ini, pastikan bahwa mesin MediaWiki tidak dapat membaca berkas tersebut dengan cara pratayang gambar yang diperkecil. Pemuat aslinya dapat memperbaikinya dengan cara memuatkan versi berkas yang tidak rusak'
+		tooltip: 'Sebelum menghapus berkas seperti ini, pastikan MediaWiki tidak dapat menampilkan pratayang gambar dalam ukuran kecil. Jika masih bisa dipratinjau, berkas sebaiknya tidak dihapus. Pemuat asli dapat memperbaiki masalah dengan mengunggah ulang versi berkas yang tidak rusak.'
 	},
 	{
 		list: 'fileList',
 		label: 'B2: Halaman deskripsi berkas yang tidak dibutuhkan untuk berkas yang berada di Commons',
 		code: 'b2',
 		db: 'fpcfail',
-		tooltip: 'Gambar yang disimpan di Commons tanpa tag atau informasi pada halaman deskripsi di Wikipedia bahasa Indonesia yang tidak diperlukan lagi',
+		tooltip: 'Gambar dari Wikimedia Commons yang tidak lagi diperlukan, dan tidak memiliki tag atau informasi pada halaman deskripsi di Wikipedia bahasa Indonesia, sebaiknya dihapus.',
 		hideWhenMultiple: true
 	},
 	{
@@ -82,14 +82,14 @@ Twinkle.speedy.data = [
 		label: 'B3: Lisensi yang tidak sesuai',
 		code: 'b3',
 		db: 'noncom',
-		tooltip: 'Berkas atau media yang diberi lisensi "untuk tujuan non komersial saja" (termasuk lisensi Creative Commons nonkomersial), "tanpa karya turunan" atau "gunakan dengan izin" dapat dihapus, kecuali berkas tersebut memenuhi standar pemakaian konten tak bebas. Berkas yang berlisensi GFDL sebelum versi 1.3, yang tidak mengizinkan versi setelahnya, dapat dihapus'
+		tooltip: 'Berkas dengan lisensi terbatas seperti nonkomersial, tanpa karya turunan, atau izin khusus dapat dihapus jika tidak memenuhi standar konten tak bebas; berkas berlisensi GFDL sebelum versi 1.3 yang melarang versi setelahnya juga dapat dihapus.'
 	},
 	{
 		list: 'fileList',
 		label: 'B4: Informasi lisensi kurang',
 		code: 'b4',
 		db: 'unksource',
-		tooltip: 'Berkas dan media yang tidak memiliki informasi lisensi yang cukup, dapat dihapus setelah diidentifikasi sebagai berkas tanpa informasi lisensi yang cukup selama tujuh hari jika informasinya tidak ditambahkan. Perhatikan bahwa pemuat berkas terkadang menyebutkan sumbernya di ringkasan pemuatan.',
+		tooltip: 'Berkas tanpa informasi lisensi yang cukup dapat dihapus setelah tujuh hari, kecuali jika informasinya ditambahkan; sumber kadang disebut di ringkasan pemuatan.',
 		hideWhenUser: true
 	},
 	{
@@ -97,7 +97,7 @@ Twinkle.speedy.data = [
 		label: 'B5: Berkas tak bebas yang tak digunakan',
 		code: 'b5',
 		db: 'b5',
-		tooltip: 'Berkas dan media yang tidak memiliki lisensi bebas atau domain publik, yang tidak digunakan di artikel manapun, dapat dihapus setelah diidentifikasi sebagai berkas tak bebas yang tak digunakan selama tujuh hari. Perkecualian dapat diberikan kepada berkas yang akan digunakan untuk artikel yang sedang ditulis/dipersiapkan.',
+		tooltip: 'Berkas tak bebas atau bukan domain publik yang tidak digunakan di artikel manapun dapat dihapus setelah tujuh hari, kecuali jika akan dipakai untuk artikel yang sedang disiapkan.',
 		hideWhenUser: true
 	},
 	{
@@ -105,7 +105,7 @@ Twinkle.speedy.data = [
 		label: 'B6: Tidak memiliki alasan penggunaan tak bebas',
 		code: 'b6',
 		db: 'norat',
-		tooltip: 'Yang termasuk di dalamnya: Berkas dan media tak bebas yang ditulis sebagai "penggunaan wajar" namun tidak menyediakan alasan yang rasional dapat dihapus setelah diidentifikasi sebagai berkas tanpa alasan penggunaan tak bebas selama tujuh hari. Tag {{Fair use}} saja tidak merupakan alasan yang sah. Yang tidak termasuk di dalamnya: alasan telsh diberikan namun diperdebatkan.',
+		tooltip: 'Berkas tak bebas yang diberi tag "penggunaan wajar" tanpa alasan rasional dapat dihapus setelah tujuh hari; tag {{Fair use}} saja tidak cukup, kecuali jika alasan sudah diberikan meski masih diperdebatkan.',
 		hideWhenUser: true
 	},
 	{
@@ -113,7 +113,7 @@ Twinkle.speedy.data = [
 		label: 'B7: Klaim penggunaan wajar tidak sah',
 		code: 'b7',
 		db: 'badfairuse',
-		tooltip: 'Berkas atau media tak bebas dengan templat penggunaan wajar yang jelas-jelas tidak sah (seperti tag {{Logo}} pada sebuah foto maskot) dapat dihapus dengan segera.',
+		tooltip: 'Berkas tak bebas dengan templat penggunaan wajar yang jelas tidak sah, seperti tag {{Logo}} pada foto maskot, dapat dihapus segera tanpa menunggu.',
 		subgroup: {
 			name: 'badfairuse_rationale',
 			type: 'input',
@@ -127,13 +127,13 @@ Twinkle.speedy.data = [
 		label: 'B8: Berkas yang sama persis tersedia di Wikimedia Commons',
 		code: 'b8',
 		db: 'commons',
-		tooltip: 'Syarat: (1) Versi di Commons memiliki format yang sama dan memiliki kualitas/resolusi yang sama atau lebih tinggi. (2) Lisensi dan sumber tidak diragukan lagi, dan lisensi yang digunakan merupakan lisensi Commons yang berterima. (2) Semua informasi pada berkas lokal juga ada di Commons, termasuk sejarah pemuatan yang lengkap dengan pranala ke halaman pengguna pemuat lokal. (3) Jika nama yang digunakan di Commons berbeda dengan di lokal, semua penggunaan berkas di lokal harus disesuaikan (diganti) sesuai dengan nama yang terdapat di Commons.(4) Berkas tidak dilindungi. JANGAN MENGHAPUS BERKAS YANG DILINDUNGI, meskipun ada duplikatnya di Commons. Berkas seperti itu biasanya dimuat di wiki lokal dan dilindungi karena digunakan pada antar muka atau templat yang beresiko tinggi',
+		tooltip: 'Berkas lokal dapat dihapus jika versi di Commons memiliki format dan kualitas setara atau lebih tinggi, lisensinya sah dan sesuai standar Commons, semua informasi sudah tercantum di Commons, nama berkas sudah disesuaikan di semua penggunaan lokal, dan berkas tidak dilindungi, karena berkas yang dilindungi tidak boleh dihapus meskipun ada duplikatnya di Commons.',
 		subgroup: {
 			name: 'commons_filename',
 			type: 'input',
 			label: 'Nama berkas di Commons:',
 			value: Morebits.pageNameNorm,
-			tooltip: 'Kosongkan jika berkasnya memiliki nama yang sama. Awalan "Berkas:" opsional.'
+			tooltip: 'Kosongkan kolom jika nama berkasnya sama; awalan "Berkas:" boleh digunakan atau diabaikan.'
 		},
 		hideWhenMultiple: true
 	},
@@ -142,18 +142,18 @@ Twinkle.speedy.data = [
 		label: 'B9: Terang-terangan melanggar hak cipta',
 		code: 'b9',
 		db: 'imgcopyvio',
-		tooltip: 'Yang termasuk di dalamnya: berkas atau media yang diklaim sebagai berkas berlisensi bebas padahal sebenarnya bukan. Sebuah URL atau indikasi lokasi sumber harus disediakan. Yang tidak termasuk di dalamnya: berkas dengan klaim penggunaan bebas, atau berkas dengan klaim yang dapat dipercaya dari pemiliknya yang telah melepasnya di bawah lisensi bebas yang kompatibel dengan lisensi Wikipedia. Ini termasuk gambar-gambar dari perpustakaan foto stok seperti Getty Images dan Corbis',
+		tooltip: 'Berkas yang diklaim berlisensi bebas padahal tidak, dan tanpa URL atau sumber yang jelas, dapat dihapus; kecuali jika klaimnya dapat dipercaya atau berasal dari pemilik sah yang melepasnya di bawah lisensi bebas yang sesuai, termasuk dari situs stok foto seperti Getty Images dan Corbis.',
 		subgroup: [
 			{
 				name: 'imgcopyvio_url',
 				type: 'input',
-				label: 'URL sumber konten, termasuk "http://". Jika tidak dapat memberikan URL, mohon tidak menggunakan KPC B9.',
+				label: 'Cantumkan URL sumber yang lengkap, termasuk "http://"; jika tidak tersedia, jangan gunakan KPC B9.',
 				size: 60
 			},
 			{
 				name: 'imgcopyvio_rationale',
 				type: 'input',
-				label: 'Alasan penghapusan untuk copyvio non-internet:',
+				label: 'Berkas melanggar hak cipta dan tidak berasal dari sumber daring; tidak ada bukti lisensi atau izin yang sah.',
 				size: 60
 			}
 		]
@@ -163,7 +163,7 @@ Twinkle.speedy.data = [
 		label: 'B11: Tak ada bukti izin penggunaan',
 		code: 'b11',
 		db: 'nopermission',
-		tooltip: 'Yang termasuk di dalamnya: jika pemuat mencantumkan sebuah lisensi dan menyatakan bahwa pihak ketiga sebagai sumber atau pemegang lisensi tanpa memberikan bukti bahwa pihak ketiga tersebut telah setuju dengan lisensi tersebut, berkas yang dimaksud dapat dihapus tujuh hari setelah pemberitahuan kepada sang pemuat',
+		tooltip: 'Berkas dengan lisensi yang diklaim berasal dari pihak ketiga tanpa bukti persetujuan dapat dihapus tujuh hari setelah pemuat diberi tahu.',
 		hideWhenUser: true
 	},
 	{
@@ -171,25 +171,25 @@ Twinkle.speedy.data = [
 		label: 'U8: Halaman deksripsi berkas tanpa adanya berkas',
 		code: 'u8',
 		db: 'imagepage',
-		tooltip: 'Gunakan ini jika berkas benar-benar tidak ada. Berkas rusak, dan halaman deskripsi lokal di Commons, harus menggunakan B2; pengalihan tidak sesuai gunakan R3; dan pengalihan rusak ke Commons gunakan U6.'
+		tooltip: 'Gunakan ini hanya jika berkas benar-benar tidak ada; untuk berkas rusak gunakan B2, pengalihan tidak sesuai gunakan R3, dan pengalihan rusak ke Commons gunakan U6.'
 	},
 	{
 		list: 'articleList',
 		label: 'A1: Artikel tanpa konteks.',
 		code: 'a1',
 		db: 'nocontext',
-		tooltip: 'Yang termasuk di dalamnya: artikel tanpa konteks yang tidak cukup untuk berdiri sendiri ataupun untuk dikembangkan lebih lanjut. Hanya dapat berlaku untuk artikel sangat pendek. Konteks berbeda dengan isi.'
+		tooltip: 'Artikel sangat pendek tanpa konteks yang cukup untuk berdiri sendiri atau dikembangkan lebih lanjut dapat dihapus; konteks berbeda dari isi.'
 	},
 	{
 		list: 'articleList',
 		label: 'A2: Artikel berbahasa asing yang tidak diterjemahkan atau diterjemahkan secara buruk',
 		code: 'a2',
 		db: 'foreign',
-		tooltip: 'Yang termasuk di dalamnya: artikel dari proyek Wikimedia lainnya yang tidak diterjemahkan sama sekali atau yang diterjemahkan secara buruk (dengan atau tanpa bantuan mesin penerjemah). Jika sudah diterjemahkan hingga kriteria sebuah stub, maka bagian yang tidak diterjemahkan sajalah yang harus dipotong. Yang tidak termasuk di dalamnya: artikel yang tidak dari proyek Wikimedia lainnya yang bisa diberi templat {{terjemah}}',
+		tooltip: 'Artikel dari proyek Wikimedia lain yang belum diterjemahkan atau diterjemahkan buruk dapat dihapus, kecuali jika sudah mencapai standar rintisan. Dalam hal ini, cukup hapus bagian yang belum diterjemahkan; artikel nonterjemahan cukup diberi tag {{terjemah}}.',
 		subgroup: {
 			name: 'foreign_source',
 			type: 'input',
-			label: 'Pranala interwiki ke artikel di wiki bahasa asing:',
+			label: 'Gunakan pranala interwiki untuk menghubungkan ke artikel di wiki bahasa asing yang relevan.',
 			tooltip: 'Misalnya, en:Indonesia'
 		}
 	},
@@ -198,14 +198,14 @@ Twinkle.speedy.data = [
 		label: 'A3: Tanpa isi',
 		code: 'a3',
 		db: 'nocontent',
-		tooltip: 'Yang termasuk di dalamnya: artikel (selain halaman disambiguasi, pengalihan, atau pengalihan lunak) yang hanya terdiri dari salah satu hal atau kombinasi dari hal-hal berikut: pranala luar, kategori, templat selain kotak info, gambar, bagian "lihat pula", judul yang di-parafrase-kan, usaha untuk menghubungi orang atau kelompok yang digunakan sebagai judul, atau komentar layaknya orang berdiskusi. Yang tidak termasuk di dalamnya: artikel pendek yang memiliki isi walaupun pendek tidak dapat dihapus menggunakan kriteria ini. Kriteria ini juga tidak berlaku untuk halaman dengan sebuah kotak info dan informasi yang nontrivia'
+		tooltip: 'Artikel (bukan disambiguasi, pengalihan, atau pengalihan lunak) yang hanya berisi elemen non-isi seperti pranala luar, kategori, templat non-infobox, gambar, bagian "lihat pula", judul parafrase, ajakan kontak, atau komentar diskusi dapat dihapus, kecuali jika mengandung isi meskipun pendek atau memiliki infobox dengan informasi nontrivia.'
 	},
 	{
 		list: 'articleList',
 		label: 'A7: Tidak mengindikasikan kepentingan (tokoh, organisasi, isi situs)',
 		code: 'a7',
 		db: 'a7',
-		tooltip: 'Artikel tentang tokoh, organisasi (termasuk di dalamnya band, klub, perusahaan, dll., kecuali sekolah), atau isi situs yang tidak menunjukkan alasan mengapa subyek itu dianggap penting. Jika yang kontroversial, maka Anda dapat mengusulkan penghapusan dengan templat {{hapus}} atau membawanya ke halaman Wikipedia:Usulan penghapusan',
+		tooltip: 'Artikel tentang tokoh, organisasi (kecuali sekolah), atau isi situs yang tidak menunjukkan kepentingan subyek dapat dihapus; jika kontroversial, gunakan templat {{hapus}} atau ajukan ke Wikipedia:Usulan penghapusan.',
 		// hideWhenSingle: true // <- dikarenakan di Wiki EN harus digabung, maka harus di komen atau lebih baik dihapus saja untuk memunculkan tombol ini
 	},
 	{
@@ -213,14 +213,14 @@ Twinkle.speedy.data = [
 		label: 'A9: Artikel yang tidak mengindikasikan kepentingan (rekaman musik)',
 		code: 'a9',
 		db: 'a9',
-		tooltip: 'Artikel tentang rekaman musik yang tidak menunjukkan alasan mengapa subyek itu dianggap penting dan/atau yang artikel tentang rekaman musik yang artisnya tidak ada di Wikipedia bahasa Indonesia'
+		tooltip: 'Artikel tentang rekaman musik yang tidak menunjukkan kepentingan subjek dan/atau artisnya belum ada di Wikipedia bahasa Indonesia dapat dihapus.'
 	},
 	{
 		list: 'articleList',
 		label: 'A10: Artikel yang tidak dirapikan dalam batas waktu yang telah ditentukan',
 		code: 'a10',
 		db: 'a10',
-		tooltip: 'Artikel yang tidak dirapikan dalam batas waktu yang telah ditentukan, baik oleh pembuat artikel maupun oleh Wikipediawan lain, sehingga dapat dianggap keberadaannya di Wikipedia hanya akan menurunkan kualitas Wikipedia bahasa Indonesia.',
+		tooltip: 'Artikel yang tidak dirapikan dalam batas waktu yang ditentukan dan menurunkan kualitas Wikipedia dapat dihapus.',
 		subgroup: {
 			name: 'a10_article',
 			type: 'input',
@@ -232,21 +232,21 @@ Twinkle.speedy.data = [
 		label: 'A11: Tidak ada kepentingan klaim',
 		code: 'a11',
 		db: 'deleted-multiple',
-		tooltip: 'Artikel yang secara gamblang menyatakan bahwa topiknya diciptakan/diciptakan/ditemukan oleh pembuat artikel atau seseorang yang mereka kenal secara pribadi, dan tidak secara meyakinkan menyatakan mengapa topiknya penting atau signifikan'
+		tooltip: 'Artikel yang menyatakan topiknya dibuat atau ditemukan oleh pembuatnya atau kenalan pribadi, tanpa penjelasan yang meyakinkan tentang kepentingannya, dapat dihapus.'
 	},
 	{
 		list: 'categoryList',
 		label: 'K1: Kategori tanpa isi',
 		code: 'c1',
 		db: 'catempty',
-		tooltip: 'Kategori tanpa isi yang selama paling tidak empat hari masih tidak memiliki isi. Yang tidak termasuk di dalamnya: kategori disambiguasi, pengalihan kategori (isi sudah dipindahkan ke kategori lain), kategori topik pilihan, duplikat dengan kategori lain, atau kategori yang menurut naturnya dapat menjadi kosong sewaktu-waktu (mis. kategori yang ditransklusikan oleh kotak pengguna.) Bubuhkan {{kategori kosong}} di bagian atas kategori kosong untuk menghindari agar kategori tersebut tidak dihapus.)'
+		tooltip: 'Kategori tanpa isi selama minimal empat hari dapat dihapus, kecuali jika termasuk kategori disambiguasi, pengalihan, topik pilihan, duplikat, atau kategori yang wajar kosong sewaktu-waktu (seperti yang ditransklusikan oleh kotak pengguna); gunakan {{kategori kosong}} untuk mencegah penghapusan.'
 	},
 	{
 		list: 'categoryList',
 		label: 'K4: Kategori pemeliharaan tak terpakai',
 		code: 'c4',
 		db: 'c4',
-		tooltip: 'Kategori pemeliharaan yang tidak digunakan, seperti kategori pemeliharaan bertanggal kosong untuk tanggal di masa lalu, kategori pelacakan yang tidak lagi digunakan oleh templat setelah penulisan ulang, atau subkategori kosong dari Kategori:Wikipedia akunganda atau Kategori:Diduga sockpuppets Wikipedia. Kategori pemeliharaan yang kosong belum tentu tidak digunakan—kriteria ini berlaku untuk kategori yang akan selalu kosong, bukan hanya yang sedang kosong..',
+		tooltip: 'Kategori pemeliharaan yang tidak digunakan dan dipastikan akan selalu kosong, seperti kategori bertanggal masa lalu, kategori pelacakan usang, atau subkategori kosong dari kategori akun ganda/siluman, dapat dihapus; kategori yang hanya sedang kosong tidak termasuk.',
 		subgroup: {
 			name: 'c4_rationale',
 			type: 'input',
@@ -259,19 +259,19 @@ Twinkle.speedy.data = [
 		label: 'T5: Templat subhalaman tidak terpakai',
 		code: 't5',
 		db: 't5',
-		tooltip: 'Modul Lua dan subhalaman templat yang tak terpakai. Hal ini tidak berlaku untuk subhalaman /testcases dan /sandbox, atau subhalaman dari Modul:Kotak Pasir.'
+		tooltip: 'Modul Lua dan subhalaman templat yang tidak digunakan dapat dihapus, kecuali jika berupa /testcases, /sandbox, atau subhalaman dari Modul:Kotak Pasir.'
 	},
 	{
 		list: 'userList',
 		label: 'H1: Permintaan pengguna',
 		code: 'h1',
 		db: 'userreq',
-		tooltip: 'Permintaan Wikipediawan yang memulai halaman itu, jika halaman tersebut belum disunting secara berarti oleh pengguna lain. Jika pembuat halaman mengosongkan halaman yang dibuatnya, hal ini dapat diartikan bahwa ia menginginkan halaman tersebut dihapus',
+		tooltip: 'Halaman dapat dihapus atas permintaan pembuatnya jika belum disunting secara berarti oleh pengguna lain; pengosongan halaman oleh pembuatnya dapat dianggap sebagai permintaan penghapusan.',
 		subgroup: mw.config.get('wgNamespaceNumber') === 3 && !mw.config.get('wgTitle').includes('/') ? {
 			name: 'userreq_rationale',
 			type: 'input',
 			label: 'Alasan penghapusan (wajib):',
-			tooltip: 'Halaman pembicaraan pengguna dihapus hanya dalam keadaan langka tertentu.',
+			tooltip: 'Halaman pembicaraan pengguna hanya dihapus dalam keadaan yang sangat jarang dan luar biasa.',
 			size: 60
 		} : null,
 		hideSubgroupWhenMultiple: true
@@ -281,14 +281,14 @@ Twinkle.speedy.data = [
 		code: 'H2',
 		label: 'H2: Pengguna tidak nyata',
 		db: 'nouser',
-		tooltip: 'Halaman pengguna dari pengguna tidak nyata (Cek Istimewa:Daftar pengguna)'
+		tooltip: 'Halaman pengguna dari akun yang tidak nyata (menurut Istimewa:Daftar pengguna) dapat dihapus.'
 	},
 	{
 		list: 'userList',
-		label: 'H5: Non-kontributor menyalahgunaan Wikipedia sebagai hos web pribadi',
+		label: 'H5: Nonkontributor menyalahgunaan Wikipedia sebagai hos web pribadi',
 		code: 'h5',
 		db: 'notwebhost',
-		tooltip: 'Halaman di ruang pengguna yang berisi tulisan, informasi, diskusi, atau aktivitas yang tidak berkaitan erat dengan tujuan Wikipedia, di mana pemiliknya hanya melakukan sedikit atau tidak melakukan penyuntingan di luar halaman pengguna, kecuali untuk draf yang masuk akal dan halaman yang mematuhi WP:UPYES. Ketentuan ini berlaku terlepas dari usia halaman yang dimaksudkan',
+		tooltip: 'Halaman di ruang pengguna yang isinya tidak berkaitan erat dengan tujuan Wikipedia dan pemiliknya jarang atau tidak menyunting di luar halaman pengguna dapat dihapus, kecuali jika berupa draf yang masuk akal atau mematuhi WP:UPYES; ketentuan ini berlaku tanpa memandang usia halaman.',
 		hideWhenRedirect: true
 	},
 	{
@@ -296,7 +296,7 @@ Twinkle.speedy.data = [
 		label: 'U11: Halaman pengguna untuk promosi, dengan nama pengguna untuk tujuan promosi',
 		code: 'u11',
 		db: 'spamuser',
-		tooltip: 'Halaman pengguna untuk promosi, dengan nama pengguna untuk tujuan promosi. Perhatikan pula bahwa dengan adanya halaman mengenai perusahaan pada halaman pengguna tidak termasuk dalam kriteria ini. Jika halaman pengguna adalah spam, dan nama penggunanya tidak, tandai dengan U11 saja.',
+		tooltip: 'Halaman pengguna yang bersifat promosi dan menggunakan nama pengguna untuk tujuan promosi dapat dihapus. Jika hanya halamannya yang bersifat spam sementara nama pengguna tidak, cukup tandai dengan U11.',
 		hideWhenMultiple: true,
 		hideWhenRedirect: true
 	},
@@ -314,7 +314,7 @@ Twinkle.speedy.data = [
 		label: 'U1: Tulisan ngawur. Yang termasuk di dalamnya: Halaman-halaman yang isinya hanyalah ujaran tak keruan, tanpa makna dan isi.',
 		code: 'u1',
 		db: 'nonsense',
-		tooltip: 'Yang tidak termasuk di dalamnya: penulisan yang buruk, terjemahan buruk, vandalisme, materi fiktif, materi berbahasa selain bahasa Indonesia, pemberitaan palsu; namun demikian, beberapa di antara yang disebutkan dapat dihapus dengan dasar vandalisme.',
+		tooltip: 'Yang tidak termasuk: penulisan buruk, terjemahan buruk, vandalisme, materi fiktif, konten non-Indonesia, atau berita palsu; meskipun beberapa dapat dihapus jika tergolong vandalisme.',
 		hideInNamespaces: [ 2 ] // Not applicable in userspace
 	},
 	{
@@ -322,7 +322,7 @@ Twinkle.speedy.data = [
 		label: 'U2: Uji coba',
 		code: 'u2',
 		db: 'test',
-		tooltip: 'Halaman yang dibuat untuk mencoba kode-kode wiki. Yang tidak termasuk di dalamnya: penyuntingan di halaman-halaman bernama "bak pasir" dan ruangnama pengguna.',
+		tooltip: 'Halaman yang dibuat hanya untuk mencoba kode wiki dapat dihapus, kecuali jika berada di halaman Bak pasir atau ruang nama Pengguna.',
 		hideInNamespaces: [ 2 ] // Not applicable in userspace
 	},
 	{
@@ -330,14 +330,14 @@ Twinkle.speedy.data = [
 		label: 'U3: Vandalisme murni/terang-terangan',
 		code: 'u3',
 		db: 'vandalism',
-		tooltip: 'Vandalisme murni/terang-terangan (termasuk pengalihan yang ditinggalkan dari vandalisme pemindahan halaman).'
+		tooltip: 'Vandalisme murni atau terang-terangan, termasuk pengalihan yang ditinggalkan akibat vandalisme pemindahan halaman, dapat dihapus.'
 	},
 	{
 		list: 'generalList',
 		label: 'U3: Materi palsu terang-terangan',
 		code: 'u3',
 		db: 'hoax',
-		tooltip: 'Materi palsu terang-terangan untuk tujuan vandalisme',
+		tooltip: 'Materi palsu yang jelas dibuat untuk tujuan vandalisme dapat dihapus tanpa perlu diskusi lebih lanjut.',
 		hideWhenMultiple: true
 	},
 	{
@@ -345,12 +345,12 @@ Twinkle.speedy.data = [
 		label: 'U4: Pembuatan ulang dari halaman yang sudah dihapus',
 		code: 'u4',
 		db: 'repost',
-		tooltip: 'Yang termasuk di dalamnya: Salinan dari halaman yang dihapus melalui sebuah diskusi, baik melalui Wikipedia:Usulan penghapusan maupun di halaman pembicaraannya. Yang tidak termasuk di dalamnya: Pemulihan artikel melalui evaluasi penghapusan dan halaman yang dihapus tanpa melalui diskusi',
+		tooltip: 'Salinan dari halaman yang sebelumnya dihapus melalui diskusi (seperti Usulan penghapusan atau pembicaraan) dapat dihapus kembali; pengecualian berlaku untuk pemulihan melalui evaluasi penghapusan atau halaman yang dihapus tanpa diskusi.',
 		subgroup: {
 			name: 'repost_xfd',
 			type: 'input',
 			label: 'Halaman yang memuat diskusi penghapusan:',
-			tooltip: 'Harus dimulai dengan "Wikipedia:"',
+			tooltip: 'Harus dimulai dengan awalan "Wikipedia:"',
 			size: 60
 		}
 	},
@@ -359,7 +359,7 @@ Twinkle.speedy.data = [
 		label: 'U5: Pengguna yang diblokir atau yang dilarang',
 		code: 'u5',
 		db: 'banned',
-		tooltip: 'Halaman-halaman yang dibuat oleh pengguna yang sedang diblokir atau dilarang, termasuk yang terbukti membuat akun siluman, yang melanggar ketentuan pemblokiran atau peringatan kepada mereka',
+		tooltip: 'Halaman yang dibuat oleh pengguna yang sedang diblokir atau dilarang, termasuk akun siluman yang melanggar ketentuan pemblokiran atau peringatan, dapat dihapus.',
 		subgroup: {
 			name: 'banned_user',
 			type: 'input',
@@ -372,15 +372,15 @@ Twinkle.speedy.data = [
 		label: 'U6: Galat',
 		code: 'u6',
 		db: 'error',
-		tooltip: 'Halaman yang dibuat dengan kesalahan, atau pengalihan yang tersisa dari pemindahan halaman yang jelas-jelas dibuat dengan judul yang salah.',
+		tooltip: 'Halaman yang dibuat karena kesalahan, atau pengalihan yang tersisa dari pemindahan dengan judul yang keliru, dapat dihapus.',
 		hideWhenMultiple: true
 	},
 	{
 		list: 'generalList',
-		label: 'U6: Pindah',
+		label: 'U6: Pemindahan',
 		code: 'u6',
 		db: 'move',
-		tooltip: 'Memberi tempat untuk pemindahan',
+		tooltip: 'Halaman yang hanya dibuat untuk memberi tempat bagi pemindahan (misalnya sebagai target pengalihan sementara) dapat dihapus setelah tidak lagi diperlukan.',
 		subgroup: [
 			{
 				name: 'move_page',
@@ -401,12 +401,12 @@ Twinkle.speedy.data = [
 		label: 'U6: Proses penghapusan (UP-X)',
 		code: 'u6',
 		db: 'xfd',
-		tooltip: 'Sebuah diskusi penghapusan (di UP, UP-B, RfD, TfD, CfD, atau MfD) ditutup sebagai "hapus", tapi halamannya tidak dihapus.',
+		tooltip: 'Halaman yang tetap ada meskipun diskusi penghapusan (UP, UP-B, RfD, TfD, CfD, atau MfD) ditutup dengan keputusan "hapus" dapat dihapus sesuai hasil diskusi.',
 		subgroup: {
 			name: 'xfd_fullvotepage',
 			type: 'input',
-			label: 'Halaman dimana diskusi penghapusan dilakukan:',
-			tooltip: 'Dimulai dengan "Wikipedia:"',
+			label: 'Halaman tempat diskusi penghapusan dilakukan:',
+			tooltip: 'Dimulai dengan awalan "Wikipedia:"',
 			size: 40
 		},
 		hideWhenMultiple: true
@@ -416,11 +416,11 @@ Twinkle.speedy.data = [
 		label: 'U6: Pemindahan AfC',
 		code: 'u6',
 		db: 'afc-move',
-		tooltip: 'Membuat cara untuk sebauh draft dipindahkan ke PPH',
+		tooltip: 'Draf yang layak dapat dipindahkan ke PPH.',
 		subgroup: {
 			name: 'draft_page',
 			type: 'input',
-			label: 'Draft yang akan dipindahkan kesini:'
+			label: 'Draf yang akan dipindahkan kesini:'
 		},
 		hideWhenMultiple: true
 	},
@@ -429,7 +429,7 @@ Twinkle.speedy.data = [
 		label: 'U6: Pemindahan salin-tempel',
 		code: 'u6',
 		db: 'copypaste',
-		tooltip: 'Pemindahan salin-tempel halaman lain yang perlu dihapus sementara untuk membuat tempat agar dapat dipindahkan melalui peralatan Wikipedia.',
+		tooltip: 'Halaman hasil salin-tempel yang perlu dihapus sementara untuk memberi tempat bagi pemindahan melalui peralatan Wikipedia.',
 		subgroup: {
 			name: 'copypaste_sourcepage',
 			type: 'input',
@@ -442,7 +442,7 @@ Twinkle.speedy.data = [
 		label: 'U6: Alasan teknis',
 		code: 'u6',
 		db: 'u6',
-		tooltip: 'Alasan teknis lainnya',
+		tooltip: 'Halaman yang perlu dihapus karena alasan teknis lainnya.',
 		subgroup: {
 			name: 'g6_rationale',
 			type: 'input',
@@ -455,19 +455,19 @@ Twinkle.speedy.data = [
 		label: 'U6: Halaman disambiguasi yang tak perlu',
 		code: 'u6',
 		db: 'disambig',
-		tooltip: 'Untuk halaman disambiguasi yatim yang: (1) mendisambiguasi kurang dari dua halaman Wikipedia untuk yang judulnya berakhiran "(disambiguasi)"; atau (2) mendisambiguasi tidak ada halaman'
+		tooltip: 'Halaman disambiguasi yatim yang hanya mengarah ke satu atau tidak ada halaman Wikipedia, terutama jika berjudul "(disambiguasi)", dapat dihapus.'
 	},
 	{
 		list: 'generalList',
 		label: 'U7: Permintaan pembuat halaman',
 		code: 'u7',
 		db: 'author',
-		tooltip: 'Permintaan Wikipediawan yang memulai halaman itu, jika halaman tersebut belum disunting secara berarti oleh pengguna lain. Jika pembuat halaman mengosongkan halaman yang dibuatnya, hal ini dapat diartikan bahwa ia menginginkan halaman tersebut dihapus.',
+		tooltip: 'Halaman dapat dihapus atas permintaan pembuatnya, jika belum disunting secara berarti oleh pengguna lain; pengosongan halaman oleh pembuatnya dapat dianggap sebagai permintaan penghapusan.',
 		subgroup: {
 			name: 'author_rationale',
 			type: 'input',
 			label: 'Penjelasan opsional:',
-			tooltip: 'Alasan pembuat meminta penghapusan.',
+			tooltip: 'Halaman dapat dihapus jika pembuatnya secara eksplisit meminta penghapusan dan belum disunting secara berarti oleh pengguna lain.',
 			size: 60
 		},
 		hideSubgroupWhenSysop: true
@@ -477,7 +477,7 @@ Twinkle.speedy.data = [
 		label: 'U8: Halaman yang tergantung pada halaman yang tak ada atau yang dihapus',
 		code: 'u8',
 		db: 'u8',
-		tooltip: 'Yang termasuk di dalamnya: Pengalihan rusak (termasuk nama pengalihan yang buruk, pengalihan yang berputar), halaman pembicaraan yang artikelnya telah dihapus, subhalaman yang super-halamannya telah dihapus, halaman berkas tanpa suatu berkas, atau kategori yang isinya telah dipindahkan. Yang tidak termasuk di dalamnya: diskusi penghapusan yang tidak terdapat di tempat lain, halaman pengguna dan halaman pembicaraan pengguna, arsip pembicaraan, pengalihan rusak yang masih bisa dialihkan ke halaman lain, dan halaman berkas dan halaman pembicaraan berkas untuk berkas yang terdapat di Commons.',
+		tooltip: 'Halaman-halaman yang tidak lagi memiliki fungsi, seperti pengalihan rusak, halaman pembicaraan dari artikel yang telah dihapus, subhalaman dari super-halaman yang telah dihapus, halaman berkas tanpa berkas, atau kategori kosong akibat pemindahan isi, dapat dihapus; pengecualian berlaku untuk diskusi penghapusan yang tidak terdokumentasi di tempat lain, halaman pengguna dan pembicaraannya, arsip pembicaraan, pengalihan rusak yang masih dapat diarahkan, serta halaman berkas dan pembicaraannya untuk berkas yang tersedia di Commons.',
 		subgroup: {
 			name: 'g8_rationale',
 			type: 'input',
@@ -488,10 +488,10 @@ Twinkle.speedy.data = [
 	},
 	{
 		list: 'generalList',
-		label: 'U8: Subhalaman dengan tidak ada halaman induk',
+		label: 'U8: Subhalaman dengan tidak ada halaman utama',
 		code: 'u8',
 		db: 'subpage',
-		tooltip: 'This excludes any page that is useful to the project, and in particular: deletion discussions that are not logged elsewhere, user and user talk pages, talk page archives, plausible redirects that can be changed to valid targets, and file pages or talk pages for files that exist on Wikimedia Commons.',
+		tooltip: 'Pengecualian berlaku untuk halaman yang masih berguna bagi proyek, termasuk: diskusi penghapusan yang tidak terdokumentasi di tempat lain, halaman pengguna dan pembicaraannya, arsip pembicaraan, pengalihan yang masih dapat diarahkan ke target yang valid, serta halaman berkas dan pembicaraannya untuk berkas yang tersedia di Wikimedia Commons.',
 		hideWhenMultiple: true,
 		hideInNamespaces: [ 0, 6, 8 ] // hide in main, file, and mediawiki-spaces
 	},
@@ -500,14 +500,14 @@ Twinkle.speedy.data = [
 		label: 'U10: Halaman serangan',
 		code: 'u10',
 		db: 'attack',
-		tooltip: 'Serangan atau olokan terhadap subyek atau entitas lain.  Yang termasuk di dalamnya: Ancaman, artikel biografi orang hidup yang isinya semuanya bernada negatif dan tidak memiliki sumber (dan di sejarah revisinya tidak ada versi yang netral yang dapat digunakan). Judul artikel dan isi artikel dapat dipakai untuk menentukan apakah artikel tersebut masuk kategori ini atau tidak!'
+		tooltip: 'Halaman yang berisi serangan atau olokan terhadap subjek atau entitas lain, termasuk ancaman dan artikel biografi bernada negatif tanpa sumber yang dapat diverifikasi, dapat dihapus; penilaian dapat didasarkan pada judul maupun isi artikel.'
 	},
 	{
 		list: 'generalList',
 		label: 'U10: Biografi orang hidup yang semuanya bernada negatif dan tanpa sumber',
 		code: 'u10',
 		db: 'negublp',
-		tooltip: 'Artikel biografi orang hidup yang isinya semuanya bernada negatif dan tidak memiliki sumber (dan di sejarah revisinya tidak ada versi yang netral yang dapat digunakan).',
+		tooltip: 'Artikel biografi orang hidup yang seluruh isinya bernada negatif tanpa sumber tepercaya, dan tidak memiliki versi netral dalam riwayat suntingan, dapat dihapus.',
 		hideWhenMultiple: true
 	},
 	{
@@ -515,14 +515,14 @@ Twinkle.speedy.data = [
 		label: 'U11: Iklan atau promosi terang-terangan',
 		code: 'u11',
 		db: 'spam',
-		tooltip: 'Yang termasuk di dalamnya: Halaman yang dibuat dengan tujuan utama untuk mempromosikan suatu entitas, dan yang tidak ensiklopedis (yang perlu ditulis ulang agar bersifat ensiklopedis). Yang tidak termasuk di dalamnya: artikel yang memiliki judul suatu nama perusahaan atau produk tidak secara otomatis masuk ke kategori ini'
+		tooltip: 'Halaman yang dibuat semata-mata untuk promosi dan tidak bersifat ensiklopedis dapat dihapus; namun, artikel dengan judul nama perusahaan atau produk tidak otomatis termasuk kategori ini.'
 	},
 	{
 		list: 'generalList',
 		label: 'U12: Pelanggaran hak cipta terang-terangan',
 		code: 'u12',
 		db: 'copyvio',
-		tooltip: 'Yang termasuk di dalamnya: Halaman dengan teks yang berhak cipta tanpa adanya suatu pemberitahuan yang jelas bahwa teks tersebut diberi lisensi domain publik, penggunaan bebas, atau penggunaan gratis, dan tidak ada bagian dari teks yang tidak melanggar hak cipta yang patut diselamatkan. Kecuali jika ditinjau dari riwayat halamannya tidak ada versi yang bisa digunakan untuk menggantikan versi yang melanggar hak cipta, maka halaman tersebut akan dihapus seluruh isinya',
+		tooltip: 'Halaman yang seluruh isinya melanggar hak cipta tanpa lisensi yang jelas, dan tidak memiliki versi bebas pelanggaran dalam riwayat suntingan, dapat dihapus seluruhnya.',
 		subgroup: [
 			{
 				name: 'copyvio_url',
@@ -552,7 +552,7 @@ Twinkle.speedy.data = [
 		label: 'U13: Artikel dibuat secara murni dengan tulisan AI generatif',
 		code: 'u13',
 		db: 'u13',
-		tooltip: 'Artikel dibuat secara murni mengguakan alat AI, dan tanpa adanya sumber/referensi yang jelas.',
+		tooltip: 'Artikel yang sepenuhnya dibuat dengan alat AI tanpa menyertakan sumber atau referensi yang jelas dapat dihapus.',
 	},
 	/* <-- Belum ada kriteria yang sesuai di WBI, silahkan hilangkan komentar ini jika sudah ada -->
 	{
@@ -597,7 +597,7 @@ Twinkle.speedy.data = [
 		label: 'R2: Pengalihan dari ruangnama artikel ke ruangnama lain, kecuali ruangnama Kategori:, Templat:, Wikipedia:, Bantuan:, dan Portal:',
 		code: 'r2',
 		db: 'rediruser',
-		tooltip: 'Jika pengalihan ditimbulkan karena pemindahan halaman, tunggu satu atau beberapa hari sebelum menghapus pengalihan. Lihat pula Wikipedia:Pengalihan antar-ruangnama',
+		tooltip: 'Pengalihan yang muncul akibat pemindahan halaman sebaiknya tidak langsung dihapus; tunggu satu atau beberapa hari sebelum menghapusnya. Lihat pula: Wikipedia:Pengalihan antar-ruangnama.',
 		showInNamespaces: [ 0 ]
 	},
 	{
@@ -605,14 +605,14 @@ Twinkle.speedy.data = [
 		label: 'R3: Pengalihan yang baru dibuat karena kesalahan ketik atau kesalahan penamaan yang tidak disengaja',
 		code: 'r3',
 		db: 'redirtypo',
-		tooltip: 'Meskipun demikian, pengalihan dari kesalahan umum pengejaan atau penamaan biasanya berguna, seperti halnya pengalihan dari istilah dalam bahasa lain'
+		tooltip: 'Pengalihan dari kesalahan umum pengejaan, penamaan, atau istilah dalam bahasa lain biasanya berguna dan tidak seharusnya dihapus.'
 	},
 	{
 		list: 'redirectList',
 		label: 'R4: Pengalihan ruangnama berkas dengan nama yang sesuai dengan halaman Commons',
 		code: 'r4',
 		db: 'redircom',
-		tooltip: 'The redirect should have no incoming links (unless the links are cleary intended for the file or redirect at Commons).',
+		tooltip: 'Pengalihan sebaiknya tidak memiliki pranala masuk, kecuali jika pranala tersebut memang ditujukan untuk berkas atau pengalihan di Wikimedia Commons.',
 		showInNamespaces: [ 6 ]
 	},
 	{
@@ -620,7 +620,7 @@ Twinkle.speedy.data = [
 		label: 'U6: Pengalihan ke halaman disambiguasi yang salah',
 		code: 'u6',
 		db: 'movedab',
-		tooltip: 'Untuk halaman disambiguasi yang berakhiran "(disambiguasi)" yang topik utamanya tidak ada.',
+		tooltip: 'Halaman disambiguasi yang berakhiran "(disambiguasi)" dapat dihapus jika tidak ada artikel utama yang sesuai dengan judul tanpa akhiran tersebut.',
 		hideWhenMultiple: true
 	},
 	{
@@ -628,15 +628,15 @@ Twinkle.speedy.data = [
 		label: 'U8: Pengalihan ke target tidak sah',
 		code: 'u8',
 		db: 'redirnone',
-		tooltip: 'Ini tidak berlaku untuk halaman berguna ke sebuah proyek, dan khususnya: diskusi penghapusan yang tidak dicatat di tempat lain, halaman pengguna dan pembicaraannya, arsip halaman pembicaraan, pengalihan yang dapat diperbaiki, dan halaman berkas dan pembicaraannya yang ada di Commons.',
+		tooltip: 'Pengecualian berlaku untuk halaman yang masih berguna bagi proyek, termasuk: diskusi penghapusan yang tidak dicatat di tempat lain, halaman pengguna dan pembicaraannya, arsip pembicaraan, pengalihan yang dapat diperbaiki, serta halaman berkas dan pembicaraannya untuk berkas yang tersedia di Wikimedia Commons.',
 		hideWhenMultiple: true
 	},
 	{
 		list: 'redirectList',
-		label: 'X3: Redirects with no space before a parenthetical disambiguation',
+		label: 'X3: Pengalihan tanpa spasi sebelum tanda kurung disambiguasi',
 		code: 'x3',
 		db: 'x3',
-		tooltip: 'This excludes terms that can plausibly be searched for without spaces, or if the redirect contains substantive page history (e.g. from a merge).'
+		tooltip: 'Pengecualian berlaku untuk istilah yang masih masuk akal dicari tanpa spasi, atau jika pengalihan memiliki riwayat suntingan yang signifikan (misalnya hasil penggabungan halaman).'
 	}
 ];
 
@@ -717,7 +717,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 					label: 'Tandai halaman saja, jangan hapus',
 					value: 'tag_only',
 					name: 'tag_only',
-					tooltip: 'Jika anda hanya ingin menandai halaman',
+					tooltip: 'Jika Anda hanya ingin menandai halaman',
 					checked: !(Twinkle.speedy.hasCSD || Twinkle.getPref('deleteSysopDefaultToDelete')),
 					event: function(event) {
 						const cForm = event.target.form;
@@ -763,7 +763,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 						label: 'Juga hapus halaman pembicaraan',
 						value: 'talkpage',
 						name: 'talkpage',
-						tooltip: "Pilihan ini menghapus halaman pembciaraan halaman. Jika anda memilih kriteria B8 (pindah ke Commons), opsi ini akan dibiarkan dan halaman pembicaraan *tidak* dihapus.",
+						tooltip: "Opsi ini memungkinkan penghapusan halaman pembicaraan yang terkait dengan halaman utama. Namun, jika penghapusan dilakukan berdasarkan kriteria B8 (pemindahan ke Wikimedia Commons), maka halaman pembicaraan akan tetap dipertahankan dan tidak dihapus.",
 						checked: Twinkle.getPref('deleteTalkPageOnDelete'),
 						event: function(event) {
 							event.stopPropagation();
@@ -779,7 +779,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 					label: 'Juga hapus semua pengalihan',
 					value: 'redirects',
 					name: 'redirects',
-					tooltip: 'Opsi ini akan menghapus semua pengalihan yang masuk sebagai tambahan. Hindari ini untuk penghapusan prosedural (mis. pindah/gabung).',
+					tooltip: 'Opsi ini memungkinkan penghapusan semua pengalihan yang masuk secara otomatis; namun, sebaiknya dihindari dalam kasus penghapusan prosedural seperti pemindahan atau penggabungan halaman, agar tidak mengganggu alur navigasi yang sudah ada.',
 					checked: Twinkle.getPref('deleteRedirectsOnDelete'),
 					event: function (event) {
 						event.stopPropagation();
@@ -789,17 +789,17 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 					label: 'Hapus dengan beberapa kriteria',
 					value: 'delmultiple',
 					name: 'delmultiple',
-					tooltip: 'Saat dipilih, anda dapat memilih beberapa kriteria untuk dipasang di halaman. Sebagai contoh, U11 dan A7 merupakan kombinasi umum untuk artikel.',
+					tooltip: 'Jika opsi ini dipilih, Anda dapat menetapkan lebih dari satu kriteria penghapusan cepat untuk sebuah halaman.',
 					event: function(event) {
 						Twinkle.speedy.callback.modeChanged(event.target.form);
 						event.stopPropagation();
 					}
 				},
 				{
-					label: 'Beritahu pembuat halaman untuk penghapusan halaman',
+					label: 'Beri tahu pembuat halaman untuk penghapusan halaman',
 					value: 'warnusertalk',
 					name: 'warnusertalk',
-					tooltip: 'Notifikasi templat akan ditempatkan di halaman pembicaraan pembuat halaman, JIKA anda mengaktifkan notifikasi di preferensi Twinkle anda ',
+					tooltip: 'Jika Anda mengaktifkan notifikasi di preferensi Twinkle, maka templat notifikasi akan secara otomatis ditempatkan di halaman pembicaraan pembuat halaman saat Anda menandai halaman untuk penghapusan cepat.',
 					checked: !Twinkle.speedy.hasCSD,
 					event: function(event) {
 						event.stopPropagation();
@@ -825,10 +825,10 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 		type: 'checkbox',
 		list: [
 			{
-				label: 'Beritahu ',
+				label: 'Beri tahu ',
 				value: 'notify',
 				name: 'notify',
-				tooltip: 'Templat notifikasi akan ditempatkan dalam halaman pembicaraan pembuat, JIKA notifikasi anda diaktifkan di preferensi Twinkle anda ',
+				tooltip: 'Templat notifikasi akan otomatis ditempatkan di halaman pembicaraan pembuat halaman jika Anda telah mengaktifkan fitur notifikasi dalam preferensi Twinkle Anda.',
 				checked: !Morebits.userIsSysop || !(Twinkle.speedy.hasCSD || Twinkle.getPref('deleteSysopDefaultToDelete')),
 				event: function(event) {
 					event.stopPropagation();
@@ -838,7 +838,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 				label: 'Tag untuk proteksi pembuatan (salting) juga',
 				value: 'salting',
 				name: 'salting',
-				tooltip: 'Saat dipilih, tag penghapusan cepat akan bersama permintaan tag {{salt}} yang menghapus perlindungan pembuatan pengurus. Hanya pilih ini jika sudah dibuat berulang kali.',
+				tooltip: 'Jika opsi ini dipilih, tag penghapusan cepat akan disertai dengan permintaan penandaan {{salt}}, yang bertujuan untuk menghapus perlindungan pembuatan oleh pengurus. Gunakan opsi ini hanya jika halaman tersebut telah dibuat berulang kali secara problematis.',
 				event: function(event) {
 					event.stopPropagation();
 				}
@@ -847,7 +847,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 				label: 'Menandai dengan beberapa kriteria',
 				value: 'multiple',
 				name: 'multiple',
-				tooltip: 'Saat dipilih, anda dapat memilih beberapa kriteria untuk dimasukan ke artikel. Sebagai contoh, B11 dan A7 merupakan kombo untuk artikel.',
+				tooltip: 'Jika opsi ini dipilih, Anda dapat menetapkan lebih dari satu kriteria penghapusan cepat untuk sebuah artikel. Sebagai contoh, kombinasi B11 dan A7 sering digunakan bersama untuk menandai artikel yang tidak memenuhi standar kelayakan dan verifikasi.',
 				event: function(event) {
 					Twinkle.speedy.callback.modeChanged(event.target.form);
 					event.stopPropagation();
@@ -865,7 +865,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 	form.append({
 		type: 'div',
 		name: 'work_area',
-		label: 'Gagal untuk memulai modul KPC. Tolong coba lagi, atau beritahu pengembang Twinkle terhadap kendala.'
+		label: 'Gagal memulai modul KPC. Silakan coba lagi, atau laporkan masalah ini kepada pengembang Twinkle.'
 	});
 
 	if (Twinkle.getPref('speedySelectionStyle') !== 'radioClick') {
@@ -955,7 +955,7 @@ Twinkle.speedy.callback.modeChanged = function twinklespeedyCallbackModeChanged(
 			case 7: // file talk
 				appendList('Files', Twinkle.speedy.fileList);
 				if (!mode.isSysop) {
-					work_area.append({ type: 'div', label: 'Menandai untuk KPC B4 (tidak ada lisensi), B5 (berkas non-bebas tidak digunakan), B6 (tidak ada lisensi penggunaan tak bebas), dan B11 (tidak ada izin) dapat dilakukan dengan tab "DI" Twinkle.'});
+					work_area.append({ type: 'div', label: 'Penandaan untuk KPC B4 (tidak ada lisensi), B5 (berkas nonbebas tidak digunakan), B6 (tidak ada lisensi penggunaan tak bebas), dan B11 (tidak ada izin) dapat dilakukan melalui tab "DI" pada Twinkle.'});
 				}
 				break;
 
@@ -1018,7 +1018,7 @@ Twinkle.speedy.callback.priorDeletionCount = function () {
 		lelimit: 5 // A little bit goes a long way
 	};
 
-	new Morebits.wiki.Api('Memeriksa untuk penghapusan sebelumnya', query, ((apiobj) => {
+	new Morebits.wiki.Api('Memeriksa penghapusan sebelumnya', query, ((apiobj) => {
 		const response = apiobj.getResponse();
 		const delCount = response.query.logevents.length;
 		if (delCount) {
@@ -1187,7 +1187,7 @@ Twinkle.speedy.callbacks = {
 		const api = new Morebits.wiki.Api('Mengambil templat penghapusan', query, ((apiobj) => {
 			const reason = decodeURIComponent($(apiobj.getResponse().parse.text).find('#delete-reason').text()).replace(/\+/g, ' ');
 			if (!reason) {
-				statusIndicator.warn('Tidak dapat membuat ringkasan dari templat penghapusan');
+				statusIndicator.warn('Tidak dapat membuat ringkasan dari templat penghapusan karena alasan atau parameter yang diperlukan tidak tersedia atau tidak valid. Silakan periksa kembali masukan dari Anda.');
 			} else {
 				statusIndicator.info('complete');
 			}
@@ -1207,16 +1207,16 @@ Twinkle.speedy.callbacks = {
 
 		// don't notify users when their user talk page is nominated/deleted
 		} else if (initialContrib === mw.config.get('wgTitle') && mw.config.get('wgNamespaceNumber') === 3) {
-			Morebits.Status.warn('Memberitahu kontributor awal: pengguna ini membuat halaman pembicaraan pengguna sendiri; melewati notifikasi');
+			Morebits.Status.warn('Pemberitahuan kepada kontributor awal dilewati karena pengguna ini membuat halaman pembicaraan pengguna mereka sendiri.');
 			initialContrib = null;
 
 		// quick hack to prevent excessive unwanted notifications, per request. Should actually be configurable on recipient page...
 		} else if ((initialContrib === 'Cyberbot I' || initialContrib === 'SoxBot') && params.normalizeds[0] === 'b2') {
-			Morebits.Status.warn('Memberitahu kontributor awal: page created procedurally by bot; skipping notification');
+			Morebits.Status.warn('Pemberitahuan kepada kontributor awal dilewati karena halaman dibuat secara prosedural oleh bot.');
 			initialContrib = null;
 
 		// Check for already existing tags
-		} else if (Twinkle.speedy.hasCSD && params.warnUser && !confirm('Halamannya telah mempunyai tag penghapusan, dan pembuatnya sepertinya telah diberitahu.  Apakah anda ingin memberitahunya untuk penghapusan ini juga?')) {
+		} else if (Twinkle.speedy.hasCSD && params.warnUser && !confirm('Halaman sudah punya tag penghapusan dan pembuatnya tampaknya sudah diberi tahu. Apakah Anda tetap ingin memberitahukannya lagi untuk penghapusan ini?')) {
 			Morebits.Status.info('Memberitahu kontributor awal', 'dibatalkan oleh pengguna; melewati notifikasi..');
 			initialContrib = null;
 		}
@@ -1287,13 +1287,13 @@ Twinkle.speedy.callbacks = {
 		main: function(params) {
 			let reason;
 			if (!params.normalizeds.length && params.normalizeds[0] === 'db') {
-				reason = prompt('Masukan ringkasan penghapusan digunakan, yang akan dimasukkan ke dalam catatan penghapusan:', '');
+				reason = prompt('Ringkasan penghapusan: Masukkan alasan singkat untuk penghapusan halaman ini.', '');
 				Twinkle.speedy.callbacks.sysop.deletePage(reason, params);
 			} else {
 				const code = Twinkle.speedy.callbacks.getTemplateCodeAndParams(params)[0];
 				Twinkle.speedy.callbacks.parseWikitext(code, (reason) => {
 					if (params.promptForSummary) {
-						reason = prompt('Masukan ringkasan penghapusan untuk digunakan, atau tekan OK untuk menerima ringkasan otomatis.', reason);
+						reason = prompt('Masukkan ringkasan singkat dan jelas untuk penghapusan, atau tekan OK untuk menggunakan ringkasan otomatis dari sistem.', reason);
 					}
 					Twinkle.speedy.callbacks.sysop.deletePage(reason, params);
 				});
@@ -1303,9 +1303,9 @@ Twinkle.speedy.callbacks = {
 			const thispage = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Menghapus halaman');
 
 			if (reason === null) {
-				return Morebits.Status.error('Bertanya untuk alasan', 'Penggna membatalkan');
+				return Morebits.Status.error('Berikan alasan penghapusan', 'Pengguna membatalkan');
 			} else if (!reason || !reason.replace(/^\s*/, '').replace(/\s*$/, '')) {
-				return Morebits.Status.error('Bertanya untuk alasan', 'Alasan untuk penghapusan tidak diberikan, atau Twinkle tidak dapat menyelesaikannya. Membatalkan.');
+				return Morebits.Status.error('Berikan alasan penghapusan', 'Penghapusan dibatalkan karena tidak ada alasan yang diberikan, atau Twinkle gagal menyelesaikan prosesnya. Silakan periksa kembali parameter yang dimasukkan dan pastikan alasan penghapusan sesuai dengan kriteria yang berlaku.');
 			}
 
 			const deleteMain = function(callback) {
@@ -1338,7 +1338,7 @@ Twinkle.speedy.callbacks = {
 					params.normalized !== 'b8' &&
 					!document.getElementById('ca-talk').classList.contains('new')) {
 				const talkpage = new Morebits.wiki.Page(mw.config.get('wgFormattedNamespaces')[mw.config.get('wgNamespaceNumber') + 1] + ':' + mw.config.get('wgTitle'), 'Menghapus halaman pembicaraan');
-				talkpage.setEditSummary('[[WP:KPC#U8|U8]]: Halaman pembicaraan dari halaman terhapus [[' + mw.config.get('wgTitle') + ']]');
+				talkpage.setEditSummary('[[WP:KPC#U8|U8]]: Halaman pembicaraan dari halaman yang dihapus [[' + mw.config.get('wgTitle') + ']]');
 				talkpage.setChangeTags(Twinkle.changeTags);
 				talkpage.deletePage();
 				// this is ugly, but because of the architecture of wiki.api, it is needed
@@ -1371,32 +1371,32 @@ Twinkle.speedy.callbacks = {
 			if (mw.config.get('wgNamespaceNumber') === 6 && params.normalized !== 'b8') {
 				$link = $('<a>', {
 					href: '#',
-					text: 'Tekan disini untuk ke alat Unlink',
+					text: 'Silakan klik di sini untuk membuka alat Unlink',
 					css: { fontSize: '130%', fontWeight: 'bold' },
 					click: function() {
 						Morebits.wiki.actionCompleted.redirect = null;
 						Twinkle.speedy.dialog.close();
-						Twinkle.unlink.callback('Menghilangkan penggunaan dari dan/atau ke berkas terhapus ' + Morebits.pageNameNorm);
+						Twinkle.unlink.callback('Hapus semua pranala ke dan dari berkas yang telah dihapus: ' + Morebits.pageNameNorm);
 					}
 				});
 				$bigtext = $('<span>', {
-					text: 'To orphan backlinks and remove instances of file usage',
+					text: 'Hapus semua pranala balik dan hapus semua penggunaan berkas.',
 					css: { fontSize: '130%', fontWeight: 'bold' }
 				});
 				Morebits.Status.info($bigtext[0], $link[0]);
 			} else if (params.normalized !== 'b8') {
 				$link = $('<a>', {
 					href: '#',
-					text: 'Klik disini untuk ke alat Unlink',
+					text: 'Klik di sini untuk membuka alat Unlink.',
 					css: { fontSize: '130%', fontWeight: 'bold' },
 					click: function() {
 						Morebits.wiki.actionCompleted.redirect = null;
 						Twinkle.speedy.dialog.close();
-						Twinkle.unlink.callback('Menghapus tautan ke halaman terhapus ' + Morebits.pageNameNorm);
+						Twinkle.unlink.callback('Menghapus pranala yang mengarah ke halaman yang sudah dihapus ' + Morebits.pageNameNorm);
 					}
 				});
 				$bigtext = $('<span>', {
-					text: 'Ke pranala balik yatim',
+					text: 'Menuju ke pranala balik yang yatim',
 					css: { fontSize: '130%', fontWeight: 'bold' }
 				});
 				Morebits.Status.info($bigtext[0], $link[0]);
@@ -1431,7 +1431,7 @@ Twinkle.speedy.callbacks = {
 			snapshot.forEach((value) => {
 				const title = value.title;
 				const page = new Morebits.wiki.Page(title, 'Menghapus pengalihan "' + title + '"');
-				page.setEditSummary('[[WP:KPC#U8|U8]]: Mengalihkan ke halaman terhapus [[' + Morebits.pageNameNorm + ']]');
+				page.setEditSummary('[[WP:KPC#U8|U8]]: Mengalihkan ke halaman yang dihapus [[' + Morebits.pageNameNorm + ']]');
 				page.setChangeTags(Twinkle.changeTags);
 				page.deletePage(onsuccess);
 			});
@@ -1443,7 +1443,7 @@ Twinkle.speedy.callbacks = {
 			const statelem = pageobj.getStatusElement();
 
 			if (!pageobj.exists()) {
-				statelem.error("Sepertinya halamannya tidak ada; mungkin sudah dihapus?");
+				statelem.error("Halaman tidak ditemukan; mungkin sudah dihapus.");
 				return;
 			}
 
@@ -1469,12 +1469,12 @@ Twinkle.speedy.callbacks = {
 				// check for existing deletion tags
 				const tag = /(?:\{\{\s*(db|delete|db-.*?|speedy deletion-.*?)(?:\s*\||\s*\}\}))/.exec(text);
 				// This won't make use of the db-multiple template but it probably should
-				if (tag && !confirm('Halaman sudah terdapat templat KPC {{' + tag[1] + '}}.  Apakah anda ingin menambahkan templat KPC lainnya?')) {
+				if (tag && !confirm('Halaman sudah terdapat templat KPC {{' + tag[1] + '}}. Ingin menambahkan templat KPC lain?')) {
 					return;
 				}
 
 				const xfd = /\{\{((?:article for deletion|proposed deletion|prod blp|template for discussion)\/dated|[cfm]fd\b)/i.exec(text) || /#invoke:(RfD)/.exec(text);
-				if (xfd && !confirm('Templat penghapusan terkait {{' + xfd[1] + '}} ditemukan di halmama. Apakah anda masih ingin menambahkan templat KPC?')) {
+				if (xfd && !confirm('Ditemukan templat penghapusan {{' + xfd[1] + '}} di halaman. Tetap ingin menambahkan templat KPC?')) {
 					return;
 				}
 
@@ -1551,7 +1551,7 @@ Twinkle.speedy.callbacks = {
 						code += '\n{{salt}}';
 					}
 
-					pageobj.getStatusElement().warn('Tidak dapat ke halaman penyuntingan, menaruh tag di halaman pembicaraan');
+					pageobj.getStatusElement().warn('Tidak dapat mengakses halaman penyuntingan, sehingga tag ditempatkan di halaman pembicaraan sebagai gantinya.');
 
 					const talk_page = new Morebits.wiki.Page(talkName, 'Menaruh secara otomatis di halaman pembicaraan');
 					talk_page.setNewSectionTitle(pageobj.getPageName() + ' dinominasikan untuk KPC, meminta penghapusan');
@@ -1563,7 +1563,7 @@ Twinkle.speedy.callbacks = {
 					talk_page.setCallbackParameters(params);
 					talk_page.newSection(Twinkle.speedy.callbacks.user.tagComplete);
 				} else {
-					pageobj.getStatusElement().error('Halaman tidak dapat disunting dan tidak ada lokasi lainnya untuk menempatkan permintaan, membatalkan');
+					pageobj.getStatusElement().error('Halaman tidak dapat disunting dan tidak tersedia lokasi alternatif untuk menempatkan permintaan, sehingga proses dibatalkan.');
 				}
 			}
 		},
@@ -1585,9 +1585,8 @@ Twinkle.speedy.callbacks = {
 		addToLog: function(params, initialContrib) {
 			const usl = new Morebits.UserspaceLogger(Twinkle.getPref('speedyLogPageName'));
 			usl.initialText =
-				"Ini adalah semua catatan dari semua nominasi [[WP:KPC|penghapusan cepat]] yang dibuat oleh pengguna ini dengan modul KPC [[WP:TW|Twinkle]].\n\n" +
-				'Jika anda tidak ingin menyimpan catatan ini, anda dapat mematikannya di [[Wikipedia:Twinkle/Preferences|panel preferensi]], dan ' +
-				'nominasikan halaman ini untuk penghapusan cepat dibawah [[WP:KPC#U1|KPC U1]].' +
+				"Ini adalah daftar lengkap semua catatan dari nominasi penghapusan cepat yang diajukan oleh pengguna ini menggunakan modul KPC dari Twinkle.\n\n" +
+				'Jika Anda tidak ingin menyimpan catatan ini, Anda dapat menonaktifkannya melalui [[Wikipedia:Twinkle/Preferencespanel preferensi]], lalu nominasikan halaman ini untuk penghapusan cepat dengan kriteria KPC U1.' +
 				(Morebits.userIsSysop ? '\n\Catatan ini tidak mencatat diluar penghapusan cepat yang dibuat dengan Twinkle.' : '');
 
 			const formatParamLog = function(normalize, csdparam, input) {
@@ -1659,7 +1658,7 @@ Twinkle.speedy.callbacks = {
 			}
 
 			if (params.requestsalt) {
-				appendText += '; meminta perlindungan pembuatan ([[WP:SALT|berulang]])';
+				appendText += '; meminta perlindungan pembuatan berulang';
 			}
 			if (extraInfo) {
 				appendText += '; informasi tambahan:' + extraInfo;
@@ -1686,7 +1685,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 				if (form['csd.reason_1']) {
 					const dbrationale = form['csd.reason_1'].value;
 					if (!dbrationale || !dbrationale.trim()) {
-						alert('Kriteria kustom:  Tolong berikan kriteria.');
+						alert('Kriteria kustom: Silakan tuliskan alasan atau kriteria penghapusan cepat yang tidak tercakup dalam daftar standar.');
 						parameters = null;
 						return false;
 					}
@@ -1699,7 +1698,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 					const u1rationale = form['csd.userreq_rationale'].value;
 					if (mw.config.get('wgNamespaceNumber') === 3 && !(/\//).test(mw.config.get('wgTitle')) &&
 							(!u1rationale || !u1rationale.trim())) {
-						alert('KPC H1: Tolong sebutkan nominasi saat menominasikan halaman pembicaraan pengguna.');
+						alert('KPC H1: Saat menominasikan halaman pembicaraan pengguna untuk penghapusan cepat, harap sebutkan alasan atau kriteria nominasi secara jelas agar proses dapat ditinjau dengan tepat.');
 						parameters = null;
 						return false;
 					}
@@ -1727,12 +1726,12 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 					const movepage = form['csd.move_page'].value,
 						movereason = form['csd.move_reason'].value;
 					if (!movepage || !movepage.trim()) {
-						alert('KPC U6 (pindah):  Tolong sebutkan halaman untuk dipindahkan kesini.');
+						alert('KPC U6 (pemindahan): Silakan sebutkan nama halaman sumber yang ingin dipindahkan ke halaman ini.');
 						parameters = null;
 						return false;
 					}
 					if (!movereason || !movereason.trim()) {
-						alert('KPC U6 (pindah):  Tolong sebutkan alasan untuk dipindahkan.');
+						alert('KPC U6 (pemindahan): Silakan berikan alasan mengapa halaman tersebut perlu dipindahkan ke judul ini.');
 						parameters = null;
 						return false;
 					}
@@ -1754,7 +1753,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 				if (form['csd.draft_page']) {
 					const draftpage = form['csd.draft_page'].value;
 					if (!draftpage || !draftpage.trim()) {
-						alert('KPC U6 (pindah AfC):  Tolong sebutkan draft untuk dipindahkan kesini.');
+						alert('KPC U6 (pemindahan AfC): Silakan sebutkan nama halaman draf yang ingin Anda pindahkan ke halaman ini.');
 						parameters = null;
 						return false;
 					}
@@ -1842,7 +1841,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 				if (form['csd.redundantimage_filename']) {
 					const redimage = form['csd.redundantimage_filename'].value;
 					if (!redimage || !redimage.trim()) {
-						alert('KPC B1:  Tolong berikan nama berkas dari berkas lainnya.');
+						alert('KPC B1: Silakan berikan nama berkas lain yang sudah ada di Wikipedia untuk dibandingkan atau dijadikan referensi.');
 						parameters = null;
 						return false;
 					}
@@ -1870,7 +1869,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 					const f9url = form['csd.imgcopyvio_url'].value;
 					const f9rationale = form['csd.imgcopyvio_rationale'].value;
 					if ((!f9url || !f9url.trim()) && (!f9rationale || !f9rationale.trim())) {
-						alert('KPC B9: Anda harus memasukan sebuah url atau alasan (atau keduanya) saat menominasikan sebuah berkas dibawah B9.');
+						alert('KPC B9: Saat menominasikan berkas di bawah kriteria ini, Anda wajib menyertakan URL sumber asli, alasan mengapa berkas tersebut melanggar hak cipta, atau keduanya.');
 						parameters = null;
 						return false;
 					}
@@ -1887,7 +1886,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 				if (form['csd.foreign_source']) {
 					const foreignlink = form['csd.foreign_source'].value;
 					if (!foreignlink || !foreignlink.trim()) {
-						alert('KPC A2:  Tolong berikan tautan interwiki ke artikel yang merupakan salinan.');
+						alert('KPC A2: Silakan berikan pranala interwiki ke artikel di proyek Wikimedia lain (misalnya Wikipedia bahasa Inggris) yang merupakan salinan dari halaman ini.');
 						parameters = null;
 						return false;
 					}
@@ -1899,7 +1898,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 				if (form['csd.a10_article']) {
 					const duptitle = form['csd.a10_article'].value;
 					if (!duptitle || !duptitle.trim()) {
-						alert('KPC A10:  Tolong berikan nama artikel duplikat.');
+						alert('KPC A10: Silakan berikan nama artikel lain yang isinya sama atau sangat mirip dengan halaman ini.');
 						parameters = null;
 						return false;
 					}

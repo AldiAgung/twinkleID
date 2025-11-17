@@ -857,38 +857,33 @@ Twinkle.arv.callback.getSpiReportData = function(input) {
 	input.sockmaster = input.sockmaster || input.uid;
 	const allSocks = [sockmaster].concat(isPuppetReport ? [input.uid] : Morebits.array.uniq(input.sockpuppets));
 	const evidence = input.evidence.trim();
+	const today = new Morebits.date(); // Objek tanggal Morebits untuk tanggal pelaporan
+	const dateHeader = today.format('D MMMM YYYY', 'utc');
 
-	let text = '\n\n=== ' + sockmaster + ' ===\n'; // header nama induk
-	if (input.checkuser) {
-		text += '{{checkuser|' + sockmaster; // Induk siluman
-		sockpuppets.forEach(sock => {
-			text += '|' + sock;
-		});
-		text += '}}\n\n';
-	} else {
-        // Jika tidak, buat daftar biasa
-		text += '* Induk: {{sock|' + sockmaster + '}}\n';
-		sockpuppets.forEach(sock => {
-			text += '* Akun kedua: {{sock|' + sock + '}}\n';
-		});
-		text += '\n';
-	}
+	let wikitext = '== ' + dateHeader + ' ==';
+	wikitext += sockmaster + '\n';
 
+	// Bagian laporan SPI
+	wikitext += '{{subst:SPI report';
+	allSocks.forEach((sock, index) => {
+		wikitext += '|sock' + (index + 1) + '=' + sock;
+	});
+	wikitext += '}}\n';
 
+	// Bukti
 	if (evidence) {
-		text += evidence;
+		wikitext += '\n' + evidence;
 	} else {
-        text += '(Tidak ada bukti yang diberikan)';
+        wikitext += '\n(Tidak ada bukti yang diberikan)';
     }
-	text += ' ~~~~';
 
+	// Permintaan CheckUser jika dicentang
 	if (input.checkuser) {
-		text += '|checkuser=yes';
-	}
-	text += '}}';
-
+        wikitext += '\n\n; Permintaan kepada Pemeriksa.'
+    }
+	wikitext += ' ~~~~'; // tanda tangan
 	return {
-		sockmaster: input.sockmaster,
+		sockmaster: sockmaster,
 		wikitext: text
 	};
 };

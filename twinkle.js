@@ -404,7 +404,7 @@ Twinkle.load = function () {
 	// If using a skin with space for lots of modules, display a link to Twinkle Preferences
 	const usingSkinWithDropDownMenu = mw.config.get('skin') === 'vector' || mw.config.get('skin') === 'vector-2022' || mw.config.get('skin') === 'timeless';
 	if (usingSkinWithDropDownMenu) {
-		Twinkle.addPortletLink(mw.util.getUrl('Wikipedia:Twinkle/Preferences'), 'Config', 'tw-config', 'Membuka halaman preferensi Twinkle');
+		Twinkle.addPortletLink(mw.util.getUrl('Wikipedia:Twinkle/Preferences'), 'Pengaturan', 'tw-config', 'Membuka halaman preferensi Twinkle');
 	}
 };
 

@@ -2859,7 +2859,7 @@ Morebits.wiki.page = function(pageName, status) {
 		switch (ctx.editMode) {
 			case 'append':
 				if (ctx.appendText === null) {
-					ctx.statusElement.error('Kesalahan internal: teks append tidak di tentukan sebelum di simpan!');
+					ctx.statusElement.error('Kesalahan internal: teks yang dimasukkan tidak di tentukan sebelum di simpan!');
 					ctx.onSaveFailure(this);
 					return;
 				}
