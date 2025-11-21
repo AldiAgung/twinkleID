@@ -4250,7 +4250,7 @@ Morebits.wiki.page = function(pageName, status) {
 			editprot = response.pages[0].protection.filter((pr) => pr.type === 'edit' && pr.level === 'sysop').pop();
 		}
 		if (editprot && !ctx.suppressProtectWarning &&
-			!confirm('Anda ingin' + action + ' ke halaman perlindungan penuh "' + ctx.pageName +
+			!confirm('Anda ingin' + action + ' pada halaman perlindungan penuh "' + ctx.pageName +
 			(editprot.expiry === 'infinity' ? '" (terlindungi tak terdefinisi)' : '" (perlindungan kadaluwarsa pada ' + new Morebits.date(editprot.expiry).calendar('utc') + ' (UTC))') +
 			'.  \n\nTekan OK untuk melanjutkan dengan ' + action + ', atau Batal untuk lewati.')) {
 			ctx.statusElement.error('Membatalkan ' + action + ' pada halaman perlindugan penuh.');
