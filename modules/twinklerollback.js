@@ -22,12 +22,7 @@ Twinkle.rollback = function twinklerollback() {
 	// protections; it won't take care of cascading or TitleBlacklist.
 	if (mw.config.get('wgIsProbablyEditable')) {
 		// wgDiffOldId included for clarity in if else loop [[phab:T214985]]
-		if (mw.config.get('wgDiffNewId') || mw.config.get('wgDiffOldId')) {
-			// Reload alongside the revision slider
-			mw.hook('wikipage.diff').add(() => {
-				Twinkle.rollback.addLinks.diff();
-			});
-		} else if (mw.config.get('wgAction') === 'view' && mw.config.get('wgRevisionId') && mw.config.get('wgCurRevisionId') !== mw.config.get('wgRevisionId')) {
+		if (mw.config.get('wgAction') === 'view' && mw.config.get('wgRevisionId') && mw.config.get('wgCurRevisionId') !== mw.config.get('wgRevisionId')) {
 			Twinkle.rollback.addLinks.oldid();
 		} else if (mw.config.get('wgAction') === 'history' && mw.config.get('wgArticleId')) {
 			Twinkle.rollback.addLinks.history();
@@ -41,13 +36,25 @@ Twinkle.rollback = function twinklerollback() {
 		} else if (mw.config.get('wgCanonicalSpecialPageName') === 'Recentchanges' || mw.config.get('wgCanonicalSpecialPageName') === 'Recentchangeslinked') {
 			// Reload with recent changes updates
 			// structuredChangeFilters.ui.initialized is just on load
-			mw.hook('wikipage.content').add((item) => {
-				if (item.is('div')) {
-					Twinkle.rollback.addLinks.recentchanges();
+			mw.hook('wikipage.content').add(($context) => {
+				if (!$context || !$context.is('div')) {
+					return;
 				}
+					Twinkle.rollback.addLinks.recentchanges($context);
 			});
 		}
 	}
+	// Reload when revision slider or other scripts dynamically load diff content.
+	mw.hook('wikipage.diff').add(($context) => {
+		if (!$context) {
+			return;
+		}
+		// Only proceed if the user can actually edit the page in question,
+		// wgDiffOldId included for clarity in if else loop [[phab:T214985]]
+		if (mw.config.get('wgIsProbablyEditable') && (mw.config.get('wgDiffNewId') || mw.config.get('wgDiffOldId'))) {
+			Twinkle.rollback.addLinks.diff($context);
+		}
+	});
 };
 
 // A list of usernames, usually only bots, that vandalism revert is jumped
@@ -56,7 +63,7 @@ Twinkle.rollback = function twinklerollback() {
 // makes edits seconds after the original edit is made.  This only affects
 // vandalism rollback; for good faith rollback, it will stop, indicating a bot
 // has no faith, and for normal rollback, it will rollback that edit.
-Twinkle.rollback.trustedBots = ['AnomieBOT', 'SineBot', 'MajavahBot','Ruhivabot', 'HsfBot'];
+Twinkle.rollback.trustedBots = ['AnomieBOT', 'SineBot', 'MajavahBot','Ruhivabot', 'HsfBot', 'Wagino Bot'];
 Twinkle.rollback.skipTalk = null;
 Twinkle.rollback.rollbackInPlace = null;
 // String to insert when a username is hidden
@@ -112,7 +119,7 @@ Twinkle.rollback.linkBuilder = {
 		const normNode = document.createElement('span');
 		const vandNode = document.createElement('span');
 
-		const normLink = Twinkle.rollback.linkBuilder.buildLink('SteelBlue', 'kembalikkan');
+		const normLink = Twinkle.rollback.linkBuilder.buildLink('SteelBlue', 'kembalikan');
 		const vandLink = Twinkle.rollback.linkBuilder.buildLink('Red', 'vandalisme');
 
 		normLink.style.fontWeight = 'bold';
@@ -140,7 +147,7 @@ Twinkle.rollback.linkBuilder = {
 
 		if (!inline) {
 			const agfNode = document.createElement('span');
-			const agfLink = Twinkle.rollback.linkBuilder.buildLink('DarkOliveGreen', 'kembalikkan (ANB)');
+			const agfLink = Twinkle.rollback.linkBuilder.buildLink('DarkOliveGreen', 'kembalikan (ANB)');
 			$(agfLink).on('click', (e) => {
 				e.preventDefault();
 				Twinkle.rollback.revert('agf', vandal, rev, page);
@@ -169,7 +176,7 @@ Twinkle.rollback.linkBuilder = {
 		revertToRevisionNode.setAttribute('id', 'tw-revert-to-' + revisionRef);
 		revertToRevisionNode.style.fontWeight = 'bold';
 
-		const revertToRevisionLink = Twinkle.rollback.linkBuilder.buildLink('SaddleBrown', 'Kembalikkan versi ini');
+		const revertToRevisionLink = Twinkle.rollback.linkBuilder.buildLink('SaddleBrown', 'Kembalikan versi ini');
 		$(revertToRevisionLink).on('click', (e) => {
 			e.preventDefault();
 			Twinkle.rollback.revertToRevision(revisionRef);
@@ -217,10 +224,14 @@ Twinkle.rollback.addLinks = {
 		}
 	},
 
-	recentchanges: function() {
+	recentchanges: function($context) {
 		if (Twinkle.getPref('showRollbackLinks').includes('recent')) {
 			// Latest and revertable (not page creations, logs, categorizations, etc.)
-			let $list = $('.mw-changeslist .mw-changeslist-last.mw-changeslist-src-mw-edit');
+			const selector = '.mw-changeslist-last.mw-changeslist-src-mw-edit';
+			let $list = $context.hasClass('mw-changeslist') ? $context.find(selector) : $context.find('.mw-changeslist ' + selector);
+			if (!$list.length) {
+				return;
+			}
 			// Exclude top-level header if "group changes" preference is used
 			// and find only individual lines or nested lines
 			$list = $list.not('.mw-rcfilters-ui-highlights-enhanced-toplevel').find('.mw-changeslist-line-inner, td.mw-enhanced-rc-nested');
@@ -275,10 +286,10 @@ Twinkle.rollback.addLinks = {
 		}
 	},
 
-	diff: function() {
+	diff: function($context) {
 		// Autofill user talk links on diffs with vanarticle for easy warning, but don't autowarn
 		const warnFromTalk = function(xtitle) {
-			const $talkLink = $('#mw-diff-' + xtitle + '2 .mw-usertoollinks a').first();
+			const $talkLink = $context.find('#mw-diff-' + xtitle + '2 .mw-usertoollinks a').first();
 			if ($talkLink.length) {
 				let extraParams = 'vanarticle=' + mw.util.rawurlencode(Morebits.pageNameNorm) + '&noautowarn=true';
 				// diffIDs for vanarticlerevid
@@ -299,19 +310,23 @@ Twinkle.rollback.addLinks = {
 		// Don't load if there's a single revision or weird diff (cur on latest)
 		if (mw.config.get('wgDiffOldId') && (mw.config.get('wgDiffOldId') !== mw.config.get('wgDiffNewId'))) {
 			// Add a [restore this revision] link to the older revision
-			const oldTitle = document.getElementById('mw-diff-otitle1').parentNode;
-			oldTitle.insertBefore(Twinkle.rollback.linkBuilder.restoreThisRevisionLink('wgDiffOldId'), oldTitle.firstChild);
+			const oldTitle = $context.find('#mw-diff-otitle1').parent().get(0);
+			if (oldTitle) {
+				oldTitle.insertBefore(Twinkle.rollback.linkBuilder.restoreThisRevisionLink('wgDiffOldId'), oldTitle.firstChild);
+			}
 		}
 
 		// Newer revision
 		warnFromTalk('ntitle'); // Add quick-warn link to user talk link
 		// Add either restore or rollback links to the newer revision
 		// Don't show if there's a single revision or weird diff (prev on first)
-		if (document.getElementById('differences-nextlink')) {
+		if ($context.find('#differences-nextlink').length) {
 			// Not latest revision, add [restore this revision] link to newer revision
-			const newTitle = document.getElementById('mw-diff-ntitle1').parentNode;
-			newTitle.insertBefore(Twinkle.rollback.linkBuilder.restoreThisRevisionLink('wgDiffNewId'), newTitle.firstChild);
-		} else if (Twinkle.getPref('showRollbackLinks').includes('diff') && mw.config.get('wgDiffOldId') && (mw.config.get('wgDiffOldId') !== mw.config.get('wgDiffNewId') || document.getElementById('differences-prevlink'))) {
+			const newTitle = $context.find('#mw-diff-ntitle1').parent().get(0);
+			if (newTitle) {
+				newTitle.insertBefore(Twinkle.rollback.linkBuilder.restoreThisRevisionLink('wgDiffNewId'), newTitle.firstChild);
+			}
+		} else if (Twinkle.getPref('showRollbackLinks').includes('diff') && mw.config.get('wgDiffOldId') && (mw.config.get('wgDiffOldId') !== mw.config.get('wgDiffNewId') || $context.find('#differences-prevlink').length)) {
 			// Normally .mw-userlink is a link, but if the
 			// username is hidden, it will be a span with
 			// .history-deleted as well. When a sysop views the
@@ -325,12 +340,13 @@ Twinkle.rollback.addLinks = {
 			// &unhide=1), since the username will be available by
 			// checking a.mw-userlink instead, but revert() will
 			// need reworking around userHidden
-			let vandal = $('#mw-diff-ntitle2').find('.mw-userlink')[0];
+			let vandal = $context.find('#mw-diff-ntitle2').find('.mw-userlink')[0];
 			// See #1337
 			vandal = vandal ? vandal.text : '';
-			const ntitle = document.getElementById('mw-diff-ntitle1').parentNode;
-
+			const ntitle = $context.find('#mw-diff-ntitle1').parent().get(0);
+			if (ntitle) {
 			ntitle.insertBefore(Twinkle.rollback.linkBuilder.rollbackLinks(vandal), ntitle.firstChild);
+			}
 		}
 	},
 
@@ -616,8 +632,8 @@ Twinkle.rollback.callbacks = {
 		const good_revision = revs[found];
 		let userHasAlreadyConfirmedAction = false;
 		if (params.type !== 'vand' && count > 1) {
-			if (!confirm(userNorm + ' telah membuat ' + mw.language.convertNumber(count) + ' penyuntingan beruntun. Apakah anda ingin membalikkan semuanya?')) {
-				Morebits.Status.info('Notice', 'Membatalkan pembalikkan.');
+			if (!confirm(userNorm + ' telah membuat ' + mw.language.convertNumber(count) + ' penyuntingan beruntun. Apakah anda ingin membatalkan semuanya?')) {
+				Morebits.Status.info('Pemberitahuan', 'Membatalkan pembalikan.');
 				return;
 			}
 			userHasAlreadyConfirmedAction = true;
@@ -846,7 +862,7 @@ Twinkle.rollback.formatSummary = function(builtInString, userName, customString)
 	}
 
 	return result;
-};
+	};
 
 Twinkle.addInitCallback(Twinkle.rollback, 'rollback');
 }());

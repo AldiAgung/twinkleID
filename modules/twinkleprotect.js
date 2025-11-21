@@ -111,7 +111,7 @@ Twinkle.protect.callback = function twinkleprotectCallback() {
 
 // A list of bots who may be the protecting sysop, for whom we shouldn't
 // remind the user contact before requesting unprotection (evaluate)
-Twinkle.protect.trustedBots = ['MusikBot II', 'Ruhivabot', 'HsfBot'];
+Twinkle.protect.trustedBots = ['MusikBot II', 'Ruhivabot', 'HsfBot', 'Wagino Bot'];
 
 // Customizable namespace and FlaggedRevs settings
 // In theory it'd be nice to have restrictionlevels defined here,
@@ -280,7 +280,7 @@ Twinkle.protect.callback.showLogAndCurrentProtectInfo = function twinkleprotectC
 				if (lastStabilizeAction.action === 'reset') {
 					$linkMarkup.append(' (reset ' + new Morebits.Date(lastStabilizeAction.timestamp).calendar('utc') + ')');
 				} else { // config or modify
-					$linkMarkup.append(' (expired ' + new Morebits.Date(lastStabilizeAction.params.expiry).calendar('utc') + ')');
+					$linkMarkup.append(' (kedaluwarsa ' + new Morebits.Date(lastStabilizeAction.params.expiry).calendar('utc') + ')');
 				}
 			}
 		}
@@ -701,7 +701,7 @@ Twinkle.protect.protectionLengths = [
 	{ label: '2 bulan', value: '2 months' },
 	{ label: '3 bulan', value: '3 months' },
 	{ label: '1 tahun', value: '1 year' },
-	{ label: 'tak terbatas', value: 'indefinite' },
+	{ label: 'selamanya', value: 'indefinite' },
 	{ label: 'Lain-lain...', value: 'custom' }
 ];
 
@@ -1473,7 +1473,7 @@ Twinkle.protect.callbacks = {
 				if (!text.match(/{{(?:redr|ini adalah pengalihan|r(?:edirect)?(?:.?cat.*)?[ _]?sh)/i)) {
 					text = text.replace(/#ALIH ?(\[\[.*?\]\])(.*)/i, '#ALIH $1$2\n\n{{' + tag + '}}');
 				} else {
-					Morebits.Status.info('Sudah ada kategori pengalihan', 'tidak ada yang dilakukan');
+					Morebits.Status.info('Sudah terdapat kategori pengalihan', 'tidak ada yang dilakukan');
 					return;
 				}
 			} else {
@@ -1631,7 +1631,7 @@ Twinkle.protect.callbacks = {
 						if (Twinkle.protect.watched !== true && watchPref !== 'default' && watchPref !== 'yes') {
 							watch_query.expiry = watchPref;
 						}
-						new Morebits.wiki.Api('Menambahkan halaman diminta ke daftar pantauan', watch_query).post();
+						new Morebits.wiki.Api('Menambahkan halaman ke daftar pantauan', watch_query).post();
 					}
 				});
 			} else {
@@ -1667,7 +1667,7 @@ Twinkle.protect.callbacks = {
 						if (Twinkle.protect.watched !== true && watchPref !== 'default' && watchPref !== 'yes') {
 							watch_query.expiry = watchPref;
 						}
-						new Morebits.wiki.Api('Menambahkan halaman diminta ke daftar pantauan', watch_query).post();
+						new Morebits.wiki.Api('Menambahkan halaman ke daftar pantauan', watch_query).post();
 					}
 				});
 			}
