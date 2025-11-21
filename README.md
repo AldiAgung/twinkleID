@@ -24,7 +24,6 @@ Jika anda tetarik untuk berkontribusi, mengagumkan!  Lihat [CONTRIBUTING.md](CON
 * `twinkle.js`: Kode khusus Twinkle umum, sebagian besar terkait dengan preferensi dan menampilkan Twinkle di UI. Yang penting, kode ini berisi serangkaian preferensi bawaan Twinkle.
 * `modules`: Berisi modul Twinkle individual. Deskripsi untuk modul ini dapat ditemukan di komentar header atau di [Dokumentasi Twinkle][]. Modul `twinkleconfig.js` memberdayai [panel preferensi Twinkle][WP:TWPREFS].
 
-
 [select2][] ditambahkan dibawah [lisensi MIT](https://github.com/select2/select2/blob/develop/LICENSE.md).
 
 [Wikipedia:Twinkle]: https://id.wikipedia.org/wiki/Wikipedia:Twinkle

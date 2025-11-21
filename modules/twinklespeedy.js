@@ -718,7 +718,7 @@ Twinkle.speedy.initDialog = function twinklespeedyInitDialog(callbackfunc) {
 					value: 'tag_only',
 					name: 'tag_only',
 					tooltip: 'Jika Anda hanya ingin menandai halaman',
-					checked: !(Twinkle.speedy.hasCSD || Twinkle.getPref('deleteSysopDefaultToDelete')),
+					checked: !(Twinkle.speedy.hasCSD || (mw.config.get('wgRelevantUserName') === mw.config.get('wgUserName')) || Twinkle.getPref('deleteSysopDefaultToDelete')),
 					event: function(event) {
 						const cForm = event.target.form;
 						const cChecked = event.target.checked;
@@ -1553,15 +1553,15 @@ Twinkle.speedy.callbacks = {
 
 					pageobj.getStatusElement().warn('Tidak dapat mengakses halaman penyuntingan, sehingga tag ditempatkan di halaman pembicaraan sebagai gantinya.');
 
-					const talk_page = new Morebits.wiki.Page(talkName, 'Menaruh secara otomatis di halaman pembicaraan');
-					talk_page.setNewSectionTitle(pageobj.getPageName() + ' dinominasikan untuk KPC, meminta penghapusan');
-					talk_page.setNewSectionText(code + '\n\nSaya tidak dapat menandai ' + pageobj.getPageName() + ' jadi tolong hapus. ~~~~');
-					talk_page.setCreateOption('recreate');
-					talk_page.setFollowRedirect(true);
-					talk_page.setWatchlist(params.watch);
-					talk_page.setChangeTags(Twinkle.changeTags);
-					talk_page.setCallbackParameters(params);
-					talk_page.newSection(Twinkle.speedy.callbacks.user.tagComplete);
+					const talkPage = new Morebits.wiki.Page(talkName, 'Menaruh secara otomatis di halaman pembicaraan');
+					talkPage.setNewSectionTitle(pageobj.getPageName() + ' dinominasikan untuk KPC, meminta penghapusan');
+					talkPage.setNewSectionText(code + '\n\nSaya tidak dapat menandai ' + pageobj.getPageName() + ' jadi tolong hapus. ~~~~');
+					talkPage.setCreateOption('recreate');
+					talkPage.setFollowRedirect(true);
+					talkPage.setWatchlist(params.watch);
+					talkPage.setChangeTags(Twinkle.changeTags);
+					talkPage.setCallbackParameters(params);
+					talkPage.newSection(Twinkle.speedy.callbacks.user.tagComplete);
 				} else {
 					pageobj.getStatusElement().error('Halaman tidak dapat disunting dan tidak tersedia lokasi alternatif untuk menempatkan permintaan, sehingga proses dibatalkan.');
 				}

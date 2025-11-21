@@ -332,8 +332,8 @@ Twinkle.config.sections = [
 			//
 			{
 				name: 'rollbackInPlace',
-				label: "Jangan memuat ulang saat membalikkan dari kontribusi sekarang atau baru-baru ini",
-				helptip: "Saat ini aktif, Twinkle tidak akan memuat ulang riwayat kontribusi atau perubahan baru-baru ini setelah membalikan, memungkinkan anda untuk membalikkan lebih dari satu suntingan di satu waktu.",
+				label: "Jangan muat ulang saat membalikkan dari kontribusi sekarang atau baru-baru ini",
+				helptip: "Saat ini aktif, Twinkle tidak akan muat ulang riwayat kontribusi atau perubahan baru-baru ini setelah membalikan, memungkinkan anda untuk membalikkan lebih dari satu suntingan di satu waktu.",
 				type: 'boolean'
 			},
 
@@ -673,16 +673,6 @@ Twinkle.config.sections = [
 				name: 'combinedSingletMenus',
 				label: 'Mengganti menu dua terpisah tunggal menjadi menu dikombinasikan',
 				helptip: 'Memilih pemberitahuan atau peringatan tunggal sebagai default anda jika diaktifkan.',
-				type: 'boolean'
-			},
-
-			// TwinkleConfig.showSharedIPNotice may take arguments:
-			// true: to show shared ip notice if an IP address
-			// false: to not print the notice
-			{
-				name: 'showSharedIPNotice',
-				label: 'Tambahkan pemberitahuan tambahan di halaman pembicaraan IP bersama',
-				helptip: 'Pemberitahuan yang digunakan adalah {{Shared IP advice}}',
 				type: 'boolean'
 			},
 
@@ -1539,9 +1529,9 @@ Twinkle.config.save = function twinkleconfigSave(e) {
 	Morebits.Status.init(document.getElementById('twinkle-config-content'));
 
 	const userjs = mw.config.get('wgFormattedNamespaces')[mw.config.get('wgNamespaceIds').user] + ':' + mw.config.get('wgUserName') + '/twinkleoptions.js';
-	const wikipedia_page = new Morebits.wiki.Page(userjs, 'Menyimpan prefernsi ke ' + userjs);
-	wikipedia_page.setCallbackParameters(e.target);
-	wikipedia_page.load(Twinkle.config.writePrefs);
+	const wikipediaPage = new Morebits.wiki.Page(userjs, 'Menyimpan prefernsi ke ' + userjs);
+	wikipediaPage.setCallbackParameters(e.target);
+	wikipediaPage.load(Twinkle.config.writePrefs);
 
 	return false;
 };
