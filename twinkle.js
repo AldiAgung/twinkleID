@@ -494,6 +494,8 @@ Twinkle.generateBatchPageLinks = function (checkbox) {
 	$checkbox.next().prepend([link, ' ']);
 };
 
+Twinkle.removeMoveToCommonsTagsFromWikicode = ( wikicode ) => wikicode.replace(/\{\{(mtc|(copy |move )?to ?commons|Pindah ke Wikimedia Commons|Ubah ke SVG dan salin ke Wikimedia Commons)(?!( ke))[^}]*\}\}/gi, '');
+
 }());
 
 // </nowiki>

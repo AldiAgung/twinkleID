@@ -100,7 +100,7 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 	form.append({
 		type: 'input',
 		name: 'article',
-		label: 'Linked page',
+		label: 'Halaman terkait',
 		value: Twinkle.getPrefill('vanarticle') || '',
 		tooltip: 'Anda bisa menautkan sebuah halaman dalam pemberitahuan, misalnya jika halaman itu adalah halaman yang dikembalikan dari halaman pengirim pemberitahuan ini. Biarkan kosong jika tidak ada halaman yang ingin ditautkan.'
 	});
