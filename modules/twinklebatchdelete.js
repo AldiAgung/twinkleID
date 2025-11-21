@@ -421,7 +421,7 @@ Twinkle.batchdelete.callback.evaluate = function twinklebatchdeleteCallbackEvalu
 	}
 	Morebits.SimpleWindow.setButtonsEnabled(false);
 	Morebits.Status.init(form);
-	if (input.pages.length === 0) {
+	if (input.pages|| input.pages.length === 0) { // undefined jika tidak ada halaman terkait dari artikel
 		Morebits.Status.error('Galat', 'tidak ada untuk dihapus, membatalkan');
 		return;
 	}

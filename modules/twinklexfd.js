@@ -69,7 +69,7 @@ const utils = {
 		if (!title_obj) {
 			return title; // user entered invalid input; do nothing
 		}
-		return title_obj.getNameText();
+		return title_obj.getMainText();
 	},
 
 	/**

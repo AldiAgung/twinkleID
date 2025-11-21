@@ -100,7 +100,7 @@ Twinkle.warn.callback = function twinklewarnCallback() {
 	form.append({
 		type: 'input',
 		name: 'article',
-		label: 'Linked page',
+		label: 'Halaman terkait',
 		value: Twinkle.getPrefill('vanarticle') || '',
 		tooltip: 'Anda bisa menautkan sebuah halaman dalam pemberitahuan, misalnya jika halaman itu adalah halaman yang dikembalikan dari halaman pengirim pemberitahuan ini. Biarkan kosong jika tidak ada halaman yang ingin ditautkan.'
 	});
@@ -758,6 +758,24 @@ Twinkle.warn.messages = {
 					summary: 'Peringatan terakhir: Menghilangkan tag penghapusan berkas'
 				}
 			},
+			'uw-rfd': {
+				level1: {
+					label: 'Menghilangkan pengalihan untuk tag diskusi',
+					summary: 'Catatan umum: Menghilangkan pengalihan untuk tag diskusi'
+				},
+				level2: {
+					label: 'Menghilangkan pengalihan untuk tag diskusi',
+					summary: 'Pemberitahuan: Menghilangkan pengalihan untuk tag diskusi'
+				},
+				level3: {
+					label: 'Menghilangkan pengalihan untuk tag diskusi',
+					summary: 'Peringatan: Menghilangkan pengalihan untuk tag diskusi'
+				},
+				level4: {
+					label: 'Menghilangkan pengalihan untuk tag diskusi',
+					summary: 'Peringatan akhir: Menghilangkan pengalihan untuk tag diskusi'
+				}
+			},
 			'uw-speedy': {
 				level1: {
 					label: 'Menghilangkan tag penghapusan cepat',
@@ -1372,11 +1390,10 @@ Twinkle.warn.callback.change_category = function twinklewarnCallbackChangeCatego
 					// Catch and warn if the talkpage can't load,
 					// most likely because it's a cross-namespace redirect
 					// Supersedes the typical $autolevelMessage added in autolevelParseWikitext
-					const $noTalkPageNode = $('<strong>', {
-						text: 'Halaman pembicaraan pengguna tidak dapat dimuat, kemungkinan karena pengalihan lintas ruang nama. Pendeteksian otomatis tidak akan berfungsi.',
-						id: 'twinkle-warn-autolevel-message',
-						css: {color: 'red' }
-					});
+					const $noTalkPageNode = $('<strong>')
+						.text( 'Halaman pembicaraan pengguna tidak dapat dimuat, kemungkinan karena pengalihan lintas ruang nama. Pendeteksian otomatis tidak akan berfungsi.')
+						.id('twinkle-warn-autolevel-message')
+						.css('color', 'red' );
 					$noTalkPageNode.insertBefore($('#twinkle-warn-warning-messages'));
 					// If a preview was opened while in a different mode, close it
 					// Should nullify the need to catch the error in preview callback
@@ -1519,8 +1536,7 @@ Twinkle.warn.callbacks = {
 		}
 		if (reason && !isCustom) {
 			// add extra message
-			if (templateName === 'uw-csd' || templateName === 'uw-probation' ||
-				templateName === 'uw-userspacenoindex' || templateName === 'uw-userpage') {
+			if (templateName === 'uw-userpage') {
 				text += "|3=''" + reason + "''";
 			} else {
 				text += "|2=''" + reason + "''";
@@ -1661,22 +1677,20 @@ Twinkle.warn.callbacks = {
 					// Basically indicates whether we're in the final Main evaluation or not,
 					// and thus whether we can continue or need to display the warning and link
 					if (!statelem) {
-						const $link = $('<a>', {
-							href: '#',
-							text: 'Klik di sini untuk membuka alat ARV.',
-							css: { fontWeight: 'bold' },
-							click: function() {
+						const $link = $('<a>')
+							.attr('href', '#')
+							.text('Klik di sini untuk membuka alat ARV.')
+							.css(fontWeight, 'bold' )
+							.on('click', () => {
 								Morebits.wiki.actionCompleted.redirect = null;
 								Twinkle.warn.dialog.close();
 								Twinkle.arv.callback(mw.config.get('wgRelevantUserName'));
 								$('input[name=page]').val(params.article); // Target page
 								$('input[value=final]').prop('checked', true); // Vandalism after final
-							}
 						});
-						const $statusNode = $('<div>', {
-							text: mw.config.get('wgRelevantUserName') + ' baru saja mendapat peringatan tingkat 4 (' + latest.type + ') lebih baik melaporkannya saja; ',
-							css: {color: 'red' }
-						});
+						const $statusNode = $('<div>')
+							.text(mw.config.get('wgRelevantUserName') + ' baru saja mendapat peringatan tingkat 4 (' + latest.type + ') lebih baik melaporkannya saja; ')
+							.css('color', 'red' );
 						$statusNode.append($link[0]);
 						$autolevelMessage.append($statusNode);
 					}
@@ -1813,12 +1827,8 @@ Twinkle.warn.callbacks = {
 		pageobj.setWatchlist(Twinkle.getPref('watchWarnings'));
 
 		// Get actual warning text
-		let warningText = Twinkle.warn.callbacks.getWarningWikitext(params.sub_group, params.article,
+		const warningText = Twinkle.warn.callbacks.getWarningWikitext(params.sub_group, params.article,
 			params.reason, params.main_group === 'custom');
-		if (Twinkle.getPref('showSharedIPNotice') && mw.util.isIPAddress(mw.config.get('wgTitle'))) {
-			Morebits.Status.info('Info', 'Menambahkan sebuah pemberitahuan tentang IP berbagi');
-			warningText += '\n{{subst:Shared IP advice}}';
-		}
 
 		let sectionExists = false, sectionNumber = 0;
 		// Only check sections if there are sections or there's a chance we won't create our own

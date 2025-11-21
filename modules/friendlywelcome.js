@@ -136,7 +136,7 @@ Twinkle.welcome.callback = function twinklewelcomeCallback(uid) {
 		event: Twinkle.welcome.populateWelcomeList,
 		list: [
 			{ type: 'option', value: 'standard', label: 'Penyambutan standar', selected: !mw.util.isIPAddress(mw.config.get('wgRelevantUserName')) },
-			{ type: 'option', value: 'unregistered', label: 'Penyambutan pengguna tidak teregistrasi', selected: mw.util.isIPAddress(mw.config.get('wgRelevantUserName')) || mw.util.isTemporaryUser(mw.config.get('wgRelevantUserName')) },
+			{ type: 'option', value: 'unregistered', label: 'Penyambutan pengguna tidak teregistrasi', selected: mw.util.isIPAddress(mw.config.get('wgRelevantUserName')) || mw.util.isTemporaryUser(mw.config.get('wgRelevantUserName')) || mw.util.isTemporaryUser(mw.config.get('wgRelevantUserName')) },
 			{ type: 'option', value: 'wikiProject', label: 'Penyambutan ProyekWiki' },
 			{ type: 'option', value: 'nonEnglish', label: 'Penyambutan pengguna non-bahasa Indonesia' }
 		]
@@ -646,7 +646,7 @@ Twinkle.welcome.callbacks = {
 
 		const submit = document.createElement('input');
 		submit.setAttribute('type', 'submit');
-		submit.setAttribute('value', 'Close');
+		submit.setAttribute('value', 'Tutup');
 		previewDialog.addContent(submit);
 
 		previewDialog.display();
