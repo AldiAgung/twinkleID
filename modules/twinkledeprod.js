@@ -53,7 +53,7 @@ Twinkle.deprod.callback = function() {
 	};
 
 	const statelem = new Morebits.status('Mengambil daftar halaman');
-	const wikipedia_api = new Morebits.wiki.api('memuat...', query, ((apiobj) => {
+	const wikipediaApi = new Morebits.wiki.api('memuat...', query, ((apiobj) => {
 		const respon = apiobj.getResponse();
 		const pages = (respon.query && respon.query.pages) || [];
 		const list = [];
@@ -111,8 +111,8 @@ Twinkle.deprod.callback = function() {
 		Morebits.QuickForm.getElements(rendered, 'pages').forEach(Twinkle.generateBatchPageLinks);
 	}), statelem);
 
-	wikipedia_api.params = { form: form, Window: Window };
-	wikipedia_api.post();
+	wikipediaApi.params = { form: form, Window: Window };
+	wikipediaApi.post();
 };
 
 var callback_commit = function(event) {
@@ -133,9 +133,9 @@ var callback_commit = function(event) {
 				rdlimit: 'max', // 500 is max for normal users, 5000 for bots and sysops
 				format: 'json'
 			};
-			let wikipedia_api = new Morebits.wiki.api('Mengambil pengalihan', query, callback_deleteRedirects);
-			wikipedia_api.params = params;
-			wikipedia_api.post();
+			let wikipediaApi = new Morebits.wiki.api('Mengambil pengalihan', query, callback_deleteRedirects);
+			wikipediaApi.params = params;
+			wikipediaApi.post();
 
 			const judulHalaman = mw.Title.newFromText(pageName);
 			if (judulHalaman && judulHalaman.namespace % 2 === 0 && judulHalaman.namespace !== 2) {
@@ -145,9 +145,9 @@ var callback_commit = function(event) {
 					titles: judulHalaman.toText(),
 					format: 'json'
 				};
-			let wikipedia_api = new Morebits.wiki.api('Mengecek ' + pageName + ' mempunyai halaman pembicaraan', query, callback_deleteTalk);
-			wikipedia_api.params = params;
-			wikipedia_api.post();
+			let wikipediaApi = new Morebits.wiki.api('Mengecek ' + pageName + ' mempunyai halaman pembicaraan', query, callback_deleteTalk);
+			wikipediaApi.params = params;
+			wikipediaApi.post();
 			}
 
 			var page = new Morebits.wiki.page(pageName, 'Menghapus halaman ' + pageName);
@@ -162,7 +162,7 @@ var callback_commit = function(event) {
 			return;
 		}
 
-		const page = new Morebits.wiki.Page('Pembicaraan:' + apiobj.params.page, 'Menghapus halaman pembicaraan dari halaman ' + apiobj.params.page);
+		const page = new Morebits.wiki.Page('Pembicaraan:' + apiobj.params.page, 'Menghapus halaman pembicaraan ' + apiobj.params.page);
 		page.setEditSummary('[[WP:KPC#U8|U8]]: [[Bantuan:Halaman Pembicaraan|Halaman pembicaraan]] dari halaman terhapus [[' + apiobj.params.page + ']]');
 		page.setChangeTags(Twinkle.changeTags);
 		page.deletePage();

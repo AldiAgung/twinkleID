@@ -20,10 +20,10 @@ Twinkle.diff = function twinklediff() {
 	if (mw.config.get('wgDiffNewId')) {
 		Twinkle.addPortletLink(() => {
 			Twinkle.diff.evaluate(false);
-		}, 'Since', 'tw-since', 'Perlihatkan perbedaan antara diff terakhir dan revisi yang dibuat pengguna terakhir');
+		}, 'Revisi terakhir', 'tw-since', 'Perlihatkan perbedaan antara diff terakhir dan revisi yang dibuat pengguna terakhir');
 		Twinkle.addPortletLink(() => {
 			Twinkle.diff.evaluate(true);
-		}, 'Since mine', 'tw-sincemine', 'Perlihatkan perbedaan antara diff terakhir dan revisi terakhir saya');
+		}, 'Revisi saya', 'tw-sincemine', 'Perlihatkan perbedaan antara diff terakhir dan revisi terakhir saya');
 
 		Twinkle.addPortletLink(mw.util.getUrl(mw.config.get('wgPageName'), {diff: 'cur', oldid: mw.config.get('wgDiffNewId')}), 'Current', 'tw-curdiff', 'Perlihatkan perbedaan ke revisi sekarang');
 	}

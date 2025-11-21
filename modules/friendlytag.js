@@ -836,7 +836,8 @@ Twinkle.tag.article.tagList = {
 	'Masalah konten spesifik': {
 		Accessibility: [
 			{ tag: 'Cleanup colors', description: 'uses color as only way to convey information' },
-			{ tag: 'Overcoloured', description: 'penggunaan warna berlebihan'}
+			{ tag: 'Overcoloured', description: 'penggunaan warna berlebihan'},
+			{ tag: 'Dark mode problems', description: 'mempunyai masalah saat ditampilkan di mode gelap' }
 		],
 		Language: [
 			{ tag: 'Tidak Indonesia', description: 'ditulis dalam bahasa selain Indonesia dan membutuhkan penerjemahan',
@@ -1841,7 +1842,7 @@ Twinkle.tag.callbacks = {
 		$.each(tags, addTag);
 
 		// Check for all Rcat shell redirects (from #433)
-		if (pageText.match(/{{(?:redr|ini adalah pengalihan|r(?:edirect)?(?:.?cat.*)?[ _]?sh)/i)) {
+		if (pageText.match(/{{(?:redr|ini adalah pengalihan|r(?:edirect)?(?:.?cat.*)?[ _]?sh|RCS)/i)) {
 			// Regex inspired by [[User:Kephir/gadgets/sagittarius.js]] ([[Special:PermaLink/831402893]])
 			const oldTags = pageText.match(/(\s*{{[A-Za-z\s]+\|(?:\s*1=)?)((?:[^|{}]|{{[^}]+}})+)(}})\s*/i);
 			pageText = pageText.replace(oldTags[0], oldTags[1] + tagText + oldTags[2] + oldTags[3]);

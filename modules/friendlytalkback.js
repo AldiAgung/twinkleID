@@ -14,11 +14,11 @@ Twinkle.talkback = function() {
 	if (!mw.config.exists('wgRelevantUserName') || Morebits.ip.isRange(mw.config.get('wgRelevantUserName'))) {
 		return;
 	}
-	Twinkle.addPortletLink(Twinkle.talkback.callback, 'TB', 'twinkle-talkback', 'Balasan percakapan');
+	Twinkle.addPortletLink(Twinkle.talkback.callback, 'Balas', 'twinkle-talkback', 'Balasan percakapan');
 };
 
 Twinkle.talkback.callback = function() {
-	if (mw.config.get('wgRelevantUserName') === mw.config.get('wgUserName') && !confirm("Akankah sangat buruk jika anda membalas kembali kepada anda?")) {
+	if (mw.config.get('wgRelevantUserName') === mw.config.get('wgUserName') && !confirm("Akankah sangat buruk jika membalas kembali kepada anda?")) {
 		return;
 	}
 
