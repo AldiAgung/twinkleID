@@ -30,7 +30,6 @@ Twinkle.rollback = function twinklerollback() {
 	} else if (mw.config.get('wgNamespaceNumber') === -1) {
 		Twinkle.rollback.skipTalk = !Twinkle.getPref('openTalkPageOnAutoRevert');
 		Twinkle.rollback.rollbackInPlace = Twinkle.getPref('rollbackInPlace');
-
 		switch (mw.config.get('wgCanonicalSpecialPageName')) {
 			case 'Contributions':
 			case 'IPContributions':

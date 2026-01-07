@@ -17,7 +17,7 @@ Twinkle.batchdelete = function twinklebatchdelete() {
 			mw.config.get('wgCanonicalSpecialPageName') === 'Prefixindex'
 		)
 	) {
-		Twinkle.addPortletLink(Twinkle.batchdelete.callback, 'D-batch', 'tw-batch', 'Halaman penghapusan ditemukan di kategori/halaman ini');
+		Twinkle.addPortletLink(Twinkle.batchdelete.callback, 'Hapus tautan', 'tw-batch', 'Hapus halaman tertaut di kategori/halaman ini');
 	}
 };
 

@@ -50,23 +50,23 @@ Twinkle.image.callback = function twinkleimageCallback() {
 		list: [
 			{
 				label: 'Tanpa sumber (KPC B4)',
-				value: 'tidak ada sumber',
+				value: 'no source',
 				checked: true,
 				tooltip: 'Gambar atau media tidak memiliki informasi'
 			},
 			{
 				label: 'Tanpa lisensi (KPC B4)',
-				value: 'tidak ada lisensi',
+				value: 'no license',
 				tooltip: 'Gambar atau media tidak memilki informasi di status hak ciptanya'
 			},
 			{
 				label: 'Tanpa sumber dan lisensi (KPC B4)',
-				value: 'tidak ada sumber dan lisensi',
+				value: 'no source no license',
 				tooltip: 'Gambar atau media tidak memilki informasi serta status hak ciptanya'
 			},
 			{
 				label: 'Berkas nonbebas yang tak digunakan (KPC B5)',
-				value: 'penggunaan tidak bebas yang tidak digunakan',
+				value: 'orphaned non-free use',
 				tooltip: 'Gambar atau media tidak dilisensikan untuk penggunaan pada Wikipedia dan hanya diizinkan dibawah klaim penggunaan wajar per Wikipedia:Konten tak bebas, tetapi tidak digunakan di artikel manapun'
 			},
 			{
@@ -76,17 +76,17 @@ Twinkle.image.callback = function twinkleimageCallback() {
 			},
 			{
 				label: 'Berkas penggunaan wajar yang dipertentangkan (KPC B7)',
-				value: 'penggunaan tidak bebas yang dipertentangkan',
+				value: 'disputed non-free use rationale',
 				tooltip: 'Gambar atau media yang diklaim perlu digunakan sejalan dengan kebijakan berkas non-bebas, tetapi tidak memiliki alasan mengapa hal ini dapat diizinkan untuk berkas ini'
 			},
 			{
 				label: 'Berkas penggunaan wajar yang dapat digantikan (KPC B7)',
-				value: 'penggunaan tidak bebas yang dapat digantikan',
+				value: 'replaceable non-free use',
 				tooltip: 'Gambar atau media mungkin tidak memnuhi kriteria konten non bebas ([[WP:NFCC#1]]) karena menggambarkan suatu subjek yang mana gambar bebasnya dapat ditemukan atau dibuat yang secara memadai memberikan informasi yang sama'
 			},
 			{
 				label: 'Tanpa bukti untuk perizinan (KPC B11)',
-				value: 'tidak ada izin',
+				value: 'no permission',
 				tooltip: 'Gambar atau media tidak mempunyai bukti bahwa pengunggah setuju untuk melisensikan berkasnya'
 			}
 		]
@@ -117,8 +117,8 @@ Twinkle.image.callback.choice = function twinkleimageCallbackChoose(event) {
 	});
 
 	switch (value) {
-		case 'tidak ada sumber dan lisensi':
-		case 'tidak ada sumber':
+		case 'no source no license':
+		case 'no source':
 			work_area.append({
 				type: 'checkbox',
 				list: [
@@ -130,7 +130,7 @@ Twinkle.image.callback.choice = function twinkleimageCallbackChoose(event) {
 				]
 			});
 		/* falls through */
-		case 'tidak ada lisensi':
+		case 'no license':
 			work_area.append({
 				type: 'checkbox',
 				list: [
@@ -142,21 +142,21 @@ Twinkle.image.callback.choice = function twinkleimageCallbackChoose(event) {
 				]
 			});
 			break;
-		case 'tidak ada izin':
+		case 'no permission':
 			work_area.append({
 				type: 'input',
 				name: 'source',
 				label: 'Sumber:'
 			});
 			break;
-		case 'penggunaan tidak bebas yang dipertentangkan':
+		case 'disputed non-free use rationale':
 			work_area.append({
 				type: 'textarea',
 				name: 'reason',
 				label: 'Tujuan:'
 			});
 			break;
-		case 'penggunaan tidak bebas yang tidak digunakan':
+		case 'orphaned non-free use':
 			work_area.append({
 				type: 'input',
 				name: 'replacement',
@@ -164,7 +164,7 @@ Twinkle.image.callback.choice = function twinkleimageCallbackChoose(event) {
 				tooltip: 'Berkas opsional yang mengganti berkas lama. Awalan "Berkas:" opsional.'
 			});
 			break;
-		case 'penggunaan tidak bebas yang dapat digantikan':
+		case 'replaceable non-free use':
 			work_area.append({
 				type: 'textarea',
 				name: 'reason',
@@ -187,23 +187,23 @@ Twinkle.image.callback.evaluate = function twinkleimageCallbackEvaluate(event) {
 
 	let csdcrit;
 	switch (input.type) {
-		case 'tidak ada sumber dan lisensi':
-		case 'tidak ada sumber':
-		case 'tidak ada lisensi':
-			csdcrit = 'B4';
+		case 'no source no license':
+		case 'no source':
+		case 'no license':
+			csdcrit = 'F4';
 			break;
-		case 'penggunaan tidak bebas yang tidak digunakan':
-			csdcrit = 'B5';
+		case 'orphaned non-free use':
+			csdcrit = 'F5';
 			break;
 		case 'no non-free use rationale':
-			csdcrit = 'B6';
+			csdcrit = 'F6';
 			break;
-		case 'penggunaan tidak bebas yang dipertentangkan':
-		case 'penggunaan tidak bebas yang dapat digantikan':
-			csdcrit = 'B7';
+		case 'disputed non-free use rationale':
+		case 'replaceable non-free use':
+			csdcrit = 'F7';
 			break;
-		case 'tidak ada izin':
-			csdcrit = 'B11';
+		case 'no permission':
+			csdcrit = 'F11';
 			break;
 		default:
 			throw new Error('Twinkle.image.callback.evaluate: kriteria tidak diketahui');
@@ -225,7 +225,7 @@ Twinkle.image.callback.evaluate = function twinkleimageCallbackEvaluate(event) {
 	Morebits.wiki.actionCompleted.notice = 'Pemberian tag selesai';
 
 	// Tagging image
-	const wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Memberi tag pada berkas dengan tag penghapusan');
+	const wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Memberi berkas dengan tag penghapusan');
 	wikipedia_page.setCallbackParameters(params);
 	wikipedia_page.load(Twinkle.image.callbacks.taggingImage);
 
@@ -254,20 +254,20 @@ Twinkle.image.callbacks = {
 
 		let tag = '{{di-' + params.templatename + '|date={{subst:#time:j F Y}}';
 		switch (params.type) {
-			case 'tidak ada sumber dan lisensi':
-			case 'tidak ada sumber':
+			case 'no source no license':
+			case 'no source':
 				tag += params.non_free ? '|non-free=yes' : '';
 				break;
-			case 'tidak ada izin':
+			case 'no permission':
 				tag += params.source ? '|source=' + params.source : '';
 				break;
-			case 'penggunaan tidak bebas yang dipertentangkan':
+			case 'disputed non-free use rationale':
 				tag += params.reason ? '|concern=' + params.reason : '';
 				break;
-			case 'penggunaan tidak bebas yang tidak digunakan':
+			case 'orphaned non-free use':
 				tag += params.replacement ? '|replacement=' + params.replacement : '';
 				break;
-			case 'penggunaan tidak bebas yang dapat digantikan':
+			case 'replaceable non-free use':
 				tag += params.reason ? '|1=' + params.reason : '';
 				break;
 			default:
@@ -292,7 +292,7 @@ Twinkle.image.callbacks = {
 		} else {
 			const usertalkpage = new Morebits.wiki.Page('Pembicaraan pengguna:' + initialContrib, 'Memberitahu kontributor awal (' + initialContrib + ')');
 			let notifytext = '\n{{subst:di-' + params.templatename + '-notice|1=' + mw.config.get('wgTitle');
-			if (params.type === 'tidak ada izin') {
+			if (params.type === 'no permission') {
 				notifytext += params.source ? '|source=' + params.source : '';
 			}
 			notifytext += '}} ~~~~';
@@ -319,7 +319,7 @@ Twinkle.image.callbacks = {
 			(Morebits.userIsSysop ? '\n\nCatatan ini tidak melacak penghapusan cepat yang dilakukan menggunakan Twinkle.' : '');
 
 		const formatParamLog = function(normalize, csdparam, input) {
-			if (normalize === 'B5' && csdparam === 'replacement') {
+			if (normalize === 'F5' && csdparam === 'replacement') {
 				input = '[[:' + input + ']]';
 			}
 			return ' {' + normalize + ' ' + csdparam + ': ' + input + '}';
