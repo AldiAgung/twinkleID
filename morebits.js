@@ -2310,7 +2310,7 @@ Morebits.wiki.Api = function(currentAction, query, onSuccess, statusElement, onE
 	}
 
 	// Ignore tags for queries and most common unsupported actions, produces warnings
-	if (query.action && ['query', 'review', 'stabilize', 'pagetriageaction', 'watch'].includes(query.action)) {
+	if (query.action && ['query', 'review', 'stabilize', 'watch'].includes(query.action)) {
 		delete query.tags;
 	}
 };

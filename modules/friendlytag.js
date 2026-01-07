@@ -15,11 +15,11 @@ Twinkle.tag = function twinkletag() {
 	// redirect tagging (exclude category redirects, which are all soft redirects and so shouldn't be tagged with rcats)
 	if (Morebits.isPageRedirect() && mw.config.get('wgNamespaceNumber') !== 14) {
 		Twinkle.tag.mode = 'redirect';
-		Twinkle.addPortletLink(Twinkle.tag.callback, 'Tag', 'twinkle-tag', 'Tag redirect');
+		Twinkle.addPortletLink(Twinkle.tag.callback, 'Tandai', 'twinkle-tag', 'Tandai pengalihan');
 	// file tagging
 	} else if (mw.config.get('wgNamespaceNumber') === 6 && !document.getElementById('mw-sharedupload') && document.getElementById('mw-imagepage-section-filehistory')) {
 		Twinkle.tag.mode = 'file';
-		Twinkle.addPortletLink(Twinkle.tag.callback, 'Tag', 'twinkle-tag', 'Tambah tag pemeliharaan ke berkas');
+		Twinkle.addPortletLink(Twinkle.tag.callback, 'Tandai', 'twinkle-tag', 'Tambah tag pemeliharaan ke berkas');
 	// article/draft article tagging
 	} else if ([0, 118].includes(mw.config.get('wgNamespaceNumber')) && mw.config.get('wgCurRevisionId')) {
 		Twinkle.tag.mode = 'article';
@@ -28,7 +28,7 @@ Twinkle.tag = function twinkletag() {
 			// Disabled on latest diff because the diff slider could be used to slide
 			// away from the latest diff without causing the script to reload
 			!mw.config.get('wgDiffNewId');
-		Twinkle.addPortletLink(Twinkle.tag.callback, 'Tag', 'twinkle-tag', 'Tambah atau hapus tag pemeliharaan artikel');
+		Twinkle.addPortletLink(Twinkle.tag.callback, 'Tandai', 'twinkle-tag', 'Tambah atau hapus tag pemeliharaan artikel');
 	}
 };
 

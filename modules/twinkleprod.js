@@ -23,11 +23,6 @@ Twinkle.prod = function twinkleprod() {
 // Used in edit summaries, for comparisons, etc.
 let namespace;
 
-const namespaceTranslations = {
-    'article': 'artikel',
-    'file': 'berkas'
-	};
-
 Twinkle.prod.callback = function twinkleprodCallback() {
 	Twinkle.prod.defaultReason = Twinkle.getPref('prodReasonDefault');
 
@@ -237,7 +232,6 @@ Twinkle.prod.callbacks = {
 
 	taggingPage: function twinkleprodTaggingPage() {
 		const def = $.Deferred();
-
 		const wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Menandai halaman');
 		wikipedia_page.setFollowRedirect(true); // for NPP, and also because redirects are ineligible for PROD
 		wikipedia_page.load((pageobj) => {
@@ -285,8 +279,7 @@ Twinkle.prod.callbacks = {
 					summaryText = 'Mengusulkan penghapusan artikel per [[WP:UP]].';
 					tag = '{{subst:prod blp' + (params.usertalk ? '|help=off' : '') + '}}';
 				} else {
-					const translatedNamespace = namespaceTranslations[namespace] || namespace;
-					summaryText = 'Mengusulkan ' + translatedNamespace  + ' untuk dihapus per [[WP:UP]].';
+					summaryText = 'Mengusulkan ' + namespace + ' untuk dihapus per [[WP:UP]].';
 					tag = '{{subst:prod|1=' + Morebits.string.formatReasonText(params.reason) + (params.usertalk ? '|help=off' : '') + '}}';
 				}
 
@@ -316,12 +309,6 @@ Twinkle.prod.callbacks = {
 
 				params.logEndorsing = true;
 			}
-
-			// curate/patrol the page
-			if (Twinkle.getPref('markProdPagesAsPatrolled')) {
-				pageobj.triage();
-			}
-
 			pageobj.setPageText(text);
 			pageobj.setEditSummary(summaryText);
 			pageobj.setChangeTags(Twinkle.changeTags);
@@ -329,7 +316,36 @@ Twinkle.prod.callbacks = {
 			pageobj.setCreateOption('nocreate');
 			pageobj.save(def.resolve, def.reject);
 
+			// curate/patrol the page
+			if (Twinkle.getPref('markProdPagesAsPatrolled')) {
+				pageobj.triage();
+			}
+
 		}, def.reject);
+		return def;
+	},
+
+	createNominationPage: function twinkleprodCreateNominationPage() {
+		const def = $.Deferred();
+		const nomTitle = 'Wikipedia:Usulan penghapusan/' + Morebits.pageNameNorm;
+		const page = new Morebits.wiki.Page(nomTitle, 'Membuat halaman usulan UP');
+
+		// Cek apakah halaman sudah ada
+		page.load((pageobj) => {
+			if (pageobj.exists()) {
+				Morebits.Status.info('Halaman usulan', 'Halaman usulan sudah ada, melewati pembuatan.');
+				def.resolve();
+				return;
+			}
+			const text = '{{subst:Usul penghapusan/UP|alasan=' + params.reason + '}} ~~~~\n';
+
+			page.setPageText(text);
+			page.setEditSummary('Membuat halaman usulan penghapusan untuk [[:' + Morebits.pageNameNorm + ']].');
+			page.setChangeTags(Twinkle.changeTags);
+			page.setCreateOption('createonly');
+			page.save(def.resolve, def.reject);
+		}, def.reject);
+
 		return def;
 	},
 
@@ -404,7 +420,7 @@ Twinkle.prod.callbacks = {
 		// If a logged file is deleted but exists on commons, the wikilink will be blue, so provide a link to the log
 		logText += namespace === 'file' ? ' ([{{fullurl:Istimewa:Catatan|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}} catata]): ' : ': ';
 		if (params.logEndorsing) {
-			logText += 'menambahkan ' + (params.blp ? 'BIO ' : '') + 'UP. ~~~~~';
+			logText += 'mendukung ' + (params.blp ? 'BIO ' : '') + 'UP. ~~~~~';
 			if (params.reason) {
 				logText += "\n#* '''Alasan''': " + params.reason + '\n';
 			}
@@ -457,6 +473,8 @@ Twinkle.prod.callback.evaluate = function twinkleprodCallbackEvaluate(e) {
 	tm.add(cbs.fetchCreationInfo, []);
 	// tag the page once we're clear of the pre-requisites
 	tm.add(cbs.taggingPage, [ cbs.checkPriors, cbs.fetchCreationInfo ]);
+	tm.add(cbs.createNominationPage, [ cbs.taggingPage ]);
+
 	// notify the author once we know who's the author, and also wait for the
 	// taggingPage() as we don't need to notify if tagging was not done, such as
 	// there was already a tag and the user chose not to endorse.

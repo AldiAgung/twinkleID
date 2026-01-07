@@ -16,7 +16,7 @@ Twinkle.unlink = function twinkleunlink() {
 		(!Morebits.userIsInGroup('extendedconfirmed') && !Morebits.userIsSysop)) {
 		return;
 	}
-	Twinkle.addPortletLink(Twinkle.unlink.callback, 'Unlink', 'tw-unlink', 'Hapus pranala balik');
+	Twinkle.addPortletLink(Twinkle.unlink.callback, 'Hapus tautan', 'tw-unlink', 'Hapus pranala balik');
 };
 
 // the parameter is used when invoking unlink from admin speedy
@@ -24,7 +24,7 @@ Twinkle.unlink.callback = function(presetReason) {
 	const fileSpace = mw.config.get('wgNamespaceNumber') === 6;
 
 	const Window = new Morebits.SimpleWindow(600, 440);
-	Window.setTitle('Menghapus pranala balik' + (fileSpace ? ' dan penggunaan berkas' : ''));
+	Window.setTitle('Hapus pranala balik' + (fileSpace ? ' dan penggunaan berkas' : ''));
 	Window.setScriptName('Twinkle');
 	Window.addFooterLink('Prefrensi hapus pranala', 'WP:TW/PREF#unlink');
 	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#unlink');

@@ -1734,7 +1734,7 @@ Twinkle.warn.callbacks = {
 			const templateAndLevel = Twinkle.warn.callbacks.autolevelParseWikitext(text, params, latest, now, statelem);
 
 			// Only if there's a change from the prior display/load
-			if (params.sub_group !== templateAndLevel[0] && !confirm('Ingin memberikan templat {{' + templateAndLevel[0] + '}} ke pengguna?')) {
+			if (params.sub_group !== templateAndLevel[0] && !confirm('Ingin menambahkan templat {{' + templateAndLevel[0] + '}} ke pengguna?')) {
 				statelem.error('Dibatalkan atas permintaan pengguna');
 				return;
 			}

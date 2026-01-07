@@ -20,7 +20,7 @@ Twinkle.deprod = function() {
 	) {
 		return;
 	}
-	Twinkle.addPortletLink(Twinkle.deprod.callback, 'Deprod', 'tw-deprod', 'Halaman yang diusulkan dihapus ditemukan di kategori ini');
+	Twinkle.addPortletLink(Twinkle.deprod.callback, 'Tenggat UP', 'tw-deprod', 'Halaman yang diusulkan dihapus ditemukan di kategori ini');
 };
 
 const concerns = {};
@@ -145,7 +145,7 @@ var callback_commit = function(event) {
 					titles: judulHalaman.toText(),
 					format: 'json'
 				};
-			let wikipediaApi = new Morebits.wiki.api('Mengecek ' + pageName + ' mempunyai halaman pembicaraan', query, callback_deleteTalk);
+			let wikipediaApi = new Morebits.wiki.api('Memeriksa ' + pageName + ' mempunyai halaman pembicaraan', query, callback_deleteTalk);
 			wikipediaApi.params = params;
 			wikipediaApi.post();
 			}

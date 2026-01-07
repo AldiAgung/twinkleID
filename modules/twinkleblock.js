@@ -1431,7 +1431,7 @@ Twinkle.block.blockGroups = [
 		list: [
 			{ label: 'proksi yang diblokir', value: 'blocked proxy' },
 			{ label: 'pemblokiran oleh Pemeriksa', value: 'CheckUser block'},
-			{ label: 'checkuserblock-account', value: 'checkuserblock-account'},
+			{ label: 'akun pemblokiran oleh pemeriksa', value: 'checkuserblock-account'},
 			{ label: 'checkuserblock-wide', value: 'checkuserblock-wide'},
 			{ label: 'colocationwebhost', value: 'colocationwebhost'},
 			{ label: 'oversightblock', value: 'oversightblock'},
@@ -1757,7 +1757,7 @@ Twinkle.block.callback.preview = function twinkleblockcallbackPreview(form) {
 
 	const templateText = Twinkle.block.callback.getBlockNoticeWikitext(params);
 
-	form.previewer.beginRender(templateText, 'User_talk:' + relevantUserName); // Force wikitext/correct username
+	form.previewer.beginRender(templateText, 'Pembicaraan_pengguna:' + relevantUserName); // Force wikitext/correct username
 };
 
 Twinkle.block.callback.evaluate = function twinkleblockCallbackEvaluate(e) {
@@ -1860,7 +1860,7 @@ Twinkle.block.callback.evaluate = function twinkleblockCallbackEvaluate(e) {
 			list: 'blocks|logevents',
 			letype: 'block',
 			lelimit: 1,
-			letitle: 'User:' + blockoptions.user
+			letitle: 'Pengguna:' + blockoptions.user
 		};
 		// bkusers doesn't catch single IPs blocked as part of a range block
 		if (mw.util.isIPAddress(blockoptions.user, true)) {

@@ -237,16 +237,16 @@ Twinkle.welcome.templates = {
 				syntax: '{{Subst:Selamat datang|$USERNAME$|art=$ARTICLE$}} ~~~~'
 			},
 			'welcome-retro': {
-				description: 'a welcome message with a small list of helpful links',
+				description: 'sebuah pesan selamat datang dengan daftar kecil dari pranala membantu',
 				linkedArticle: true,
 				syntax: '{{subst:welcome-retro|$USERNAME$|art=$ARTICLE$}} ~~~~'
 			},
 			'welcome-short': {
-				description: 'a shorter welcome message',
+				description: 'sebuah pesan selamat datang pendek',
 				syntax: '{{subst:w-short|heading=yes|$EXTRA$}}'
 			},
 			'welcome-personal': {
-				description: 'more personal welcome, including a plate of cookies',
+				description: 'selamat datang lebih personal, termasuk sepiring kue kering',
 				syntax: '{{subst:welcome-personal|$USERNAME$}} ~~~~'
 			},
 			'welcome-graphical': {
@@ -254,7 +254,7 @@ Twinkle.welcome.templates = {
 				syntax: '$HEADER$ {{subst:welcome-graphical|$EXTRA$}}'
 			},
 			'welcome-menu': {
-				description: 'welcome message with large table of about 60 links',
+				description: 'pesan selamat datang dengan daftar 60 pranala',
 				syntax: '{{subst:welcome-menu}}'
 			},
 			'welcome-screen': {
@@ -313,7 +313,7 @@ Twinkle.welcome.templates = {
 				syntax: '{{subst:welcomelaws|$USERNAME$}} ~~~~'
 			},
 			'first article': {
-				description: 'for someone whose first article did not meet page creation guidelines',
+				description: 'untuk siapapun yang artikel pertamanya tidak memenuhi panduan pembuatan halaman',
 				linkedArticle: true,
 				syntax: '{{subst:first article|$ARTICLE$|$USERNAME$}}'
 			},
@@ -323,7 +323,7 @@ Twinkle.welcome.templates = {
 				syntax: '{{subst:welcometest|$ARTICLE$|$USERNAME$}} ~~~~'
 			},
 			'welcomevandal': {
-				description: 'for someone whose initial efforts appear to be vandalism',
+				description: 'untuk seseorang pertama kali datang langsung memvandal',
 				linkedArticle: true,
 				syntax: '{{subst:welcomevandal|$ARTICLE$|$USERNAME$}}'
 			},
@@ -383,7 +383,7 @@ Twinkle.welcome.templates = {
 				syntax: '{{subst:welcome-unregistered-test|$ARTICLE$|$USERNAME$}} ~~~~'
 			},
 			'welcome-unregistered-unconstructive': {
-				description: 'for unregistered users who have vandalized or made unhelpful edits',
+				description: 'untuk pengguna tidak terdaftar yang telah memvandalisme dan membuat suntingan tidak membantu',
 				linkedArticle: true,
 				syntax: '{{subst:welcome-unregistered-unconstructive|$ARTICLE$|$USERNAME$}}'
 			},
@@ -621,7 +621,7 @@ Twinkle.welcome.getTemplateWikitext = function(type, template, article) {
 		return properties.syntax
 			.replace('$USERNAME$', Twinkle.getPref('insertUsername') ? mw.config.get('wgUserName') : '')
 			.replace('$ARTICLE$', article || '')
-			.replace(/\$HEADER\$\s*/, '== Welcome ==\n\n')
+			.replace(/\$HEADER\$\s*/, '== Selamat datang ==\n\n')
 			.replace('$EXTRA$', ''); // EXTRA is not implemented yet
 	}
 	return '{{subst:' + template + (article ? '|art=' + article : '') + '}}' +

@@ -286,7 +286,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 		case 'puppet':
 			work_area = new Morebits.quickForm.element({
 				type: 'field',
-				label: 'Laporkan akun kedua (puppet)',
+				label: 'Laporkan akun kedua',
 				name: 'work_area'
 			});
 			work_area.append(
@@ -307,7 +307,7 @@ Twinkle.arv.callback.changeCategory = function (e) {
 				type: 'checkbox',
 				list: [
 					{
-						label: 'Minta pemeriksaan teknis dari Pemeriksa (CheckUser)',
+						label: 'Minta pemeriksaan teknis dari Pemeriksa (CU)',
 						name: 'checkuser',
 						tooltip: 'CheckUser adalah alat untuk memperoleh bukti teknis (IP/User Agent). Alat ini tidak akan digunakan tanpa alasan yang kuat. Pastikan bukti Anda menjelaskan alasan penggunaan alat ini tepat.'
 					},

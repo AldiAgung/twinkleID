@@ -25,7 +25,7 @@ Twinkle.diff = function twinklediff() {
 			Twinkle.diff.evaluate(true);
 		}, 'Revisi saya', 'tw-sincemine', 'Perlihatkan perbedaan antara diff terakhir dan revisi terakhir saya');
 
-		Twinkle.addPortletLink(mw.util.getUrl(mw.config.get('wgPageName'), {diff: 'cur', oldid: mw.config.get('wgDiffNewId')}), 'Current', 'tw-curdiff', 'Perlihatkan perbedaan ke revisi sekarang');
+		Twinkle.addPortletLink(mw.util.getUrl(mw.config.get('wgPageName'), {diff: 'cur', oldid: mw.config.get('wgDiffNewId')}), 'Sekarang', 'tw-curdiff', 'Perlihatkan perbedaan ke revisi sekarang');
 	}
 };
 
