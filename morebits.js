@@ -141,23 +141,6 @@ Morebits.userIsInGroup = function (group) {
 Morebits.userIsSysop = Morebits.userIsInGroup('sysop');
 
 /**
- * Deprecated as of February 2021, use {@link Morebits.ip.sanitizeIPv6}.
- *
- * @deprecated Use {@link Morebits.ip.sanitizeIPv6}.
- * Converts an IPv6 address to the canonical form stored and used by MediaWiki.
- * JavaScript translation of the {@link https://gerrit.wikimedia.org/r/plugins/gitiles/mediawiki/core/+/8eb6ac3e84ea3312d391ca96c12c49e3ad0753bb/includes/utils/IP.php#131|`IP::sanitizeIP()`}
- * function from the IPUtils library.  Addresses are verbose, uppercase,
- * normalized, and expanded to 8 words.
- *
- * @param {string} address - The IPv6 address, with or without CIDR.
- * @return {string}
- */
-Morebits.sanitizeIPv6 = function (address) {
-	console.warn('Catatan: Morebits.sanitizeIPv6 dinamakan menjadi Morebits.ip.sanitizeIPv6 pada Februari 2021, tolong gunakan itu saja'); // eslint-disable-line no-console
-	return Morebits.ip.sanitizeIPv6(address);
-};
-
-/**
  * Determines whether the current page is a redirect or soft redirect. Fails
  * to detect soft redirects on edit, history, etc. pages.  Will attempt to
  * detect Module:RfD, with the same failure points.
@@ -2162,16 +2145,6 @@ Object.getOwnPropertyNames(Date.prototype).forEach((func) => {
  */
 Morebits.wiki = {};
 
-/**
- * @deprecated in favor of Morebits.isPageRedirect as of November 2020
- * @memberof Morebits.wiki
- * @return {boolean}
- */
-Morebits.wiki.isPageRedirect = function wikipediaIsPageRedirect() {
-	console.warn('Catatan: Morebits.wiki.isPageRedirect telah diberhentikan, gunakan Morebits.isPageRedirect saja.'); // eslint-disable-line no-console
-	return Morebits.isPageRedirect();
-};
-
 /* **************** Morebits.wiki.actionCompleted **************** */
 /**
  * @memberof Morebits.wiki
@@ -2623,6 +2596,7 @@ Morebits.wiki.Page = function(pageName, status) {
 		followRedirect: false,
 		followCrossNsRedirect: true,
 		watchlistOption: 'nochange',
+		discussionToolsAutoSubscribe: null,
 		watchlistExpiry: null,
 		creator: null,
 		timestamp: null,
@@ -2852,6 +2826,10 @@ Morebits.wiki.Page = function(pageName, status) {
 		// Set bot edit attribute. If this parameter is present with any value, it is interpreted as true
 		if (ctx.botEdit) {
 			query.bot = true;
+		}
+
+		if (ctx.discussionToolsAutoSubscribe !== null) {
+			query.discussiontoolsautosubscribe = ctx.discussionToolsAutoSubscribe ? 'yes' : 'no';
 		}
 
 		switch (ctx.editMode) {
@@ -3183,29 +3161,13 @@ Morebits.wiki.Page = function(pageName, status) {
 	};
 
 	/**
-	 * @deprecated As of December 2020, use setWatchlist.
-	 * @param {boolean} [watchlistOption=false] -
-	 * - `True`: page watchlist status will be set based on the user's
-	 * preference settings when `save()` is called.
-	 * - `False`: watchlist status of the page will not be changed.
+	 * If editing a talk page, set whether to subscribe to any talk
+	 * page thread created by the edit.
 	 *
-	 * Watchlist notes:
-	 * 1. The MediaWiki API value of 'unwatch', which explicitly removes
-	 * the page from the user's watchlist, is not used.
-	 * 2. If both `setWatchlist()` and `setWatchlistFromPreferences()` are
-	 * called, the last call takes priority.
-	 * 3. Twinkle modules should use the appropriate preference to set the watchlist options.
-	 * 4. Most Twinkle modules use `setWatchlist()`. `setWatchlistFromPreferences()`
-	 * is only needed for the few Twinkle watchlist preferences that
-	 * accept a string value of `default`.
+	 * @param {boolean} subscribe
 	 */
-	this.setWatchlistFromPreferences = function(watchlistOption) {
-		console.warn('Catatan: Morebits.wiki.page.setWatchlistFromPreferences tidak digunakan lagi pada Desember 2020, tolong gunakan setWatchlist'); // eslint-disable-line no-console
-		if (watchlistOption) {
-			ctx.watchlistOption = 'preferences';
-		} else {
-			ctx.watchlistOption = 'nochange';
-		}
+	this.setDiscussionToolsAutoSubscribe = function(subscribe) {
+		ctx.discussionToolsAutoSubscribe = subscribe;
 	};
 
 	/**
@@ -4783,6 +4745,9 @@ Morebits.wiki.Preview = function(previewbox) {
 
 		// this makes links open in new tab
 		$(previewbox).find('a').attr('target', '_blank');
+
+		// Integrate with scripts that do things on rendered content, like navpopups
+		mw.hook('wikipage.content').fire($(previewbox));
 	};
 
 	/** Hides the preview box and clears it. */
@@ -5878,11 +5843,7 @@ Morebits.SimpleWindow.prototype = {
 			$widget.find('.ui-dialog-title').prepend(scriptnamespan);
 		}
 
-		const dialog = $(this.content).dialog('open');
-		if (window.setupTooltips && window.pg && window.pg.re && window.pg.re.diff) { // tie in with NAVPOP
-			dialog.parent()[0].ranSetupTooltipsAlready = false;
-			window.setupTooltips(dialog.parent()[0]);
-		}
+		$(this.content).dialog('open');
 		this.setHeight(this.height); // init height algorithm
 		return this;
 	},

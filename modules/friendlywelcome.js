@@ -455,7 +455,7 @@ Twinkle.welcome.templates = {
 			'welcome-in': {
 				description: 'welcome for users with an apparent interest in India topics',
 				linkedArticle: true,
-				syntax: '{{subst:welcome-in|$USERNAME$|art=$ARTICLE$}} ~~~~'
+				syntax: '{{subst:welcome-in|$USERNAME$}} ~~~~'
 			},
 			'welcome-math': {
 				description: 'welcome for users with an apparent interest in mathematical topics',
@@ -465,7 +465,7 @@ Twinkle.welcome.templates = {
 			'welcome-med': {
 				description: 'welcome for users with an apparent interest in medicine topics',
 				linkedArticle: true,
-				syntax: '{{subst:welcome-med|$USERNAME$|art=$ARTICLE$}} ~~~~'
+				syntax: '{{subst:welcome-med|$ARTICLE$}} ~~~~'
 			},
 			'welcome-no': {
 				description: 'welcome for users with an apparent interest in Norway topics',
@@ -474,7 +474,7 @@ Twinkle.welcome.templates = {
 			'welcome-pk': {
 				description: 'welcome for users with an apparent interest in Pakistan topics',
 				linkedArticle: true,
-				syntax: '{{subst:welcome-pk|$USERNAME$|art=$ARTICLE$}} ~~~~'
+				syntax: '{{subst:welcome-pk|$USERNAME$}} ~~~~'
 			},
 			'welcome-phys': {
 				description: 'welcome for users with an apparent interest in physics topics',

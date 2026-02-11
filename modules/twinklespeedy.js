@@ -630,13 +630,6 @@ Twinkle.speedy.data = [
 		db: 'redirnone',
 		tooltip: 'Pengecualian berlaku untuk halaman yang masih berguna bagi proyek, termasuk: diskusi penghapusan yang tidak dicatat di tempat lain, halaman pengguna dan pembicaraannya, arsip pembicaraan, pengalihan yang dapat diperbaiki, serta halaman berkas dan pembicaraannya untuk berkas yang tersedia di Wikimedia Commons.',
 		hideWhenMultiple: true
-	},
-	{
-		list: 'redirectList',
-		label: 'X3: Pengalihan tanpa spasi sebelum tanda kurung disambiguasi',
-		code: 'x3',
-		db: 'x3',
-		tooltip: 'Pengecualian berlaku untuk istilah yang masih masuk akal dicari tanpa spasi, atau jika pengalihan memiliki riwayat suntingan yang signifikan (misalnya hasil penggabungan halaman).'
 	}
 ];
 
@@ -1036,8 +1029,8 @@ Twinkle.speedy.callback.priorDeletionCount = function () {
 			}
 
 			// Provide a link to page logs (CSD templates have one for sysops)
-			const link = Morebits.htmlNode('a', '(logs)');
-			link.setAttribute('href', mw.util.getUrl('Special:Log', {page: mw.config.get('wgPageName')}));
+			const link = Morebits.htmlNode('a', '(catatan)');
+			link.setAttribute('href', mw.util.getUrl('Istimewa:Log', {page: mw.config.get('wgPageName')}));
 			link.setAttribute('target', '_blank');
 
 			$('#prior-deletion-count').text(message + ' '); // Space before log link

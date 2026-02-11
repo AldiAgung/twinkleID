@@ -1040,14 +1040,14 @@ Twinkle.xfd.callbacks = {
 				appendText += ' (' + utils.toTLACase(params.xfdcat) + ')';
 				// Ensure there's more than just 'Category:'
 				if (params.cfdstarget && params.cfdstarget.length > 9) {
-					appendText += '; New name: [[:' + params.cfdstarget + ']]';
+					appendText += '; Nama baru: [[:' + params.cfdstarget + ']]';
 				}
 				break;
 			case 'rfd':
 				if (params.rfdtarget) {
 					appendText += '; Tujuan: [[:' + params.rfdtarget + ']]';
 					if (params.relatedpage) {
-						appendText += ' (notified)';
+						appendText += ' (diberitahu)';
 					}
 				}
 				break;

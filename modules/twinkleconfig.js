@@ -33,8 +33,7 @@ Twinkle.config.commonSets = {
 		u1: 'U1', g2: 'U2', g3: 'U3', g4: 'U4', g5: 'U5', U6: 'U6', g7: 'U7', g8: 'U8', g10: 'U10', g11: 'U11', g12: 'U12', g13: 'U13', g14: 'U14', g15: 'U15',
 		r2: 'R2', r3: 'R3', r4: 'R4',
 		t5: 'T5',
-		u1: 'U1', u2: 'U2', u5: 'U5',
-		x3: 'X3'
+		u1: 'U1', u2: 'U2', u6: 'U6', u7: 'U7'
 	},
 	csdCriteriaNotification: {
 		db: 'Alasan khusus ({{db}})',
@@ -43,8 +42,7 @@ Twinkle.config.commonSets = {
 		f1: 'B1', f2: 'B2', f3: 'B3', f7: 'B7', f9: 'B9',
 		g1: 'U1', g2: 'U2', g3: 'U3', g4: 'U4', g6: 'U6 (hanya "pindah salin-tempel")', g10: 'U10', g11: 'U11', g12: 'U12', g13: 'U13', g14: 'U14', g15: 'U15',
 		r2: 'R2', r3: 'R3', r4: 'R4',
-		u5: 'U5',
-		x3: 'X3'
+		u6: 'U6', u7: 'U7'
 	},
 	csdAndImageDeletionCriteria: {
 		db: 'Alasan khusus ({{db}})',
@@ -54,8 +52,7 @@ Twinkle.config.commonSets = {
 		g1: 'U1', g2: 'U2', g3: 'U3', g4: 'U4', g5: 'U5', g6: 'U6', g7: 'U7', g8: 'U8', g10: 'U10', g11: 'U11', g12: 'U12', g13: 'U13', g14: 'U14', g15: 'U15',
 		r2: 'R2', r3: 'R3', r4: 'R4',
 		t5: 'T5',
-		u1: 'U1', u2: 'U2', u5: 'U5',
-		x3: 'X3'
+		u1: 'U1', u2: 'U2', u6: 'U6', u7: 'U7'
 	},
 	namespacesNoSpecial: {
 		0: 'Artikel',
@@ -174,7 +171,7 @@ Twinkle.config.sections = [
 				label: 'Matikan modul Twinkle yang dipilih',
 				helptip: 'Apapun yang anda pilih disini TIDAK akan tersedia untuk digunakan. Batalkan pilihan untuk diaktifkan ulang.',
 				type: 'set',
-				setValues: { arv: 'ARV', warn: 'Warn', welcome: 'Welcome', shared: 'Shared IP', talkback: 'Talkback', speedy: 'CSD', prod: 'PROD', xfd: 'XfD', image: 'Image (DI)', protect: 'Protect (RPP)', tag: 'Tag', diff: 'Diff', unlink: 'Unlink', 'fluff': 'Kembalikan dan balikkan' }
+				setValues: { arv: 'ARV', warn: 'Peringati', welcome: 'Sambut', talkback: 'Talkback', speedy: 'KPC', prod: 'UP', xfd: 'XfD', image: 'Gambar (PG)', protect: 'Lindungi (RPP)', tag: 'Tandai', diff: 'Perbandingan', unlink: 'Unlink', rollback: 'Batalkan dan kembalikan' }
 			},
 
 			// Twinkle.config.disabledSysopModules (array)
@@ -384,18 +381,6 @@ Twinkle.config.sections = [
 			}
 		]
 	},
-
-	{
-		title: 'Menandai IP bersama',
-		preferences: [
-			{
-				name: 'markSharedIPAsMinor',
-				label: 'Tandai penandaan IP bersama sebagai suntingan kecil',
-				type: 'boolean'
-			}
-		]
-	},
-
 	{
 		title: 'Penghapusan cepat (KPC)',
 		preferences: [

@@ -529,7 +529,7 @@ const translationSubgroups = [
 		parameter: '1',
 		type: 'input',
 		label: 'Bahasa artikel (jika diketahui):',
-		tooltip: 'Consider looking at [[WP:LRC]] for help. If listing the article at PNT, please try to avoid leaving this box blank, unless you are completely unsure.'
+		tooltip: 'Dimohon untuk melihat [[WP:LRC]] untuk bantuan. Jika menambahkan artikel di WP:BUTUHTERJEMAH, harap hindari membiarkan kotak ini kosong, jika anda masih tidak yakin.'
 	}
 ].concat(mw.config.get('wgNamespaceNumber') === 0 ? [
 	{
@@ -756,7 +756,7 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'Overly detailed', description: 'jumlah detail rumit yang berlebihan' },
 			{ tag: 'Undue weight', description: 'lends undue weight to certain ideas, incidents, or controversies' }
 		],
-		Timeliness: [
+		'Rentang waktu': [
 			{ tag: 'Current', description: 'mendokumentasikan acara terkini', excludeMI: true }, // Works but not intended for use in MI
 			{ tag: 'Current related', description: 'mendokumentasikan topik yang dipengaruhi oleh peristiwa terkini', excludeMI: true }, // Works but not intended for use in MI
 			{ tag: 'Update', description: 'membutuhkan informasi tambahan terbaru',
@@ -812,16 +812,16 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'Recentism', description: 'mencondong pada peristiwa terkini' },
 			{ tag: 'Too few opinions', description: 'tidak memasukan semua pandangan signifikan' },
 			{ tag: 'Undisclosed paid', description: 'telah dibuat atau diedit sebagai imbalan atas pembayaran yang tidak diungkapkan' },
-			{ tag: 'Weasel', description: 'neutrality or verifiability is compromised by the use of weasel words' }
+			{ tag: 'Weasel', description: 'Kenetralan atau kemampuan verifikasi terganggu oleh penggunaan kata-kata yang ambigu.' }
 		],
 		'Pemeriksaan sumber': [
-			{ tag: 'BLP no footnotes', description: 'BLP that lacks inline citations'},
-			{ tag: 'BLP one source', description: 'BLP that relies largely or entirely on a single source' },
-			{ tag: 'BLP sources', description: 'BLP that needs additional references or sources for verification' },
-			{ tag: 'BLP unsourced', description: 'BLP does not cite any sources at all (use BLP PROD instead for new articles)' },
+			{ tag: 'BLP no footnotes', description: 'BLP yang memilki sitasi baris yang kurang'},
+			{ tag: 'BLP one source', description: 'BLP yang hanya mengandalkan hanya sumber tunggal' },
+			{ tag: 'BLP sources', description: 'BLP yang membutuhkan tambahan referensi atau sumber untuk verifikasi' },
+			{ tag: 'BLP unsourced', description: 'BLP tidak mengutip sumber apapun (gunakan BLP PROD untuk artikel baru)' },
 			{ tag: 'More citations needed', description: 'butuh referensi tambahan atau sumber untuk verifikasi' },
 			{ tag: 'No significant coverage', description: 'tidak mengutip sumber apapun yang berisi cakupan luas' },
-			{ tag: 'No significant coverage (sports)', description: 'sports biography that does not cite any sources containing significant coverage' },
+			{ tag: 'No significant coverage (sports)', description: 'biogafi olahraga yang tidak mengutip sumber apapun yang mengandung cakupan yang signifikan' },
 			{ tag: 'One source', description: 'terlalu mengandalkan pada satu sumber' },
 			{ tag: 'Original research', description: 'mengandung riset asli' },
 			{ tag: 'Primary sources', description: 'terlalu banyak sumber primer, dan memerlukan sumber sekunder' },
@@ -834,12 +834,12 @@ Twinkle.tag.article.tagList = {
 		]
 	},
 	'Masalah konten spesifik': {
-		Accessibility: [
-			{ tag: 'Cleanup colors', description: 'uses color as only way to convey information' },
+		Aksesibilitas: [
+			{ tag: 'Cleanup colors', description: 'menggunakan warna sebagai satu-satunya cara untuk menyampaikan informasi' },
 			{ tag: 'Overcoloured', description: 'penggunaan warna berlebihan'},
 			{ tag: 'Dark mode problems', description: 'mempunyai masalah saat ditampilkan di mode gelap' }
 		],
-		Language: [
+		Bahasa: [
 			{ tag: 'Tidak Indonesia', description: 'ditulis dalam bahasa selain Indonesia dan membutuhkan penerjemahan',
 				excludeMI: true,
 				subgroup: translationSubgroups.slice(0, 1).concat([{
@@ -849,7 +849,7 @@ Twinkle.tag.article.tagList = {
 							name: 'translationNotify',
 							label: 'Beritahu pembuat artikel',
 							checked: true,
-							tooltip: "Menempatkan {{uw-notenglish}} di halaman pembicaraan pengguna."
+							tooltip: "Menaruh {{Uw-notindo}} di halaman pembicaraan pengguna."
 						}
 					]
 				}]).concat(translationSubgroups.slice(1))
@@ -881,7 +881,7 @@ Twinkle.tag.article.tagList = {
 				}]
 			}
 		],
-		Links: [
+		Pranala: [
 			{ tag: 'Dead end', description: 'artikel tidak mempunyai pranla ke artikel lain' },
 			{ tag: 'Orphan', description: 'tidak memiliki pranala balik dari artikel lain' },
 			{ tag: 'Overlinked', description: 'terlalu banyak tautan duplikat dan/atau tidak terkait ke artikel lain' },
@@ -894,12 +894,12 @@ Twinkle.tag.article.tagList = {
 			{ tag: 'No footnotes', description: 'mempunyai referensi, tetapi tidak memiliki kutipan satu baris' },
 			{ tag: 'Parenthetical referencing', description: 'menggunakan referensi dalam tanda kurung, yang sudah tidak digunakan lagi di Wikipedia' }
 		],
-		Categories: [
+		Kategori: [
 			{ tag: 'Improve categories', description: 'membutuhkan kategori tambahan atau spesifik', excludeMI: true },
 			{ tag: 'Uncategorized', description: 'tidak ada kategori', excludeMI: true }
 		]
 	},
-	Merging: [
+	Penggabungan: [
 		{
 			tag: 'History merge',
 			description: 'halaman lainnya yang riwayatnya perlu digabung dengan halaman ini',
@@ -936,7 +936,7 @@ Twinkle.tag.article.tagList = {
 		{ tag: 'Merge to', description: 'harus digabung ke artikel yang diberikan', excludeMI: true,
 			subgroup: getMergeSubgroups('Merge to') }
 	],
-	Informational: [
+	Informasi: [
 		{ tag: 'GOCEinuse', description: 'sedang dilakukan salin suntingan dari Kelompok Penyunting', excludeMI: true },
 		{ tag: 'In use', description: 'sedang dilakukan suntingan besar dalam waktu singkat', excludeMI: true },
 		{ tag: 'Under construction', description: 'dalam proses pengembangan atau perapian penuh', excludeMI: true }
@@ -947,8 +947,8 @@ Twinkle.tag.article.tagList = {
 // Not by policy, but the list roughly approximates items with >500
 // transclusions from Template:R template index
 Twinkle.tag.redirectList = {
-	'Grammar, punctuation, and spelling': {
-		Abbreviation: [
+	'Tata bahasa, tanda baca, dan penyebutan': {
+		Singkatan: [
 			{ tag: 'R from acronym', description: 'dialihkan dari akronim (contoh POTUS) ke bentuk panjangnya', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from airport code', description: 'redirect from an airport\'s IATA or ICAO code to that airport\'s article', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from airline code', description: 'redirect from an airline\'s IATA or ICAO code to that airline\'s article', restriction: 'insideMainspaceOnly' },
@@ -956,32 +956,32 @@ Twinkle.tag.redirectList = {
 			{ tag: 'R from MathSciNet abbreviation', description: 'redirect from MathSciNet publication title abbreviation to the unabbreviated title', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from NLM abbreviation', description: 'redirect from a NLM publication title abbreviation to the unabbreviated title', restriction: 'insideMainspaceOnly' }
 		],
-		Capitalisation: [
+		Kapitalisasi: [
 			{ tag: 'R from CamelCase', description: 'redirect from a CamelCase title' },
 			{ tag: 'R from other capitalisation', description: 'redirect from a title with another method of capitalisation', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from miscapitalisation', description: 'redirect from a capitalisation error' }
 		],
-		'Grammar & punctuation': [
+		'Tata bahasa & tanda baca': [
 			{ tag: 'R from modification', description: 'redirect from a modification of the target\'s title, such as with words rearranged' },
 			{ tag: 'R from plural', description: 'redirect from a plural word to the singular equivalent', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R to plural', description: 'redirect from a singular noun to its plural form', restriction: 'insideMainspaceOnly' }
 		],
-		'Parts of speech': [
+		'Bagian dari pembicaraan': [
 			{ tag: 'R from verb', description: 'redirect from an English-language verb or verb phrase', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from adjective', description: 'redirect from an adjective (word or phrase that describes a noun)', restriction: 'insideMainspaceOnly' }
 		],
-		Spelling: [
+		Penyebutan: [
 			{ tag: 'R from alternative spelling', description: 'redirect from a title with a different spelling' },
 			{ tag: 'R from alternative transliteration', description: 'redirect from an alternative English transliteration to a more common variation' },
 			{ tag: 'R from ASCII-only', description: 'redirect from a title in only basic ASCII to the formal title, with differences that are not diacritical marks or ligatures' },
-			{ tag: 'R to ASCII-only', description: 'redirect to a title in only basic ASCII from the formal title, with differences that are not diacritical marks or ligatures' },
-			{ tag: 'R from diacritic', description: 'redirect from a page name that has diacritical marks (accents, umlauts, etc.)' },
+			{ tag: 'R to ASCII-only', description: 'Mengalihkan ke judul hanya dalam ASCII dasar dari judul formal, dengan perbedaan yang bukan berupa tanda diakritik atau ligatur.' },
+			{ tag: 'R from diacritic', description: 'pengalihan dari nama halaman yang memiliki tanda diakritik (aksen, umlaut, dll.)' },
 			{ tag: 'R to diacritic', description: 'redirect to the article title with diacritical marks (accents, umlauts, etc.)' },
 			{ tag: 'R from misspelling', description: 'redirect from a misspelling or typographical error' }
 		]
 	},
-	'Alternative names': {
-		General: [
+	'Nama alternatif': {
+		Umum: [
 			{
 				tag: 'R from alternative language',
 				description: 'pengalihan dari atau ke judul di bahasa lain',
@@ -1005,22 +1005,22 @@ Twinkle.tag.redirectList = {
 					}
 				]
 			},
-			{ tag: 'R from alternative name', description: 'redirect from a title that is another name, a pseudonym, a nickname, or a synonym' },
-			{ tag: 'R from ambiguous sort name', description: 'redirect from an ambiguous sort name to a page or list that disambiguates it' },
-			{ tag: 'R from former name', description: 'redirect from a former or historic name or a working title', restriction: 'insideMainspaceOnly' },
+			{ tag: 'R from alternative name', description: 'pengalihan dari judul yang merupakan nama lain, nama samaran, nama panggilan, atau sinonim' },
+			{ tag: 'R from ambiguous sort name', description: 'pengalihan dari nama pengurutan yang ambigu ke halaman atau daftar yang memperjelasnya.' },
+			{ tag: 'R from former name', description: 'pengalihan dari nama sebelumnya atau historis atau judul sementara', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from incomplete name', description: 'R from incomplete name' },
-			{ tag: 'R from incorrect name', description: 'redirect from an erroneus name that is unsuitable as a title' },
+			{ tag: 'R from incorrect name', description: 'pengalihan dari nama yang salah dan tidak sesuai sebagai judul' },
 			{ tag: 'R from less specific name', description: 'redirect from a less specific title to a more specific, less general one' },
-			{ tag: 'R from long name', description: 'redirect from a more complete title' },
+			{ tag: 'R from long name', description: 'pengalihan dari judul yang lebih lengkap' },
 			{ tag: 'R from more specific name', description: 'redirect from a more specific title to a less specific, more general one' },
-			{ tag: 'R from non-neutral name', description: 'redirect from a title that contains a non-neutral, pejorative, controversial, or offensive word, phrase, or name' },
-			{ tag: 'R from short name', description: 'redirect from a title that is a shortened form of a person\'s full name, a book title, or other more complete title' },
-			{ tag: 'R from sort name', description: 'redirect from the target\'s sort name, such as beginning with their surname rather than given name', restriction: 'insideMainspaceOnly' },
-			{ tag: 'R from synonym', description: 'redirect from a semantic synonym of the target page title' }
+			{ tag: 'R from non-neutral name', description: 'pengalihan dari judul yang mengandung kata, frasa, atau nama yang tidak netral, merendahkan, kontroversial, atau menyinggung.' },
+			{ tag: 'R from short name', description: 'pengalihan dari judul yang merupakan bentuk singkat dari nama lengkap seseorang, judul buku, atau judul lain yang lebih lengkap' },
+			{ tag: 'R from sort name', description: 'pengalihan berdasarkan nama pengurutan target, misalnya dimulai dengan nama keluarga mereka daripada nama depan.', restriction: 'insideMainspaceOnly' },
+			{ tag: 'R from synonym', description: 'pengalihan dari sinonim semantik judul halaman target' }
 		],
-		People: [
-			{ tag: 'R from birth name', description: 'redirect from a person\'s birth name to a more common name', restriction: 'insideMainspaceOnly' },
-			{ tag: 'R from given name', description: 'redirect from a person\'s given name', restriction: 'insideMainspaceOnly' },
+		Tokoh: [
+			{ tag: 'R from birth name', description: 'pengalihan dari nama lahir seseorang ke nama yang lebih umum', restriction: 'insideMainspaceOnly' },
+			{ tag: 'R from given name', description: 'pengalihan dari nama depan seseorang', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from married name', description: 'redirect from a person\'s married name to a more common name', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from name with title', description: 'redirect from a person\'s name preceded or followed by a title to the name with no title or with the title in parentheses', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from person', description: 'redirect from a person or persons to a related article', restriction: 'insideMainspaceOnly' },
@@ -1028,30 +1028,30 @@ Twinkle.tag.redirectList = {
 			{ tag: 'R from pseudonym', description: 'redirect from a pseudonym', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from surname', description: 'redirect from a title that is a surname', restriction: 'insideMainspaceOnly' }
 		],
-		Technical: [
-			{ tag: 'R from drug trade name', description: 'redirect from (or to) the trade name of a drug to (or from) the international nonproprietary name (INN)' },
-			{ tag: 'R from filename', description: 'redirect from a title that is a filename of the target', restriction: 'insideMainspaceOnly' },
-			{ tag: 'R from molecular formula', description: 'redirect from a molecular/chemical formula to its technical or trivial name' },
+		Teknis: [
+			{ tag: 'R from drug trade name', description: 'pengalihan dari (atau ke) nama dagang suatu obat ke (atau dari) nama tidak berkepemilikan internasional (INN)' },
+			{ tag: 'R from filename', description: 'pengalihan dari judul yang merupakan nama berkas target', restriction: 'insideMainspaceOnly' },
+			{ tag: 'R from molecular formula', description: 'pengalihan dari rumus molekuler/kimia ke nama teknis atau nama umumnya' },
 
 			{ tag: 'R from gene symbol', description: 'redirect from a Human Genome Organisation (HUGO) symbol for a gene to an article about the gene', restriction: 'insideMainspaceOnly' }
 		],
-		Organisms: [
-			{ tag: 'R to scientific name', description: 'redirect from the common name to the scientific name', restriction: 'insideMainspaceOnly' },
-			{ tag: 'R from scientific name', description: 'redirect from the scientific name to the common name', restriction: 'insideMainspaceOnly' },
+		Organisme: [
+			{ tag: 'R to scientific name', description: 'pengalihan dari nama umum ke nama ilmiah', restriction: 'insideMainspaceOnly' },
+			{ tag: 'R from scientific name', description: 'pengalihan dari nama ilmiah ke nama umum', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from alternative scientific name', description: 'redirect from an alternative scientific name to the accepted scientific name', restriction: 'insideMainspaceOnly' },
-			{ tag: 'R from scientific abbreviation', description: 'redirect from a scientific abbreviation', restriction: 'insideMainspaceOnly' },
+			{ tag: 'R from scientific abbreviation', description: 'pengalihan dari singkatan ilmiah', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R to monotypic taxon', description: 'redirect from the only lower-ranking member of a monotypic taxon to its monotypic taxon', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from monotypic taxon', description: 'redirect from a monotypic taxon to its only lower-ranking member', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R taxon with possibilities', description: 'redirect from a title related to a living organism that potentially could be expanded into an article', restriction: 'insideMainspaceOnly' }
 		],
-		Geography: [
-			{ tag: 'R from name and country', description: 'redirect from the specific name to the briefer name', restriction: 'insideMainspaceOnly' },
-			{ tag: 'R from more specific geographic name', description: 'redirect from a geographic location that includes extraneous identifiers such as the county or region of a city', restriction: 'insideMainspaceOnly' }
+		Geografi: [
+			{ tag: 'R from name and country', description: 'pengalihan dari nama spesifik ke nama yang lebih singkat', restriction: 'insideMainspaceOnly' },
+			{ tag: 'R from more specific geographic name', description: 'pengalihan dari lokasi geografis yang mencakup pengidentifikasi tambahan seperti kabupaten atau wilayah suatu kota', restriction: 'insideMainspaceOnly' }
 		]
 	},
-	'Navigation aids': {
-		Navigation: [
-			{ tag: 'R to anchor', description: 'dialihkan dari sebuah topik yang tidak mempunyai halamannya sendiri ke bagian yang telha ada di subyek' },
+	'Bantuan navigasi': {
+		Navigasi: [
+			{ tag: 'R to anchor', description: 'dialihkan dari sebuah topik yang tidak mempunyai halamannya sendiri ke bagian yang telah ada di subyek' },
 			{
 				tag: 'R avoided double redirect',
 				description: 'dialihkan dari judul alternatif untuk pengalihan lainnya',
@@ -1067,25 +1067,25 @@ Twinkle.tag.redirectList = {
 
 			{ tag: 'R mentioned in hatnote', description: 'redirect from a title that is mentioned in a hatnote at the redirect target' },
 			{ tag: 'R to section', description: 'similar to {{R to list entry}}, but when list is organized in sections, such as list of characters in a fictional universe' },
-			{ tag: 'R from shortcut', description: 'redirect from a Wikipedia shortcut' },
-			{ tag: 'R to subpage', description: 'redirect to a subpage' }
+			{ tag: 'R from shortcut', description: 'dialihkan dari pintasan Wikipedia' },
+			{ tag: 'R to subpage', description: 'dialihkan ke subhalaman' }
 		],
-		Disambiguation: [
-			{ tag: 'R from ambiguous term', description: 'redirect from an ambiguous page name to a page that disambiguates it. This template should never appear on a page that has "(disambiguation)" in its title, use R to disambiguation page instead' },
-			{ tag: 'R to disambiguation page', description: 'redirect to a disambiguation page', restriction: 'disambiguationPagesOnly' },
+		Disambiguasi: [
+			{ tag: 'R from ambiguous term', description: 'dialihkan dari nama halaman yang ambigu ke halaman yang memperjelasnya. Templat ini tidak boleh muncul di halaman yang memiliki "(disambiguasi)" di judulnya, gunakan R untuk menuju halaman yang memperjelas sebagai gantinya.' },
+			{ tag: 'R to disambiguation page', description: 'dialihkan ke halaman disambiguasi', restriction: 'disambiguationPagesOnly' },
 			{ tag: 'R from incomplete disambiguation', description: 'redirect from a page name that is too ambiguous to be the title of an article and should redirect to an appropriate disambiguation page' },
 			{ tag: 'R from incorrect disambiguation', description: 'redirect from a page name with incorrect disambiguation due to an error or previous editorial misconception' },
 			{ tag: 'R from other disambiguation', description: 'redirect from a page name with an alternative disambiguation qualifier' },
 			{ tag: 'R from unnecessary disambiguation', description: 'redirect from a page name that has an unneeded disambiguation qualifier' }
 		],
-		'Merge, duplicate & move': [
+		'Gabung, duplikat & pindah': [
 			{ tag: 'R from duplicated article', description: 'redirect to a similar article in order to preserve its edit history' },
 			{ tag: 'R with history', description: 'redirect from a page containing substantive page history, kept to preserve content and attributions' },
 			{ tag: 'R from move', description: 'redirect from a page that has been moved/renamed' },
 			{ tag: 'R from merge', description: 'redirect from a merged page in order to preserve its edit history' }
 		],
-		Namespace: [
-			{ tag: 'R from remote talk page', description: 'redirect from a talk page in any talk namespace to a corresponding page that is more heavily watched', restriction: 'insideTalkNamespaceOnly' },
+		Ruangnama: [
+			{ tag: 'R from remote talk page', description: 'pengalihan dari sebuah halaman pembicaraan di ruangnama pembicaraan manapun ke halaman terkait yang sering dipantau', restriction: 'insideTalkNamespaceOnly' },
 			{ tag: 'R to category namespace', description: 'redirect from a page outside the category namespace to a category page' },
 			{ tag: 'R to help namespace', description: 'redirect from any page inside or outside of help namespace to a page in that namespace' },
 			{ tag: 'R to main namespace', description: 'redirect from a page outside the main-article namespace to an article in mainspace' },
@@ -1095,7 +1095,7 @@ Twinkle.tag.redirectList = {
 		]
 	},
 	Media: {
-		General: [
+		Umum: [
 			{ tag: 'R from album', description: 'redirect from an album to a related topic such as the recording artist or a list of albums', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from band name', description: 'redirect from a musical band or musical group name that redirects an article on a single person, i.e. the band or group leader' },
 			{ tag: 'R from book', description: 'redirect from a book title to a more general, relevant article', restriction: 'insideMainspaceOnly' },
@@ -1110,14 +1110,14 @@ Twinkle.tag.redirectList = {
 			{ tag: 'R from upcoming film', description: 'redirect from a title that potentially could be expanded into a new article or other type of associated page such as a new template.' },
 			{ tag: 'R from work', description: 'redirect from a creative work a related topic such as the author/artist, publisher, or a subject related to the work' }
 		],
-		Fiction: [
+		Fiksi: [
 			{ tag: 'R from fictional character', description: 'redirect from a fictional character to a related fictional work or list of characters', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from fictional element', description: 'redirect from a fictional element (such as an object or concept) to a related fictional work or list of similar elements', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from fictional location', description: 'redirect from a fictional location or setting to a related fictional work or list of places', restriction: 'insideMainspaceOnly' }
 		]
 	},
-	Miscellaneous: {
-		'Related information': [
+	'Lain-lain': {
+		'Informasi terkait': [
 			{ tag: 'R to article without mention', description: 'redirect to an article without any mention of the redirected word or phrase', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R to decade', description: 'redirect from a year to the decade article', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from domain name', description: 'redirect from a domain name to an article about a website', restriction: 'insideMainspaceOnly' },
@@ -1133,10 +1133,10 @@ Twinkle.tag.redirectList = {
 			{ tag: 'R from Unicode character', description: 'redirect from a single Unicode character to an article or Wikipedia project page that infers meaning for the symbol', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from Unicode code', description: 'redirect from a Unicode code point to an article about the character it represents', restriction: 'insideMainspaceOnly' }
 		],
-		'With possibilities': [
-			{ tag: 'R with possibilities', description: 'redirect from a specific title to a more general, less detailed article (something which can and should be expanded)' }
+		'Dengan kemungkinan': [
+			{ tag: 'R with possibilities', description: 'pengalihan dari sebuah judul spesifik ke lebih umum, artikel dengan detail sedikir (hal yang harus dan dapat dikembangkan)' }
 		],
-		'ISO codes': [
+		'Kode ISO': [
 			{ tag: 'R from ISO 4 abbreviation', description: 'redirect from an ISO 4 publication title abbreviation to the unabbreviated title', restriction: 'insideMainspaceOnly' },
 			{ tag: 'R from ISO 639 code', description: 'redirect from a title that is an ISO 639 language code to an article about the language', restriction: 'insideMainspaceOnly' }
 		],
@@ -1150,13 +1150,13 @@ Twinkle.tag.redirectList = {
 // maintenance tags for FILES start here
 
 Twinkle.tag.fileList = {
-	'License and sourcing problem tags': [
+	'Tag masalah lisensi dan sumber': [
 		{ label: '{{Better source requested}}: info sumber hanya terdiri dari URL gambar kosong/URL dasar generik', value: 'Better source requested' },
 		{ label: '{{Maybe free media}}: sedang ditandai dibawah lisensi tak-bebas, tetapi lisensi bebas mungkin tersedia ', value: 'Maybe free media' },
 		{ label: '{{Non-free reduce}}: gambar grafis rendah non-bebas (atau potongan audio terlalu panjang, dll)', value: 'Non-free reduce' },
 		{ label: '{{Orphaned non-free revisions}}: penggunaan wajar media dengan revisi lama yang perlu dihapus', value: 'Orphaned non-free revisions' }
 	],
-	'Wikimedia Commons-related tags': [
+	'Tag terkait Wikimedia Commons': [
 		{ label: '{{Copy to Commons}}: media bebas yang harusnya disalin ke Commons', value: 'Copy to Commons' },
 		{
 			label: '{{Deleted on Commons}}: berkas sebelumnya telah dihapus dari Commons',
@@ -1165,7 +1165,7 @@ Twinkle.tag.fileList = {
 				type: 'input',
 				name: 'deletedOnCommonsName',
 				label: 'Nama di Commons:',
-				tooltip: 'Nama gambar di Commons (jika berbeda dari nama lokal), mengecualikan Berkas: prefix'
+				tooltip: 'Nama gambar di Commons (jika berbeda dari nama lokal), mengecualikan awalan Berkas:'
 			}
 		},
 		{
@@ -1176,13 +1176,13 @@ Twinkle.tag.fileList = {
 					type: 'input',
 					name: 'DoNotMoveToCommons_reason',
 					label: 'Alasan:',
-					tooltip: 'Alasan mengapa gambarnya tidak harus dimasukkan ke Commons (wajib). If the file is PD in the US but not in country of origin, enter "US only"',
+					tooltip: 'Alasan mengapa gambarnya tidak harus dimasukkan ke Commons (wajib). Jika berkas tersebut berstatus domain publik (PD) di AS tetapi tidak di negara asalnya, masukkan "Hanya AS"."',
 					required: true
 				},
 				{
 					type: 'number',
 					name: 'DoNotMoveToCommons_expiry',
-					label: 'Tahun kadaluwarsa:',
+					label: 'Tahun kedaluwarsa:',
 					min: new Morebits.Date().getFullYear(),
 					tooltip: 'Jika berkas ini dapat dipindahkan ke awal Commons di tahun tertentu, anda dapat masukan disini (opsional).'
 				}
@@ -1195,7 +1195,7 @@ Twinkle.tag.fileList = {
 				type: 'input',
 				name: 'keeplocalName',
 				label: 'Nama berkas Commons jika berbeda:',
-				tooltip: 'Nama gambar di Commons (jika berbeda dari nama lokal), mengecualikan Berkas: prefix:'
+				tooltip: 'Nama gambar di Commons (jika berbeda dari nama lokal), mengecualikan awalan Berkas:'
 			}
 		},
 		{
@@ -1209,7 +1209,7 @@ Twinkle.tag.fileList = {
 			}
 		}
 	],
-	'Cleanup tags': [
+	'Tag perapian': [
 		{ label: '{{Artifacts}}: PNG mengandung artefak sisa kompresi', value: 'Artifacts' },
 		{ label: '{{Bad font}}: SVG menggunakan huruf yang tidak tersedia di peladen miniatur', value: 'Bad font' },
 		{ label: '{{Bad format}}: berkas PDF/DOC/... harus diubah ke format yang lebih umum/berguna', value: 'Bad format' },
@@ -1305,13 +1305,13 @@ Twinkle.tag.fileList = {
 			}
 		}
 	],
-	'Replacement tags': [
+	'Tag penggantian': [
 		{ label: '{{Obsolete}}: versi lebih baik tersedia', value: 'Obsolete' },
 		{ label: '{{PNG version available}}', value: 'Versi PNG tersedia' },
 		{ label: '{{Vector version available}}', value: 'Versi Vektor tersedia' }
 	]
 };
-Twinkle.tag.fileList['Replacement tags'].forEach((el) => {
+Twinkle.tag.fileList['Tag penggantian'].forEach((el) => {
 	el.subgroup = {
 		type: 'input',
 		label: 'Berkas pengganti:',
@@ -1432,7 +1432,7 @@ Twinkle.tag.callbacks = {
 				// Post at WP:PNT (mainspace only)
 				if (params.translationPostAtPNT) {
 					const pntPage = new Morebits.wiki.Page('Wikipedia:Halaman yang membutuhkan penerjemahan',
-						'Listing article at Wikipedia:Pages needing translation into English');
+						'Daftar artikel di Wikipedia:Halaman yang perlu diterjemahkan ke dalam bahasa Indonesia');
 					pntPage.setFollowRedirect(true);
 					pntPage.load((pageobj) => {
 						const oldText = pageobj.getPageText();
@@ -1449,7 +1449,7 @@ Twinkle.tag.callbacks = {
 							// Place in section == Translated pages that could still use some cleanup ==
 							text = oldText + '\n\n' + templateText;
 							summary = 'Perapian terjamahan diminta pada ';
-						} else if (params.tags.includes('Not English')) {
+						} else if (params.tags.includes('Tidak Indonesia')) {
 							templateText = '{{subst:Translation request|pg=' + Morebits.pageNameNorm + '|Language=' +
 							(lang || 'uncertain') + '|Comments=' + reason.trim() + '}} ~~~~';
 							// Place in section == Pages for consideration ==
@@ -1483,7 +1483,7 @@ Twinkle.tag.callbacks = {
 						const userTalkPage = new Morebits.wiki.Page('Pembicaraan pengguna:' + initialContrib,
 							'Memberitahu penyunting awal (' + initialContrib + ')');
 						userTalkPage.setNewSectionTitle('Artikel anda [[' + Morebits.pageNameNorm + ']]');
-						userTalkPage.setNewSectionText('{{subst:uw-notenglish|1=' + Morebits.pageNameNorm +
+						userTalkPage.setNewSectionText('{{subst:uw-notindo|1=' + Morebits.pageNameNorm +
 							(params.translationPostAtPNT ? '' : '|nopnt=yes') + '}} ~~~~');
 						userTalkPage.setEditSummary('Pemberitahuan: Mohon gunakan Bahasa Indonesia saat berkontribusi ke Wikipedia Indonesia.');
 						userTalkPage.setChangeTags(Twinkle.changeTags);
@@ -1604,7 +1604,7 @@ Twinkle.tag.callbacks = {
 				}
 
 				switch (tagName) {
-					case 'Not English':
+					case 'Tidak Indonesia':
 					case 'Rough translation':
 						if (params.translationPostAtPNT) {
 							currentTag += '|listed=yes';
@@ -1886,7 +1886,7 @@ Twinkle.tag.callbacks = {
 	file: function twinkletagCallbacksFile(pageobj) {
 		let text = pageobj.getPageText();
 		const params = pageobj.getCallbackParameters();
-		let summary = 'Adding ';
+		let summary = 'Menambahkan ';
 
 		// Add maintenance tags
 		if (params.tags.length) {
@@ -2040,7 +2040,7 @@ Twinkle.tag.callback.evaluate = function twinkletagCallbackEvaluate(e) {
 				}
 			}
 
-			if (Twinkle.tag.checkIncompatible(['Not English', 'Rough translation'], params.tags)) {
+			if (Twinkle.tag.checkIncompatible(['Tidak Indonesia', 'Rough translation'], params.tags)) {
 				return;
 			}
 			break;

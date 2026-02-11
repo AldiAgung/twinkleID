@@ -17,7 +17,7 @@ Twinkle.batchdelete = function twinklebatchdelete() {
 			mw.config.get('wgCanonicalSpecialPageName') === 'Prefixindex'
 		)
 	) {
-		Twinkle.addPortletLink(Twinkle.batchdelete.callback, 'Hapus tautan', 'tw-batch', 'Hapus halaman tertaut di kategori/halaman ini');
+		Twinkle.addPortletLink(Twinkle.batchdelete.callback, 'Hapus halaman tautan', 'tw-batch', 'Hapus halaman yang tertaut di kategori/halaman ini');
 	}
 };
 
@@ -29,7 +29,7 @@ let subpagesLoaded;
 Twinkle.batchdelete.callback = function twinklebatchdeleteCallback() {
 	subpagesLoaded = false;
 	const Window = new Morebits.SimpleWindow(600, 400);
-	Window.setTitle('Operasi penghapusan');
+	Window.setTitle('Hapus halaman tautan');
 	Window.setScriptName('Twinkle');
 	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#batchdelete');
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
@@ -426,7 +426,7 @@ Twinkle.batchdelete.callback.evaluate = function twinklebatchdeleteCallbackEvalu
 		return;
 	}
 
-	const pageDeleter = new Morebits.BatchOperation(input.delete_page ? 'Menghapus halaman' : 'Memulai tugas yang diminta');
+	const pageDeleter = new Morebits.BatchOperation(input.delete_page ? 'Menghapus halaman' : 'Memulai permintaan yang diminta');
 	pageDeleter.setOption('chunkSize', Twinkle.getPref('batchChunks'));
 	// we only need the initial status lines if we're deleting the pages in the pages array
 	pageDeleter.setOption('preserveIndividualStatusLines', input.delete_page);
