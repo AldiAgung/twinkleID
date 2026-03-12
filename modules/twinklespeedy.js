@@ -1678,7 +1678,7 @@ Twinkle.speedy.getParameters = function twinklespeedyGetParameters(form, values)
 				if (form['csd.reason_1']) {
 					const dbrationale = form['csd.reason_1'].value;
 					if (!dbrationale || !dbrationale.trim()) {
-						alert('Kriteria kustom: Silakan tuliskan alasan atau kriteria penghapusan cepat yang tidak tercakup dalam daftar standar.');
+						alert('Kriteria khusus: Silakan tuliskan alasan atau kriteria penghapusan cepat yang tidak tercakup dalam daftar standar.');
 						parameters = null;
 						return false;
 					}

@@ -40,40 +40,42 @@ Twinkle.arv.callback = function (uid, isIP) {
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
 
 	const form = new Morebits.QuickForm(Twinkle.arv.callback.evaluate);
-	const categories = form.append({
+	form.append({
 		type: 'select',
 		name: 'category',
 		label: 'Pilih jenis laporan: ',
-		event: Twinkle.arv.callback.changeCategory
-	});
-	categories.append({
+		event: Twinkle.arv.callback.changeCategory,
+		list: [
+	{
 		type: 'option',
 		label: 'Vandalisme (WP:IPTV)',
 		value: 'aiv'
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Nama pengguna (WP:UAA)',
 		value: 'username',
 		disabled: isIP
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Induk akun kedua (WP:IPS)',
 		value: 'sock'
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Akun kedua (WP:IPS)',
 		value: 'puppet'
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Perang suntingan (WP:AN3)',
 		value: 'an3',
 		disabled: Morebits.ip.isRange(uid)
+	}
+]
 	});
-	form.append({
+		form.append({
 		type: 'div',
 		label: '',
 		style: 'color: red',
@@ -454,8 +456,8 @@ Twinkle.arv.callback.changeCategory = function (e) {
 			work_area.append({
 				type: 'field',
 				name: 'diffs',
-				label: 'Pengembalian (revert) oleh pengguna (dalam 48 jam terakhir)',
-				tooltip: 'Pilih suntingan yang Anda yakin adalah pengembalian/revert'
+				label: 'Pengembalian oleh pengguna (dalam 48 jam terakhir)',
+				tooltip: 'Pilih suntingan yang Anda yakin adalah pengembalian'
 			});
 			work_area.append({
 				type: 'field',
@@ -629,7 +631,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 
 				Morebits.wiki.addCheckpoint(); // prevent notification events from causing an erronous "action completed"
 
-				const reportpage = 'Wikipedia:Administrators\' noticeboard/Edit warring';
+				const reportpage = 'Wikipedia:Permintaan perhatian pengurus\' Perang suntingan';
 
 				Morebits.wiki.actionCompleted.redirect = reportpage;
 				Morebits.wiki.actionCompleted.notice = 'Laporan selesai';
@@ -776,8 +778,9 @@ Twinkle.arv.callback.getSpiReportData = function(input) {
 		"|__TOC__\n" +
 		"{{SPIarchive notice|$controller}}\n" +
 		"{{SPIpriorcases}}\n" +
+		"\n" +  // Memastiakn ada baris baru untuk menyesuaikan templatnya :|
 		"=== {{safesubst:#time:d F Y}} ===\n" +
-		"}}\n" +
+		"}}\n\n" +
 		"{{SPI case status|baru}}\n" +
 		"==== Terduga pengguna siluman ====\n" +
 		"{{MultiCU$socks}}\n" +
