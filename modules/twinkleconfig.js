@@ -915,14 +915,17 @@ Twinkle.config.init = function twinkleconfigInit() {
 		// let user know about possible conflict with skin js/common.js file
 		// (settings in that file will still work, but they will be overwritten by twinkleoptions.js settings)
 		if (window.TwinkleConfig || window.FriendlyConfig) {
-			const contentnotice = document.createElement('p');
-			contentnotice.innerHTML = '<table class="plainlinks morebits-ombox morebits-ombox-content"><tr><td class="morebits-mbox-image">' +
-				'<img alt="" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Imbox_content.png" /></td>' +
-				'<td class="morebits-mbox-text"><p><big><b>Sebelum memodifikasi pengatuan anda disini,</b> anda harus menghilangkan pengaturan Twinkle dan Friendly lama anda dari kulit JavaScript sendiri.</big></p>' +
-				'<p>To do this, you can <a href="' + mw.util.getUrl('User:' + mw.config.get('wgUserName') + '/' + mw.config.get('skin') +
+			const contentnotice = document.createElement('div');
+			contentnotice.className = 'plainlinks twinkle-ombox';
+			contentnotice.innerHTML =
+				'<div>' +
+					'<img alt="" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Imbox_content.png" />' +
+				'</div>' +
+				'<div>' + '<p><big><b>Sebelum memodifikasi pengatuan anda disini,</b> anda harus menghilangkan pengaturan Twinkle dan Friendly lama anda dari kulit JavaScript sendiri.</big></p>' +
+				'<p>Untuk melakukannya, anda dapat <a href="' + mw.util.getUrl('Pengguna:' + mw.config.get('wgUserName') + '/' + mw.config.get('skin') +
 				'.js', { action: 'edit' }) + '" target="_blank"><b>sunting berkas kulit javascript sendiri</b></a> or <a href="' +
-				mw.util.getUrl('User:' + mw.config.get('wgUserName') + '/common.js', { action: 'edit'}) + '" target="_blank"><b>berkas js umum anda</b></a>, menghilangkan semua baris kode yang merujuk pada <code>TwinkleConfig</code> dan <code>FriendlyConfig</code>.</p>' +
-				'</td></tr></table>';
+				mw.util.getUrl('Pengguna:' + mw.config.get('wgUserName') + '/common.js', { action: 'edit'}) + '" target="_blank"><b>berkas js umum anda</b></a>, menghilangkan semua baris kode yang merujuk pada <code>TwinkleConfig</code> dan <code>FriendlyConfig</code>.</p>' +
+				'</div>';
 			contentdiv.appendChild(contentnotice);
 		}
 

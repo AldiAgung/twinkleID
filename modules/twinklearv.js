@@ -40,40 +40,42 @@ Twinkle.arv.callback = function (uid, isIP) {
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
 
 	const form = new Morebits.QuickForm(Twinkle.arv.callback.evaluate);
-	const categories = form.append({
+	form.append({
 		type: 'select',
 		name: 'category',
 		label: 'Pilih jenis laporan: ',
-		event: Twinkle.arv.callback.changeCategory
-	});
-	categories.append({
+		event: Twinkle.arv.callback.changeCategory,
+		list: [
+	{
 		type: 'option',
 		label: 'Vandalisme (WP:IPTV)',
 		value: 'aiv'
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Nama pengguna (WP:UAA)',
 		value: 'username',
 		disabled: isIP
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Induk akun kedua (WP:IPS)',
 		value: 'sock'
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Akun kedua (WP:IPS)',
 		value: 'puppet'
-	});
-	categories.append({
+	},
+	{
 		type: 'option',
 		label: 'Perang suntingan (WP:AN3)',
 		value: 'an3',
 		disabled: Morebits.ip.isRange(uid)
+	}
+]
 	});
-	form.append({
+		form.append({
 		type: 'div',
 		label: '',
 		style: 'color: red',
