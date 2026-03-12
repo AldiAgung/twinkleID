@@ -36,3 +36,60 @@
 #twinkle-config-headerbox.config-userskin-box {
 	width: 60%;
 }
+
+/* WP:TWPREFS */
+#twinkle-config-content input[type=checkbox] {
+	margin-right: 2px;
+}
+
+/* Twinkle config */
+#twinkle-config {
+	border: 1px solid #666;
+	background: var(--twinkle-bgcolor-dialog);
+	color: inherit;
+}
+
+#twinkle-config label {
+	color: var(--color-base, #202122);
+}
+
+#twinkle-config-titlebar {
+	background: var(--twinkle-bgcolor-titlebar);
+	color: inherit;
+}
+
+#twinkle-config-buttonpane {
+	background: var(--twinkle-bgcolor-titlebar);
+	color: inherit;
+	padding: 0.5em;
+}
+
+.twinkle-config-helptip {
+	font-size: 90%;
+	color: var(--color-subtle, #54595d);
+}
+
+/* Flexbox gap not supported by old Safari versions. Rendering without gap is okay. */
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+.twinkle-ombox {
+	display: flex;
+	align-items: center;
+	gap: 0.9em;
+	padding-left: 0.9em;
+	margin: 4px 10%;
+	background: var(--background-color-neutral-subtle, #f8f9fa);
+	border: 1px solid #f28500;
+}
+
+@media screen {
+	html.skin-theme-clientpref-night #twinkle-config-headerbox {
+		background: #532b18;
+	}
+}
+
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+@media screen and (prefers-color-scheme: dark) {
+	html.skin-theme-clientpref-os #twinkle-config-headerbox {
+		background: #532b18;
+	}
+}

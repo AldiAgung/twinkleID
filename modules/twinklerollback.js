@@ -21,7 +21,6 @@ Twinkle.rollback = function twinklerollback() {
 	// care of namespace/contentModel restrictions as well as explicit
 	// protections; it won't take care of cascading or TitleBlacklist.
 	if (mw.config.get('wgIsProbablyEditable')) {
-		// wgDiffOldId included for clarity in if else loop [[phab:T214985]]
 		if (mw.config.get('wgAction') === 'view' && mw.config.get('wgRevisionId') && mw.config.get('wgCurRevisionId') !== mw.config.get('wgRevisionId')) {
 			Twinkle.rollback.addLinks.oldid();
 		} else if (mw.config.get('wgAction') === 'history' && mw.config.get('wgArticleId')) {
@@ -60,7 +59,6 @@ Twinkle.rollback = function twinklerollback() {
 		}
 	});
 };
-
 // A list of usernames, usually only bots, that vandalism revert is jumped
 // over; that is, if vandalism revert was chosen on such username, then its
 // target is on the revision before.  This is for handling quick bots that
@@ -349,7 +347,7 @@ Twinkle.rollback.addLinks = {
 			vandal = vandal ? vandal.text : '';
 			const ntitle = $context.find('#mw-diff-ntitle1').parent().get(0);
 			if (ntitle) {
-			ntitle.insertBefore(Twinkle.rollback.linkBuilder.rollbackLinks(vandal), ntitle.firstChild);
+				ntitle.insertBefore(Twinkle.rollback.linkBuilder.rollbackLinks(vandal), ntitle.firstChild);
 			}
 		}
 	},
@@ -388,6 +386,7 @@ Twinkle.rollback.revert = function revertPage(type, vandal, rev, page) {
 		Morebits.Status.init(notifyStatus);
 	} else {
 		Morebits.Status.init(document.getElementById('mw-content-text'));
+		$('#catlinks').remove();
 	}
 
 	const params = {
@@ -629,7 +628,7 @@ Twinkle.rollback.callbacks = {
 		}
 
 		if (!count) {
-			Morebits.Status.error('Error', 'Tidak bisa membatalkan nol revisi. Ini mungkin dikarenakan revisi tersebut telah dibatalkan namun penanda revisi masih tetap sama.');
+			Morebits.Status.error('Error', 'Tidak dapat membatalkan nol revisi. Ini mungkin dikarenakan revisi tersebut telah dibatalkan namun penanda revisi masih tetap sama.');
 			return;
 		}
 
@@ -851,7 +850,7 @@ Twinkle.rollback.formatSummary = function(builtInString, userName, customString)
 			const contribsLink = '[[Istimewa:Kontribusi/' + userName + '|' + userName + ']]';
 			const contribsLen = unescape(encodeURIComponent(contribsLink)).length;
 			if (resultLen + contribsLen <= 499) {
-				const talkLink = ' ([[Pembicaraan pengguna:' + userName + '|' + Morebits.i18n.getMessage('talk-link-text', 'bicara') + ']])';
+				const talkLink = ' ([[Pembicaraan pengguna:' + userName + '|bicara]])';
 				if (resultLen + contribsLen + unescape(encodeURIComponent(talkLink)).length <= 499) {
 					result = Morebits.string.safeReplace(result, '$USER', contribsLink + talkLink);
 				} else {

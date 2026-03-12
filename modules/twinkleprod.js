@@ -91,7 +91,7 @@ Twinkle.prod.callback = function twinkleprodCallback() {
 	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#prod');
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
 
-	form.append({ type: 'submit', label: 'Usulan penghapusan' });
+	form.append({ type: 'submit', label: 'Kirim' });
 
 	const result = form.render();
 	Window.setContent(result);
@@ -337,7 +337,7 @@ Twinkle.prod.callbacks = {
 				def.resolve();
 				return;
 			}
-			const text = '{{subst:Usul penghapusan/UP|alasan=' + params.reason + '}} ~~~~\n';
+			const text = '{{subst:Usul penghapusan/UP|alasan=' + params.reason + '}} \n';
 
 			page.setPageText(text);
 			page.setEditSummary('Membuat halaman usulan penghapusan untuk [[:' + Morebits.pageNameNorm + ']].');
@@ -418,7 +418,7 @@ Twinkle.prod.callbacks = {
 		let logText = '# [[:' + Morebits.pageNameNorm + ']]';
 		let summaryText;
 		// If a logged file is deleted but exists on commons, the wikilink will be blue, so provide a link to the log
-		logText += namespace === 'file' ? ' ([{{fullurl:Istimewa:Catatan|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}} catata]): ' : ': ';
+		logText += namespace === 'file' ? ' ([{{fullurl:Istimewa:Catatan|page=' + mw.util.wikiUrlencode(mw.config.get('wgPageName')) + '}} catatan]): ' : ': ';
 		if (params.logEndorsing) {
 			logText += 'mendukung ' + (params.blp ? 'BIO ' : '') + 'UP. ~~~~~';
 			if (params.reason) {
@@ -488,7 +488,7 @@ Twinkle.prod.callback.evaluate = function twinkleprodCallbackEvaluate(e) {
 	tm.add(cbs.addToLog, [ cbs.notifyAuthor, cbs.taggingPage ]);
 	// All set, go!
 	tm.execute().then(() => {
-		Morebits.Status.actionCompleted('Memberi tag selesai');
+		Morebits.Status.actionCompleted('Pemberian tag selesai');
 		setTimeout(() => {
 			window.location.href = mw.util.getUrl(mw.config.get('wgPageName'));
 		}, Morebits.wiki.actionCompleted.timeOut);

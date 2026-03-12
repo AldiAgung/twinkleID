@@ -161,7 +161,7 @@ Twinkle.welcome.callback = function twinklewelcomeCallback(uid) {
 		Twinkle.welcome.callbacks.preview(result); // |result| is defined below
 	});
 	previewlink.style.cursor = 'pointer';
-	previewlink.textContent = 'Preview';
+	previewlink.textContent = 'Pratinjau';
 	form.append({ type: 'div', name: 'welcomepreview', label: [ previewlink ] });
 
 	form.append({ type: 'submit' });
@@ -672,7 +672,7 @@ Twinkle.welcome.callbacks = {
 			const hasTalkHeader = /^\{\{Talk ?header\}\}/i.test(text);
 			if (hasTalkHeader) {
 				text = text.replace(/^\{\{Talk ?header\}\}\n{0,2}/i, '');
-				text = '{{Talk header}}\n\n' + welcomeText + '\n\n' + text;
+				text = welcomeText + '\n\n' + text;
 				text = text.trim();
 			} else {
 				text = welcomeText + '\n\n' + text;
