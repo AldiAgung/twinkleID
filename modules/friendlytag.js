@@ -164,8 +164,7 @@ Twinkle.tag.callback = function twinkletagCallback() {
 			form.append({
 				type: 'div',
 				id: 'tagWorkArea',
-				className: 'morebits-scrollbox',
-				style: 'max-height: 28em'
+				className: 'morebits-scrollbox'
 			});
 
 			form.append({
@@ -2091,7 +2090,7 @@ Twinkle.tag.callback.evaluate = function twinkletagCallbackEvaluate(e) {
 
 				// {{Should be PNG|SVG}}
 				if (params.tags.includes('Should be ' + extensionUpper)) {
-					alert('This is already a ' + extension + 'jadi {{Should be ' + extensionUpper + '}} tidak sesuai.');
+					alert('Ini sudah merupakan ' + extension + 'jadi {{Should be ' + extensionUpper + '}} tidak sesuai.');
 					return;
 				}
 

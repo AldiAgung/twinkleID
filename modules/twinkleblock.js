@@ -179,7 +179,7 @@ Twinkle.block.processUserInfo = function twinkleblockProcessUserInfo(data, fn) {
 	// Soft redirect to Special:Block if the user is multi-blocked (#2178)
 	if (blockinfo && data.query.blocks.length > 1) {
 		// Remove submission buttons.
-		$(blockWindow.content).dialog('widget').find('.morebits-dialog-buttons').empty();
+		blockWindow.$dialog.find('.morebits-dialog-buttons').empty();
 		Morebits.Status.init(blockWindow.content.querySelector('form'));
 		Morebits.Status.warn(
 			`Pengguna ini mempunyai ${data.query.blocks.length} pemblokiran aktif`,
@@ -214,7 +214,7 @@ Twinkle.block.processUserInfo = function twinkleblockProcessUserInfo(data, fn) {
 	blockedUserName = Twinkle.block.currentBlockInfo && Twinkle.block.currentBlockInfo.user;
 
 	// Toggle unblock link if not the user in question; always first
-	const unblockLink = document.querySelector('.morebits-dialog-footerlinks a');
+	const unblockLink = blockWindow.$dialog.find('.morebits-dialog-footerlinks a')[0];
 	if (blockedUserName !== relevantUserName) {
 		unblockLink.hidden = true;
 		unblockLink.nextSibling.hidden = true; // link+trailing bullet
@@ -279,7 +279,9 @@ Twinkle.block.callback.saveFieldset = function twinkleblockCallbacksaveFieldset(
 };
 
 Twinkle.block.callback.change_block64 = function twinkleblockCallbackChangeBlock64(e) {
-	const $form = $(e.target.form), $block64 = $form.find('[name=block64]');
+	const $form = $(e.target.form),
+		$block64 = $form.find('[name=block64]'),
+		dialog = $form.closest('.morebits-dialog')[0];
 
 	// Show/hide block64 button
 	// Single IPv6, or IPv6 range smaller than a /64
@@ -301,10 +303,10 @@ Twinkle.block.callback.change_block64 = function twinkleblockCallbackChangeBlock
 		// `dialog('option', 'title')`, but in practice that swallows
 		// the scriptName and requires `.display`ing, which jumps the
 		// window.  It's just a line of text, so this is fine.
-		const titleBar = document.querySelector('.ui-dialog-title').firstChild.nextSibling;
+		const titleBar = dialog.querySelector('.morebits-dialog-title').firstChild.nextSibling;
 		titleBar.nodeValue = titleBar.nodeValue.replace(priorName, relevantUserName);
 		// Tweak unblock link
-		const unblockLink = document.querySelector('.morebits-dialog-footerlinks a');
+		const unblockLink = dialog.querySelector('.morebits-dialog-footerlinks a');
 		unblockLink.href = unblockLink.href.replace(priorName, relevantUserName);
 		unblockLink.title = unblockLink.title.replace(priorName, relevantUserName);
 
@@ -373,8 +375,8 @@ Twinkle.block.callback.change_action = function twinkleblockCallbackChangeAction
 	Twinkle.block.callback.saveFieldset($('[name=field_template_options]'));
 
 	if (blockBox) {
-		fieldPreset = new Morebits.QuickForm.Element({ type: 'field', label: 'Preset', name: 'fieldPreset' });
-		field_preset.append({
+		fieldPreset = new Morebits.QuickForm.Element({ type: 'field', label: 'Preset', name: 'field_preset' });
+			fieldPreset.append({
 			type: 'select',
 			name: 'preset',
 			label: 'Berikan preset:',
@@ -450,21 +452,23 @@ Twinkle.block.callback.change_action = function twinkleblockCallbackChangeAction
 				label: 'Matikan pembuatan akun',
 				name: 'nocreate',
 				value: '1'
-			},
-			{
+			}
+		];
+			if (Twinkle.block.isRegistered && !mw.util.isTemporaryUser(mw.config.get('wgRelevantUserName'))) {
+			blockoptions.push({
 				checked: Twinkle.block.field_block_options.noemail,
 				label: 'Batasi pengguna mengirimkan surel',
 				name: 'noemail',
 				value: '1'
-			},
-			{
+				});
+			}
+			blockoptions.push({
 				checked: Twinkle.block.field_block_options.disabletalk,
 				label: 'Batasi pengguna untuk menyunting halaman pembicaraan penggunanya ketika sedang diblokir',
 				name: 'disabletalk',
 				value: '1',
 				tooltip: partialBox ? 'Jika menggunakan pemblokiran sebagian, opsi ini wajib TIDAK DIPILIH, kecuali jika Anda menghendaki pengguna ini tidak dapat menyunting ruangnama Pembicaraan Pengguna' : ''
-			}
-		];
+			});
 
 		if (Twinkle.block.isRegistered) {
 			blockoptions.push({

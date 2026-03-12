@@ -171,7 +171,7 @@ Twinkle.config.sections = [
 				label: 'Matikan modul Twinkle yang dipilih',
 				helptip: 'Apapun yang anda pilih disini TIDAK akan tersedia untuk digunakan. Batalkan pilihan untuk diaktifkan ulang.',
 				type: 'set',
-				setValues: { arv: 'ARV', warn: 'Peringati', welcome: 'Sambut', talkback: 'Talkback', speedy: 'KPC', prod: 'UP', xfd: 'XfD', image: 'Gambar (PG)', protect: 'Lindungi (RPP)', tag: 'Tandai', diff: 'Perbandingan', unlink: 'Unlink', rollback: 'Batalkan dan kembalikan' }
+				setValues: { arv: 'ARV', warn: 'Peringati', welcome: 'Sambut', talkback: 'Talkback', speedy: 'KPC', prod: 'UP', xfd: 'XfD', image: 'Gambar (PG)', protect: 'Lindungi (RPP)', tag: 'Tandai', diff: 'Perbandingan', unlink: 'Lepas tautan', rollback: 'Batalkan dan kembalikan' }
 			},
 
 			// Twinkle.config.disabledSysopModules (array)
@@ -181,7 +181,7 @@ Twinkle.config.sections = [
 				helptip: 'Apapun yang anda pilih disini TIDAK akan tersedia untuk digunakan. Batalkan pilihan untuk diaktifkan ulang.',
 				adminOnly: true,
 				type: 'set',
-				setValues: { block: 'Block', deprod: 'DePROD', batchdelete: 'D-batch', batchprotect: 'P-batch', batchundelete: 'Und-batch' }
+				setValues: { block: 'Blokir', deprod: 'Tenggat UP', batchdelete: 'D-batch', batchprotect: 'P-batch', batchundelete: 'Und-batch' }
 			}
 		]
 	},
@@ -288,7 +288,7 @@ Twinkle.config.sections = [
 			},
 			{
 				name: 'prodLogPageName',
-				label: 'Simpan log ruang pengguna UP di subhalaman pengguna ini',
+				label: 'Simpan catatan ruang pengguna UP di subhalaman pengguna ini',
 				helptip: 'Masukkan nama subhalaman dalam kotak ini. Log UP Anda akan tersimpan di Pengguna:<i>nama pengguna</i>/<i>nama subhalaman</i>. Aktifkan log ruang pengguna UP untuk memanfaatkan fungsi ini.',
 				type: 'string'
 			}
@@ -377,7 +377,7 @@ Twinkle.config.sections = [
 
 				label: 'Tampilkan tautan-tautan pengembalian pada halaman ini',
 				type: 'set',
-				setValues: { diff: 'Halaman Diff', others: 'Halaman kontribusi pengguna lain', mine: 'Halaman kontribusi saya', recent: 'Perubahan baru-baru ini dan halaman istimewa perubahan terkait', history: 'Halamnan riwayat' }
+				setValues: { diff: 'Revisi halaman', others: 'Halaman kontribusi pengguna lain', mine: 'Halaman kontribusi saya', recent: 'Perubahan baru-baru ini dan halaman istimewa perubahan terkait', history: 'Halamnan riwayat' }
 			}
 		]
 	},
@@ -501,13 +501,13 @@ Twinkle.config.sections = [
 			{
 				name: 'logSpeedyNominations',
 				label: 'Simpan log dalam ruang pengguna nominasi KPC',
-				helptip: 'Karena selain pengurus tidak memiliki akses ke kontribusi mereka yang dihapus, log ruang pengguna menawarkan cara yang baik untuk melacak semua halaman yang Anda nominasikan KPC menggunakan Twinkle. Berkas yang ditandai menggunakan PB juga ditambahkan ke log ini.',
+				helptip: 'Karena selain pengurus tidak memiliki akses ke kontribusi mereka yang dihapus, catatan ruang pengguna menawarkan cara yang baik untuk melacak semua halaman yang Anda nominasikan KPC menggunakan Twinkle. Berkas yang ditandai menggunakan PB juga ditambahkan ke log ini.',
 				type: 'boolean'
 			},
 			{
 				name: 'speedyLogPageName',
 				label: 'Simpan log ruang pengguna KPC di subhalaman pengguna ini',
-				helptip: 'Masukkan nama subhalaman dalam kotak ini. Log KPC Anda akan tersimpan di Pengguna:<i>nama pengguna</i>/<i>nama subhalaman</i>. Aktifkan log ruang pengguna KPC untuk memanfaatkan fungsi ini.',
+				helptip: 'Masukkan nama subhalaman dalam kotak ini. Catatan KPC Anda akan tersimpan di Pengguna:<i>nama pengguna</i>/<i>nama subhalaman</i>. Aktifkan log ruang pengguna KPC untuk memanfaatkan fungsi ini.',
 				type: 'string'
 			},
 			{
@@ -750,7 +750,7 @@ Twinkle.config.sections = [
 			{
 				name: 'xfdLogPageName',
 				label: 'Menyimpan log penghapusan diskusi ruangnama di sub halmana pengguna ini',
-				helptip: 'Enter a subpage name in this box. You will find your XfD log at User:<i>username</i>/<i>subpage name</i>. Only works if you turn on the XfD userspace log.',
+				helptip: 'Masukan nama sub halaman di kotak ini. Anda akan menemukan catatan XfD anda di Pengguna:<i>nama pengguna</i>/<i>nama sub halaman</i>. Hanya bekerja jika mengaktifkan pencatatan ruangnama pengguna XfD.',
 				type: 'string'
 			},
 			{
@@ -915,14 +915,17 @@ Twinkle.config.init = function twinkleconfigInit() {
 		// let user know about possible conflict with skin js/common.js file
 		// (settings in that file will still work, but they will be overwritten by twinkleoptions.js settings)
 		if (window.TwinkleConfig || window.FriendlyConfig) {
-			const contentnotice = document.createElement('p');
-			contentnotice.innerHTML = '<table class="plainlinks morebits-ombox morebits-ombox-content"><tr><td class="morebits-mbox-image">' +
-				'<img alt="" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Imbox_content.png" /></td>' +
-				'<td class="morebits-mbox-text"><p><big><b>Sebelum memodifikasi pengatuan anda disini,</b> anda harus menghilangkan pengaturan Twinkle dan Friendly lama anda dari kulit JavaScript sendiri.</big></p>' +
-				'<p>To do this, you can <a href="' + mw.util.getUrl('User:' + mw.config.get('wgUserName') + '/' + mw.config.get('skin') +
+			const contentnotice = document.createElement('div');
+			contentnotice.className = 'plainlinks twinkle-ombox';
+			contentnotice.innerHTML =
+				'<div>' +
+					'<img alt="" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Imbox_content.png" />' +
+				'</div>' +
+				'<div>' + '<p><big><b>Sebelum memodifikasi pengatuan anda disini,</b> anda harus menghilangkan pengaturan Twinkle dan Friendly lama anda dari kulit JavaScript sendiri.</big></p>' +
+				'<p>Untuk melakukannya, anda dapat <a href="' + mw.util.getUrl('Pengguna:' + mw.config.get('wgUserName') + '/' + mw.config.get('skin') +
 				'.js', { action: 'edit' }) + '" target="_blank"><b>sunting berkas kulit javascript sendiri</b></a> or <a href="' +
-				mw.util.getUrl('User:' + mw.config.get('wgUserName') + '/common.js', { action: 'edit'}) + '" target="_blank"><b>berkas js umum anda</b></a>, menghilangkan semua baris kode yang merujuk pada <code>TwinkleConfig</code> dan <code>FriendlyConfig</code>.</p>' +
-				'</td></tr></table>';
+				mw.util.getUrl('Pengguna:' + mw.config.get('wgUserName') + '/common.js', { action: 'edit'}) + '" target="_blank"><b>berkas js umum anda</b></a>, menghilangkan semua baris kode yang merujuk pada <code>TwinkleConfig</code> dan <code>FriendlyConfig</code>.</p>' +
+				'</div>';
 			contentdiv.appendChild(contentnotice);
 		}
 
@@ -1626,7 +1629,7 @@ Twinkle.config.writePrefs = function twinkleconfigWritePrefs(pageobj) {
 	});
 
 	let text =
-		'// twinkleoptions.js: personal Twinkle preferences file\n' +
+		'// twinkleoptions.js: berkas perferensi Twinkle pribadi\n' +
 		'//\n' +
 		'// NOTE: The easiest way to change your Twinkle preferences is by using the\n' +
 		'// Twinkle preferences panel, at [[' + Morebits.pageNameNorm + ']].\n' +
