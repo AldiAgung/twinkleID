@@ -648,6 +648,24 @@ Twinkle.warn.messages = {
 					summary: 'Peringatan: Tidak mengasumsikan niat baik'
 				}
 			},
+			'uw-aitalk': {
+				level1: {
+					label: 'Memposting komentar Kecerdasan Buatan',
+					summary: 'Catatan: Memposting Kecerdasan Buatan'
+				},
+				level2: {
+					label: 'Memposting Kecerdasan Buatan',
+					summary: 'Pemberitahuan: Memposting Kecerdasan Buatan'
+				},
+				level3: {
+					label: 'Memposting komentar Kecerdasan Buatan',
+					summary: 'Peringatan: Memposting komentar Kecerdasan Buatan'
+				},
+				level4: {
+					label: 'Memposting komentar Kecerdasan Buatan',
+					summary: 'Peringatan terakhir: Memposting komentar Kecerdasan Buatan'
+				}
+			},
 			'uw-harass': {
 				level1: {
 					label: 'Penyerangan terhadap pengguna lain',
