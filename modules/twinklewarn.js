@@ -650,20 +650,20 @@ Twinkle.warn.messages = {
 			},
 			'uw-aitalk': {
 				level1: {
-					label: 'Memposting komentar Kecerdasan Buatan',
+					label: 'Menambahkan komentar Kecerdasan Buatan',
 					summary: 'Catatan: Memposting Kecerdasan Buatan'
 				},
 				level2: {
-					label: 'Memposting Kecerdasan Buatan',
-					summary: 'Pemberitahuan: Memposting Kecerdasan Buatan'
+					label: 'Menambahkan Kecerdasan Buatan',
+					summary: 'Pemberitahuan: Menambahkan Kecerdasan Buatan'
 				},
 				level3: {
-					label: 'Memposting komentar Kecerdasan Buatan',
-					summary: 'Peringatan: Memposting komentar Kecerdasan Buatan'
+					label: 'Menambahkan komentar Kecerdasan Buatan',
+					summary: 'Peringatan: Menambahkan komentar Kecerdasan Buatan'
 				},
 				level4: {
-					label: 'Memposting komentar Kecerdasan Buatan',
-					summary: 'Peringatan terakhir: Memposting komentar Kecerdasan Buatan'
+					label: 'Menambahkan komentar Kecerdasan Buatan',
+					summary: 'Peringatan terakhir: Menambahkan komentar Kecerdasan Buatan'
 				}
 			},
 			'uw-harass': {

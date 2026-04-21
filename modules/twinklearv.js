@@ -543,6 +543,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 					aivPage.getStatusElement().status('Menambahkan laporan baru...');
 					aivPage.setEditSummary('Melaporkan [[Istimewa:Kontribusi/' + input.uid + '|' + input.uid + ']].');
 					aivPage.setChangeTags(Twinkle.changeTags);
+					aivPage.setDiscussionToolsAutoSubscribe(false);
 					aivPage.setAppendText(Twinkle.arv.callback.buildAivReport(input));
 					aivPage.append();
 				});
@@ -580,6 +581,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 
 				// Blank newline per [[Special:Permalink/996949310#Spacing]]; see also [[WP:LISTGAP]] and [[WP:INDENTGAP]]
 				uaaPage.setPageText(text + '\n' + reason + '\n*');
+				uaaPage.setDiscussionToolsAutoSubscribe(false);
 				uaaPage.save();
 			});
 			break;
@@ -611,6 +613,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 			spiPage.setChangeTags(Twinkle.changeTags);
 			spiPage.setAppendText(reportData.wikitext);
 			spiPage.setWatchlist(Twinkle.getPref('spiWatchReport'));
+			spiPage.setDiscussionToolsAutoSubscribe(false);
 			spiPage.append();
 
 			Morebits.wiki.removeCheckpoint(); // all page updates have been started
@@ -641,6 +644,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 				an3Page.setEditSummary('Menambahkan laporan baru untuk [[Istimewa:Kontribusi/' + data.uid + '|' + data.uid + ']].');
 				an3Page.setChangeTags(Twinkle.changeTags);
 				an3Page.setAppendText(data.reportWikitext);
+				an3Page.setDiscussionToolsAutoSubscribe(false);
 				an3Page.append();
 
 				// notify user
