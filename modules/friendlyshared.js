@@ -63,7 +63,7 @@ Twinkle.shared.callback = function twinklesharedCallback() {
 	org.append({
 		type: 'input',
 		name: 'contact',
-		label: 'Informasi kontak (hanya jika )',
+		label: 'Informasi kontak (hanya jika)',
 		disabled: true,
 		tooltip: 'Anda dapat memasukan secara opsional beberapa detail kontak untuk organisasi. Gunakan parameter ini hanya jika organisasi telah meminta hal tersebut untuk ditambakan. Anda dapat menambahkan markah wiki jika dibutuhkan.'
 	}

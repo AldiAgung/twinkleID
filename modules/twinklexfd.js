@@ -21,7 +21,7 @@ Twinkle.xfd = function twinklexfd() {
 
 	let tooltip = 'Mulai sebuah diskusi penghapusan';
 	if (mw.config.get('wgIsRedirect')) {
-		tooltip += ' or retargeting this redirect';
+		tooltip += ' atau merujuk ulang pengalihan ini';
 	} else {
 		switch (mw.config.get('wgNamespaceNumber')) {
 			case 0:
@@ -165,14 +165,14 @@ Twinkle.xfd.callback = function twinklexfdCallback() {
 	});
 	categories.append({
 		type: 'option',
-		label: 'MfD (Miscellany untuk diskusi)',
+		label: 'MfD (Umum untuk diskusi)',
 		selected: ![ 0, 6, 10, 14, 828 ].includes(namespace) || Morebits.pageNameNorm.indexOf('Templat:Pengguna ', 0) === 0,
 		// Other namespaces, and userboxes in template namespace
 		value: 'mfd'
 	});
 	categories.append({
 		type: 'option',
-		label: 'RfD (Redirects untuk diskusi)',
+		label: 'RfD (Pengalihan untuk diskusi)',
 		selected: mw.config.get('wgIsRedirect'),
 		value: 'rfd'
 	});
@@ -243,8 +243,8 @@ Twinkle.xfd.callback.wrongVenueWarning = function twinklexfdWrongVenueWarning(ve
 			break;
 		case 'tfd':
 			if (namespace === 10 && /-stub$/.test(Morebits.pageNameNorm)) {
-				text = 'Use CfD for stub templates.';
-			} else if (Morebits.pageNameNorm.indexOf('Template:User ') === 0) {
+				text = 'Gunakan CfD untuk templat stub.';
+			} else if (Morebits.pageNameNorm.indexOf('Templat:Pengguna ') === 0) {
 				text = 'Mohon gunakan MfD kotak pengguna';
 			}
 			break;
@@ -260,12 +260,12 @@ Twinkle.xfd.callback.wrongVenueWarning = function twinklexfdWrongVenueWarning(ve
 			break;
 		case 'ffd':
 			if (namespace !== 6) {
-				text = 'FFD is selected but this page doesn\'t look like a file!';
+				text = 'FFD dipilih tetapi halaman ini tidak terlihat seperti sebuah berkas!';
 			}
 			break;
 		case 'rm':
 			if (namespace === 14) { // category
-				text = 'Please use CfD or CfDS for category renames.';
+				text = 'Mohon gunakan CfD atau CfDS untuk penamaan ulang kategori.';
 			} else if ([118, 119, 2, 3].includes(namespace)) { // draft, draft talk, user, user talk
 				text = 'RMs are not permitted in draft and userspace, unless they are uncontroversial technical requests.';
 			}
@@ -353,7 +353,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 				multiple: true,
 				name: 'delsortCats',
 				label: 'Pilih kategori pengurutan penghapusan deletion sorting categories:',
-				tooltip: 'Select a few categories that are specifically relevant to the subject of the article. Be as precise as possible; categories like People and USA should only be used when no other categories apply.'
+				tooltip: 'Pilih beberapa kategori yang secara spesifik berkaitan dengan subjek artikel. Mohon lakukan dengan tepat; kategori seperti tokoh dan USA hanya digunakan saat tidak ada kategori yang sesuai.'
 			});
 
 			// grab deletion sort categories from en-wiki
@@ -466,7 +466,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 				type: 'checkbox',
 				list: [
 					{
-						label: 'Wrap deletion tag with &lt;noinclude&gt; (for substituted templates only)',
+						label: 'Bungkus tag penghapusan dengan &lt;noinclude&gt; (for substituted templates only)',
 						value: 'noinclude',
 						name: 'noinclude',
 						tooltip: 'Will wrap the deletion tag in &lt;noinclude&gt; tags, so that it won\'t get substituted along with the template.',
@@ -483,7 +483,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 						label: 'Beritahu halaman pembicaraan yang terpengaruh dari skrip pengguna',
 						value: 'devpages',
 						name: 'devpages',
-						tooltip: 'A notification will be sent to Twinkle, AWB, and Ultraviolet\'s talk pages if those user scripts are marked as using this template.',
+						tooltip: 'Sebuah notifikasi akan dikirimkan ke Twinkle, AWB, dan halaman pembicaraan Ultraviolet jika skrip pengguna tersebut ditandai sebagai menggunakan templat ini.',
 						checked: true
 					}
 				]
@@ -497,7 +497,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 		case 'mfd':
 			work_area = new Morebits.QuickForm.Element({
 				type: 'field',
-				label: 'Miscellany for deletion',
+				label: 'Umum untuk penghapusan',
 				name: 'work_area'
 			});
 			if (mw.config.get('wgNamespaceNumber') !== 710) { // TimedText cannot be tagged, so asking whether to noinclude the tag is pointless
@@ -623,9 +623,9 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 			});
 			work_area.append({
 				type: 'select',
-				label: 'C2 sub-criterion:',
+				label: 'Kriteria sub C2:',
 				name: 'xfdcat',
-				tooltip: 'See WP:CFDS for full explanations.',
+				tooltip: 'Lihat WP:CFDS untuk penjelasan lengkap.',
 				list: [
 					{ type: 'option', label: 'C2A: Typographic and spelling fixes', value: 'C2A', selected: true },
 					{ type: 'option', label: 'C2B: Naming conventions and disambiguation', value: 'C2B' },
@@ -711,7 +711,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 				type: 'dyninput',
 				inputs: [
 					{
-						label: 'From:',
+						label: 'Dari:',
 						name: 'currentname',
 						required: true
 					},
@@ -736,7 +736,7 @@ Twinkle.xfd.callback.change_category = function twinklexfdCallbackChangeCategory
 		default:
 			work_area = new Morebits.QuickForm.Element({
 				type: 'field',
-				label: 'Nothing for anything',
+				label: 'Tidak ada untuk semua',
 				name: 'work_area'
 			});
 			work_area = work_area.render();
@@ -754,9 +754,9 @@ Twinkle.xfd.callbacks = {
 	autoEditRequest: function(pageobj, params) {
 		const talkName = new mw.Title(pageobj.getPageName()).getTalkPage().toText();
 		if (talkName === pageobj.getPageName()) {
-			pageobj.getStatusElement().error('Page protected and nowhere to add an edit request, aborting');
+			pageobj.getStatusElement().error('Halaman dilindungi dan tidak ada tempat untuk menambahkan permintaan penyuntingan, membatalkan');
 		} else {
-			pageobj.getStatusElement().warn('Page protected, requesting edit');
+			pageobj.getStatusElement().warn('Halaman dilindungi, meminta penyuntingan');
 
 			const editRequest = '{{subst:Xfd edit protected|page=' + pageobj.getPageName() +
 				'|discussion=' + params.discussionpage + (params.venue === 'rfd' ? '|rfd=yes' : '') +
@@ -771,13 +771,13 @@ Twinkle.xfd.callbacks = {
 			talk_page.setChangeTags(Twinkle.changeTags);
 			talk_page.setCallbackParameters(params);
 			talk_page.newSection(null, () => {
-				talk_page.getStatusElement().warn('Unable to add edit request, the talk page may be protected');
+				talk_page.getStatusElement().warn('Tidak dapat meminta permintaan menyunting, halaman pembicaraan mungkin dilindungi');
 			});
 		}
 	},
 	getDiscussionWikitext: function(venue, params) {
 		if (venue === 'cfds') { // CfD/S takes a completely different style
-			return '* [[:' + Morebits.pageNameNorm + ']] to [[:' + params.cfdstarget + ']]\u00A0\u2013 ' +
+			return '* [[:' + Morebits.pageNameNorm + ']] ke [[:' + params.cfdstarget + ']]\u00A0\u2013 ' +
 				params.xfdcat + (params.reason ? ': ' + Morebits.string.formatReasonText(params.reason) : '.') + ' ~~~~';
 			// U+00A0 NO-BREAK SPACE; U+2013 EN RULE
 		}
@@ -948,8 +948,8 @@ Twinkle.xfd.callbacks = {
 			ffd: 'Berkas untuk diskusi',
 			rfd: 'Pengalihan untuk diskusi'
 		};
-		const editSummary = 'Notifikasi: [[' + params.discussionpage + '|listing]] of [[:' +
-			Morebits.pageNameNorm + ']] at [[WP:' + venueNames[params.venue] + ']].';
+		const editSummary = 'Notifikasi: [[' + params.discussionpage + '|pencatatan]] dari [[:' +
+			Morebits.pageNameNorm + ']] di [[WP:' + venueNames[params.venue] + ']].';
 
 		const usertalkpage = new Morebits.wiki.Page(notifyTarget, actionName);
 		usertalkpage.setAppendText(notifytext);
@@ -1005,15 +1005,15 @@ Twinkle.xfd.callbacks = {
 		// CFD/S and RM don't have canonical links
 		const nominatedLink = params.discussionpage ? '[[' + params.discussionpage + '|nominated]]' : 'nominated';
 
-		let appendText = '# [[:' + Morebits.pageNameNorm + ']]:' + fileLogLink + ' ' + nominatedLink + ' at [[WP:' + params.venue.toUpperCase() + '|' + utils.toTLACase(params.venue) + ']]';
+		let appendText = '# [[:' + Morebits.pageNameNorm + ']]:' + fileLogLink + ' ' + nominatedLink + ' pada [[WP:' + params.venue.toUpperCase() + '|' + utils.toTLACase(params.venue) + ']]';
 
 		switch (params.venue) {
 			case 'tfd':
 				if (params.xfdcat === 'tfm') {
 					appendText += ' (merge)';
 					if (params.tfdtarget) {
-						const contentModel = mw.config.get('wgPageContentModel') === 'Scribunto' ? 'Module:' : 'Template:';
-						appendText += '; Other ' + contentModel.toLowerCase() + ' [[';
+						const contentModel = mw.config.get('wgPageContentModel') === 'Scribunto' ? 'Modul:' : 'Templat:';
+						appendText += '; Lainnya ' + contentModel.toLowerCase() + ' [[';
 						if (!new RegExp('^:?' + Morebits.namespaceRegex([10, 828]) + ':', 'i').test(params.tfdtarget)) {
 							appendText += contentModel;
 						}
@@ -1029,8 +1029,8 @@ Twinkle.xfd.callbacks = {
 			case 'cfd':
 				appendText += ' (' + utils.toTLACase(params.xfdcat) + ')';
 				if (params.cfdtarget) {
-					const categoryOrTemplate = params.xfdcat.charAt(0) === 's' ? 'Template:' : ':Category:';
-					appendText += '; ' + params.action + ' to [[' + categoryOrTemplate + params.cfdtarget + ']]';
+					const categoryOrTemplate = params.xfdcat.charAt(0) === 's' ? 'Templat:' : ':Kategori:';
+					appendText += '; ' + params.action + ' kepada [[' + categoryOrTemplate + params.cfdtarget + ']]';
 					if (params.xfdcat === 'cfs' && params.cfdtarget2) {
 						appendText += ', [[' + categoryOrTemplate + params.cfdtarget2 + ']]';
 					}
@@ -1066,7 +1066,7 @@ Twinkle.xfd.callbacks = {
 		}
 		appendText += ' ~~~~~';
 		if (params.reason) {
-			appendText += "\n#* '''Reason''': " + Morebits.string.formatReasonForLog(params.reason);
+			appendText += "\n#* '''Alasan''': " + Morebits.string.formatReasonForLog(params.reason);
 		}
 
 		usl.changeTags = Twinkle.changeTags;
@@ -1087,14 +1087,14 @@ Twinkle.xfd.callbacks = {
 					const title = titles[i].title;
 
 					// First, simple test, is there an instance with this exact name?
-					if (title === 'Wikipedia:Articles for deletion/' + Morebits.pageNameNorm) {
+					if (title === 'Wikipedia:Usulan penghapusan/' + Morebits.pageNameNorm) {
 						number = Math.max(number, 1);
 						continue;
 					}
 
 					const order_re = new RegExp('^' +
-						Morebits.string.escapeRegExp('Wikipedia:Articles for deletion/' + Morebits.pageNameNorm) +
-						'\\s*\\(\\s*(\\d+)(?:(?:th|nd|rd|st) nom(?:ination)?)?\\s*\\)\\s*$');
+						Morebits.string.escapeRegExp('Wikipedia:Usulan penghapusan/' + Morebits.pageNameNorm) +
+						'\\s*\\(\\s*(\\d+)(?:(?:th|nd|rd|st) usul(?:lan)?)?\\s*\\)\\s*$');
 					const match = order_re.exec(title);
 
 					// No match; A non-good value
@@ -2078,7 +2078,7 @@ Twinkle.xfd.callbacks = {
  * @return {string} pageWikitext
  */
 Twinkle.xfd.insertRMTR = function(pageWikitext, wikitextToInsert) {
-	const placementRE = /\n{1,}(==== ?Requests to revert undiscussed moves ?====)/i;
+	const placementRE = /\n{1,}(====[^\n]*Requests to revert undiscussed moves ?====)/i;
 	return pageWikitext.replace(placementRE, '\n' + wikitextToInsert + '\n\n$1');
 };
 
@@ -2122,10 +2122,10 @@ Twinkle.xfd.callback.evaluate = function(e) {
 				// Tag this template/module
 				if (params.scribunto) {
 					wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName') + '/doc', 'Menandai dokumentasi modul dengan tag penggabungan');
-					params.otherTemplateName = 'Module:' + params.tfdtarget;
+					params.otherTemplateName = 'Modul:' + params.tfdtarget;
 				} else {
 					wikipedia_page = new Morebits.wiki.Page(mw.config.get('wgPageName'), 'Menandai templat ini dengan tag penggabungan');
-					params.otherTemplateName = 'Template:' + params.tfdtarget;
+					params.otherTemplateName = 'Templat:' + params.tfdtarget;
 				}
 			} else { // delete
 				if (params.scribunto) {
