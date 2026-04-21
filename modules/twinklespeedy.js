@@ -1124,7 +1124,6 @@ Twinkle.speedy.generateCsdList = function twinklespeedyGenerateCsdList(list, mod
 			// FIXME: does this do anything?
 			criterion.event = openSubgroupHandler;
 		}
-
 		return criterion;
 	});
 };

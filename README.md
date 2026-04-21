@@ -1,6 +1,6 @@
 # Twinkle
 
-![Lint](https://github.com/kenrick95/twinkle/workflows/Lint/badge.svg)
+![Lint](https://github.com/wikimedia-gadgets/twinkle/workflows/Linter/badge.svg)
 
 Catatan: Ini adalah merupakan fork dari [AzaToth's Twinkle](https://github.com/azatoth/twinkle/) untuk penggunaan di Wikipedia Indonesia.
 

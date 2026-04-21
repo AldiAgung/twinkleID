@@ -299,7 +299,7 @@ Twinkle.talkback.noticeboards = {
 	vrt: {
 		label: 'WP:VRTN (VRT noticeboard)',
 		text: '{{subst:VRTreply|1=$SECTION}}\n~~~~',
-		editSummary: 'Anda telah membalas di [[Wikipedia:VRT noticeboard|VRT noticeboard]]'
+		editSummary: 'Anda telah membalas di [[Wikipedia:VRT noticeboard|papan pengumuman VRT]]'
 	}
 };
 

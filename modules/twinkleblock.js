@@ -247,7 +247,7 @@ Twinkle.block.fetchUserInfo = function twinkleblockFetchUserInfo(fn) {
 		list: 'blocks|users|logevents',
 		letype: 'block',
 		lelimit: 1,
-		letitle: 'User:' + relevantUserName,
+		letitle: 'Pengguna:' + relevantUserName,
 		bkprop: 'expiry|reason|flags|restrictions|range|user',
 		ususers: relevantUserName
 	};
@@ -1906,7 +1906,7 @@ Twinkle.block.callback.evaluate = function twinkleblockCallbackEvaluate(e) {
 					logExpiry = ' ' + new Morebits.Date(logevents.timestamp).calendar();
 				}
 				message += Morebits.string.toUpperCaseFirstChar(logevents.action) + 'oleh ' + logevents.user + logExpiry +
-					' for "' + logevents.comment + '". Abaikan pengaturan Anda?';
+					' karena "' + logevents.comment + '". Abaikan pengaturan Anda?';
 
 				if (!confirm(message)) {
 					Morebits.Status.info('Menjalankan pemblokiran', 'Dibatalkan oleh pengguna');
@@ -2014,7 +2014,7 @@ Twinkle.block.callback.getBlockNoticeWikitext = function(params) {
 				};
 				text += '|area=' + (params.indefinite ? 'tertentu ' : 'dari tertentu ');
 				if (params.pagerestrictions.length) {
-					text += 'pages (' + makeSentence(params.pagerestrictions.map((p) => '[[:' + p + ']]'));
+					text += 'halaman (' + makeSentence(params.pagerestrictions.map((p) => '[[:' + p + ']]'));
 					text += params.namespacerestrictions.length ? ') dan tertentu ' : ')';
 				}
 				if (params.namespacerestrictions.length) {

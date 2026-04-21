@@ -22,7 +22,7 @@ Twinkle.image.callback = function twinkleimageCallback() {
 	Window.setScriptName('Twinkle');
 	Window.addFooterLink('Kebijakan pengahpusan cepat', 'WP:KPC#Berkas');
 	Window.addFooterLink('Preferesni berkas', 'WP:TW/PREF#image');
-	Window.addFooterLink('Bantuan Twinkel', 'WP:TW/DOC#gambar');
+	Window.addFooterLink('Bantuan Twinkle', 'WP:TW/DOC#gambar');
 	Window.addFooterLink('Berikan umpan balik', 'WT:TW');
 
 	const form = new Morebits.QuickForm(Twinkle.image.callback.evaluate);
