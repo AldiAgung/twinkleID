@@ -1,12 +1,100 @@
 /**
- * This is loaded as a hidden peer gadget of Twinkle.
- * Before core Twinkle has loaded, it adds space where the TW would go in the
- * Vector skin, so that the top bar does not "jump".
+ * Explicitly set width of TW menu so that we can use a hidden peer gadget
+ * to add space where the TW menu would go before it loads.
  */
-.client-js > body.skin-vector:not(.ns-special) #p-cactions,
-.client-js > body.skin-vector.mw-special-Block #p-cactions,
-.client-js > body.skin-vector.mw-special-Contributions #p-cactions,
-.client-js > body.skin-vector.mw-special-DeletedContributions #p-cactions,
-.client-js > body.skin-vector.mw-special-Prefixindex #p-cactions {
-	margin-right: 3.24em;
+.skin-vector .vector-menu-dropdown#p-twinkle {
+	width: 3.24em;
+}
+
+.skin-vector .vector-menu-dropdown#p-twinkle h3 {
+	font-size: 0.8125em;
+	font-weight: normal;
+	padding-top: 1.25em;
+}
+.skin-vector .vector-menu-dropdown#p-twinkle .vector-menu-content-list {
+	margin: 0;
+}
+
+
+/* The additional box on user skin.js and twinklepreferences.js pages */
+#twinkle-config-headerbox {
+	border: 1px #f60 solid;
+	background: #fed;
+	padding: 0.6em;
+	margin: 0.5em auto;
+	text-align: center;
+}
+
+/* twinkleoptions.js */
+#twinkle-config-headerbox.config-twopt-box {
+	font-weight: bold;
+	width: 80%;
+	border-width: 2px;
+}
+
+/* skin-specific js */
+#twinkle-config-headerbox.config-userskin-box {
+	width: 60%;
+}
+
+/* WP:TWPREFS */
+#twinkle-config-content input[type=checkbox] {
+	margin-right: 2px;
+}
+
+/* Twinkle config */
+#twinkle-config {
+	border: 1px solid #666;
+	background: var(--twinkle-bgcolor-dialog);
+	color: inherit;
+}
+
+#twinkle-config label {
+	color: var(--color-base, #202122);
+}
+
+#twinkle-config-titlebar {
+	background: var(--twinkle-bgcolor-titlebar);
+	color: inherit;
+}
+
+#twinkle-config-buttonpane {
+	background: var(--twinkle-bgcolor-titlebar);
+	color: inherit;
+	padding: 0.5em;
+}
+
+.twinkle-config-helptip {
+	font-size: 90%;
+	color: var(--color-subtle, #54595d);
+}
+
+/* Flexbox gap not supported by old Safari versions. Rendering without gap is okay. */
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+.twinkle-ombox {
+	display: flex;
+	align-items: center;
+	gap: 0.9em;
+	padding-left: 0.9em;
+	margin: 4px 10%;
+	background: var(--background-color-neutral-subtle, #f8f9fa);
+	border: 1px solid #f28500;
+}
+
+#p-twinkle-dropdown {
+	display: flex;
+	min-width: 40px;
+}
+
+@media screen {
+	html.skin-theme-clientpref-night #twinkle-config-headerbox {
+		background: #532b18;
+	}
+}
+
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+@media screen and (prefers-color-scheme: dark) {
+	html.skin-theme-clientpref-os #twinkle-config-headerbox {
+		background: #532b18;
+	}
 }

@@ -1,36 +1,34 @@
 # Twinkle
 
-![Lint](https://github.com/kenrick95/twinkle/workflows/Lint/badge.svg)
+![Lint](https://github.com/wikimedia-gadgets/twinkle/workflows/Linter/badge.svg)
 
-Note: This is a fork of [AzaToth's Twinkle](https://github.com/azatoth/twinkle/) for use in Indonesian Wikipedia. Messages are being translated to Indonesian language and some logics are adapted to Indonesian Wikipedia's use case.
+Catatan: Ini adalah fork/salinan dari [AzaToth's Twinkle](https://github.com/azatoth/twinkle/) untuk penggunaan di Wikipedia Indonesia.
 
 -----
 
-Twinkle is a JavaScript application that gives Wikipedians a quick way of performing common maintenance tasks, such as nominating pages for deletion and cleaning up vandalism.
+Twinkle adalah sebuah aplikasi JavaScript yang memberikan pengguna Wiki sebuah cara cepat melakukan tugas umum, seperti menominasi halaman dan membersihkan vandalisme.
 
-See [Wikipedia:Twinkle][] on the English Wikipedia for more information.
+Lihat [Wikipedia:Twinkle][] di Wikipedia Indonesia untuk informasi lanjutan.
 
-[AzaToth][] is the original author and maintainer of the tool, as well as the `morebits.js` library gadget, which forms the basis for many Wikipedia scripts and editing tools in addition to Twinkle.
+[AzaToth][] adalah penulis asli dan pengurus dari alat ini, seperti halnya pustaka gawai `morebits.js`, yang membentuk dasar untuk kebanyakan skrip Wikipedia dan alat menyunting sebagai tambahan ke Twinkle.
 
-## How to file a bug report or feature request
+## Bagaimana cara untuk melaporkan sebuah galat atau permintaan fitur
 
-If you're unsure whether you are experiencing a Twinkle-based bug, you should first try asking at [Wikipedia talk:Twinkle][], where other editors may assist you.  Bugs may be filed either here or at [Wikipedia talk:Twinkle][].  For simple feature requests or changes (e.g., a template was deleted or renamed) feel free to open an issue or pull request here, but for more significant changes, consider discussing the idea on [Wikipedia talk:Twinkle][] and any relevant pages first to ensure there is consensus for the change and to get broader community input.  If you believe you have found a security issue, follow the guidelines in [SECURITY.md](./SECURITY.md).
+Jika anda tidak yakin dalam mengalami galat Twinkle, anda diharapkan untuk berbicara terlebih dahulu di [Pembicaraan Wikipedia:Twinkle][Wikipedia:Twinkle], penyunting lainnya akan membantumu.  Galat dapat diisi disini atau di [Pembicaraan Wikipedia:Twinkle][Pembicaraan wikipedia:Twinkle]. Untuk permintaan fitur sederhana atau perubahan (mis., sebuah templat dihapus atau dinamakan ulang) bukalah sebuah ''isu'' atau ''pull request'' disini, untuk perubahan signifikan, tolong diskusikan di [Pembicaraan Wikipedia:Twinkle][] dan halaman-halaman relevan lainnya terlebih dahulu untuk memastikan adanya konsensus mengenai perubahan tersebut dan untuk mendapatkan masukan dari komunitas yang lebih luas. Jika Anda yakin telah menemukan masalah keamanan, ikuti panduan di [SECURITY.md](./SECURITY.md).
 
-If you'd like to start contributing, awesome!  Check out [CONTRIBUTING.md](CONTRIBUTING.md) to get started!
+Jika anda tetarik untuk berkontribusi, mengagumkan! Lihat [CONTRIBUTING.md](CONTRIBUTING.md) untuk memulai!
 
+## Struktur dari repositori ini
 
-## Layout of this repository
+* `morebits.js`: Pustaka utama yang digunakan Twinkle dan kebanyakan skrip lainnya. Berisi kode untuk berinteraksi dengan API MediaWiki, tampilan formulir dan dialog, membuat catatan status, dan melakukan hal-hal lainnya. Kebanyakan dari kode ini bukan hanya untuk Twinkle.
+* `twinkle.js`: Kode khusus Twinkle umum, sebagian besar terkait dengan preferensi dan menampilkan Twinkle di UI. Yang penting, kode ini berisi serangkaian preferensi bawaan Twinkle.
+* `modules`: Berisi modul Twinkle individual. Deskripsi untuk modul ini dapat ditemukan di komentar header atau di [Dokumentasi Twinkle][Dokumentasi Twinkle]. Modul `twinkleconfig.js` memberdayai [panel preferensi Twinkle][WP:TWPREFS].
 
-* `morebits.js`: The central library used by Twinkle and many other scripts. Contains code to interact with the MediaWiki API, display forms and dialogs, generate status logs, and do various other useful things. The vast majority of code in here is not Twinkle-specific.
-* `twinkle.js`: General Twinkle-specific code, mostly related to preferences and exposing Twinkle in the UI. Significantly, it contains the default set of preferences of Twinkle.
-* `modules`: Contains the individual Twinkle modules. Descriptions for these can be found in header comments or in the [Twinkle documentation][]. The module `twinkleconfig.js` powers the [Twinkle preferences panel][WP:TWPREFS].
-
-
-[select2][] is added under the [MIT license](https://github.com/select2/select2/blob/develop/LICENSE.md).
+[select2][select2] ditambahkan dibawah [lisensi MIT](https://github.com/select2/select2/blob/develop/LICENSE.md).
 
 [Wikipedia:Twinkle]: https://id.wikipedia.org/wiki/Wikipedia:Twinkle
 [AzaToth]: https://en.wikipedia.org/wiki/User:AzaToth
-[Wikipedia talk:Twinkle]: https://id.wikipedia.org/wiki/Wikipedia_talk:Twinkle
-[Twinkle documentation]: https://id.wikipedia.org/wiki/Wikipedia:Twinkle/doc
+[Pembicaraan Wikipedia:Twinkle]: https://id.wikipedia.org/wiki/Pembicaraan_Wikipedia:Twinkle
+[Dokumentasi Twinkle]: https://id.wikipedia.org/wiki/Wikipedia:Twinkle/doc
 [WP:TWPREFS]: https://id.wikipedia.org/wiki/Wikipedia:Twinkle/Preferences
 [select2]: https://github.com/select2/select2
