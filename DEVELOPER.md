@@ -1,10 +1,10 @@
-## Reviewing and merging pull requests
+## Mengulas dan meminta pull request
 
 (WIP)
 
 Collaborators are encouraged to thoroughly review and [test](./CONTRIBUTING.md) each pull request, including their own.  Unless urgent or obvious, it can be helpful to leave PRs open for folks to opine.
 
-Things to watch out for:
+Hal-hal yang perlu diperhatikan:
 
 - Items and processes laid out in [CONTRIBUTING.md](./CONTRIBUTING.md) are followed.
 - Twinkle is meant to run on the latest weekly version of MediaWiki as rolled out every Thursday on the English Wikipedia.  Backwards compatibility is not guaranteed.
@@ -22,11 +22,11 @@ After the files are synced, ensure that [MediaWiki:Gadgets-definition][] contain
     * Twinkle-pagestyles[hidden|skins=vector]|Twinkle-pagestyles.css
     * select2[ResourceLoader|hidden]|select2.min.js|select2.min.css
 
-This loads the `morebits` library as a hidden gadget, making it efficiently available for other tools to use. `Twinkle-pagestyles` is a hidden [peer gadget](https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_(users)#Gadget_peers) of Twinkle. Before Twinkle has loaded, it adds space where the TW menu would go in the Vector skin, so that the top bar does not "jump".  [select2][] is also uploaded as a hidden gadget for better menus and to take advantage of the Resource Loader over the [Toolforge CDN](https://tools.wmflabs.org/cdnjs/); it is done so under the [MIT license](https://github.com/select2/select2/blob/develop/LICENSE.md).  Loading via the ResourceLoader causes it to register as a nodejs/commonjs environment with `module.exports`, so a slight tweak has been made, eliminating that check.  Ideally, this will be handled differently (see [external libraries](https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_for_extension_developers#Special_case_of_external_libraries) and [T108655](https://phabricator.wikimedia.org/T108655).  As such, be careful when updating select2 from upstream.
+Modul ini memuat pustaka `morebits` sebagai pustaka tersembunyi, membuatnya secara efisien untuk digunakan alat lainnya. `Twinkle-pagestyles` is a hidden [peer gadget](https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_(users)#Gadget_peers) of Twinkle. Before Twinkle has loaded, it adds space where the TW menu would go in the Vector skin, so that the top bar does not "jump".  [select2][] is also uploaded as a hidden gadget for better menus and to take advantage of the Resource Loader over the [Toolforge CDN](https://tools.wmflabs.org/cdnjs/); it is done so under the [MIT license](https://github.com/select2/select2/blob/develop/LICENSE.md).  Loading via the ResourceLoader causes it to register as a nodejs/commonjs environment with `module.exports`, so a slight tweak has been made, eliminating that check.  Ideally, this will be handled differently (see [external libraries](https://www.mediawiki.org/wiki/ResourceLoader/Migration_guide_for_extension_developers#Special_case_of_external_libraries) and [T108655](https://phabricator.wikimedia.org/T108655).  As such, be careful when updating select2 from upstream.
 
-### Manual synchronization
+### Sikronisasi manual
 
-Each Twinkle module and dependency lives on the wiki as a separate file. The list of modules and what pages they should be on are as follows:
+Setiap modul dan depedensi Twinkle bersarang di wiki sebagai berkas terpisah. Daftar dari modul dan halaman yang harus ada adalah sebagai berikut:
 
 * `twinkle.js` &rarr; [MediaWiki:Gadget-Twinkle.js][]
 * `twinkle.css` &rarr; [MediaWiki:Gadget-Twinkle.css][]

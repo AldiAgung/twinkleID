@@ -2,7 +2,7 @@
 
 ![Lint](https://github.com/wikimedia-gadgets/twinkle/workflows/Linter/badge.svg)
 
-Catatan: Ini adalah fork/salinan dari [AzaToth's Twinkle](https://github.com/azatoth/twinkle/) untuk penggunaan di Wikipedia Indonesia.
+Catatan: Ini adalah fork dari [AzaToth's Twinkle](https://github.com/azatoth/twinkle/), dan salinan dari [Twinkle rekan kontributor](https://github.com/kenrick95/twinkle-idwiki) untuk penggunaan Wikipedia Indonesia.
 
 -----
 

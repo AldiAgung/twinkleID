@@ -1,6 +1,8 @@
 .mediawiki-bot-*
 alltwinkle.js
 .twinklerc
+scripts/credentials.json
+.idea/
 /.settings
 /.project
 jsl.conf
@@ -8,6 +10,8 @@ stash*.txt
 stash*.diff
 *.jsX
 .vscode/
+patch-test-loader.js
+coverage/
 
 # Windows
 Thumbs.db
@@ -27,6 +31,3 @@ Icon
 # Node
 node_modules/
 npm-debug.log*
-
-*.log
-.twinklerc

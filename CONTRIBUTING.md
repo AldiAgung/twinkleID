@@ -34,7 +34,7 @@ Saat anda mempunyai fork lokal dan berjalan, commit perubahan anda!
 
 ### Tes kode anda
 
-Mencoba Twinkle dapat sedikit susah, but the most straightforward way to test your code is to open up your [halaman konsol peramban][jserrors] dan tempel di kode baru anda. Anda diharuskan untuk memuat versi baru dengan menjalankan fungsi yang berkaitan di konsol anda mis, `Twinkle.protect()` untuk twinkleprotect.js.
+Mencoba Twinkle dapat sedikit susah, tetapi cara terdepan untuk menguji kode anda adalah dengan membuka [halaman konsol peramban][jserrors] dan tempel di kode baru anda. Anda diharuskan untuk memuat versi baru dengan menjalankan fungsi yang berkaitan di konsol anda mis, `Twinkle.protect()` untuk twinkleprotect.js.
 
 Beberapa hal yang perlu diperhatikan:
 

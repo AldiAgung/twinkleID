@@ -1108,6 +1108,14 @@ Twinkle.block.blockPresetsInfo = {
 		reason: 'Menghindari pemblokiran',
 		summary: 'Alamat IP Anda diblokir karena digunakan untuk menghindari pemblokiran'
 	},
+	'uw-llmblock': {
+		autoblock: true,
+		expiry: 'infinity',
+		nocreate: true,
+		pageParam: true,
+		reason: 'Berulangkali menyalahgunakan [[WP:Disruptive editing#Persistent LLM use|model bahasa besar]]',
+		summary: 'Anda telah diblokir dari menyunting akibat berulang kali menyalahgunakan sebuah [[WP:Disruptive editing#Persistent LLM use|model bahasa besar]]'
+	},
 	'uw-lblock': {
 		autoblock: true,
 		expiry: 'infinity',
@@ -1331,6 +1339,15 @@ Twinkle.block.blockPresetsInfo = {
 		reason: 'Perang suntingan',
 		summary: 'Anda diblokir dari penyuntingan dalam beberapa halaman Wikipedia karena terlibat perang suntingan'
 	},
+	'uw-llmpblock': {
+		autoblock: true,
+		expiry: 'infinity',
+		nocreate: true,
+		pageParam: true,
+		reasonParam: true,
+		reason: 'Berulangkali menyalahgunakan [[WP:Disruptive editing#Persistent LLM use|model bahasa besar]]',
+		summary: 'Anda telah diblokir dari menyunting akibat berulang kali menyalahgunakan sebuah [[WP:Disruptive editing#Persistent LLM use|model bahasa besar]]'
+	},
 	'uw-pblock': {
 		autoblock: true,
 		expiry: '24 hours',
@@ -1402,6 +1419,7 @@ Twinkle.block.blockGroups = [
 			{ label: 'Pemblokiran umum dengan akses halaman pembicaraan dicabut', value: 'uw-blocknotalk' },
 			{ label: 'Menyerang subjek', value: 'uw-hblock' },
 			{ label: 'Ancaman hukum', value: 'uw-lblock' },
+			{ label: 'Menyalahgunaan LLM', value: 'uw-llmblock' },
 			{ label: 'Menyerang pribadi', value: 'uw-pablock' },
 			{ label: 'Akun yang disalahgunakan', value: 'uw-compblock' },
 			{ label: 'Menghapus isi halaman', value: 'uw-dblock' },
@@ -1462,6 +1480,7 @@ Twinkle.block.blockGroupsPartial = [
 		list: [
 			{ label: 'Penegakan arbitrase', value: 'uw-aepblock' },
 			{ label: 'Pelecehan surel', value: 'uw-epblock' },
+			{ label: 'Menyalahhgunaan LLM', value: 'uw-llmpblock' },
 			{ label: 'Menyalahgunaan beberapa akun', value: 'uw-acpblock' },
 			{ label: 'Menyalahgunaan beberapa akun - selamanya', value: 'uw-acpblockindef' }
 		]
