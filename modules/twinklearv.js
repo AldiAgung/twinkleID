@@ -501,6 +501,7 @@ Twinkle.arv.callback.evaluate = function(e) {
 				return;
 			}
 
+			reportData.sockmaster = reportData.sockmaster.replace(/^Pengguna:/, ''); // sockmaster incidents shouldn't have User: pref
 			Morebits.SimpleWindow.setButtonsEnabled(false);
 			Morebits.Status.init(form);
 

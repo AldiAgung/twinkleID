@@ -975,6 +975,15 @@ Twinkle.block.blockPresetsInfo = {
 		reason: 'Melanggar pengembalian tiga kali berturut-turut',
 		summary: 'Anda diblokir karena melanggar kebijakan [[WP:3RR|pengembalian tiga kali berturut-turut]]'
 	},
+	'uw-tablock': {
+		autoblock: false,
+		expiry: 'infinity',
+		forTempAccountsOnly: true,
+		nocreate: false,
+		pageParam: true,
+		reason: 'Penyuntingan mengganggu dengan menggunakan beberapa akun sementara',
+		summary: 'Anda diperlukan [[Istimewa:CreateAccount|buat sebuah akun]] sebelum melanjutkan menyunting'
+	},
 	'uw-ablock': {
 		autoblock: true,
 		expiry: '31 hours',
@@ -1414,6 +1423,7 @@ Twinkle.block.blockGroups = [
 			{ label: 'Melanggar kebijakan tokoh yang masih hidup', value: 'uw-bioblock' },
 			{ label: 'Melanggar hak cipta', value: 'uw-copyrightblock' },
 			{ label: 'Membuat halaman yang tidak pantas', value: 'uw-npblock' },
+			{ label: 'Suntingan mengganggu menggunakan beberapa akun sementara', value: 'uw-tablock' },
 			{ label: 'Berhubungan dengan filter suntingan', value: 'uw-efblock' },
 			{ label: 'Perang suntingan', value: 'uw-ewblock' },
 			{ label: 'Pemblokiran umum dengan akses halaman pembicaraan dicabut', value: 'uw-blocknotalk' },
